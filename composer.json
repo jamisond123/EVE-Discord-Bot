@@ -1,0 +1,20 @@
+{
+  "name": "shibdib/eve-discord",
+  "description": "EVE Online Discord Bot",
+  "keywords": ["eve", "online", "corporation", "discord", "bot"],
+  "license": "MIT",
+  "type": "project",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/Devristo/phpws"
+    }
+  ],
+  "require": {
+    "dg/twitter-php": "*",
+    "cleanse/discord-hypertext": "dev-master",
+    "devristo/phpws": "dev-master",
+    "ratchet/pawl": "dev-master"
+  },
+  "minimum-stability": "stable"
+}
