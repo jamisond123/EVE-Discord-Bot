@@ -90,7 +90,7 @@ class getKillmails
         $url = "https://zkillboard.com/api/xml/no-attackers/no-items/orderDirection/asc/afterKillID/{$lastMail}/corporationID/{$this->corpID}";
         $xml = simplexml_load_file($url);
         $kills = $xml->result->rowset->row;
-        foreach ((array)$kills as $kill) {
+        foreach ($kills as $kill) {
             $killID = $kill->attributes()->killID;
             $solarSystemID = $kill->attributes()->solarSystemID;
             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
