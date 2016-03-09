@@ -24,7 +24,7 @@ $loop->addPeriodicTimer(43200, function() use ($logger, $client) {
 });
 
 // Keep alive timer (Default to 30 seconds heartbeat interval)
-$loop->addPeriodicTimer(30, function () use ($logger, $client) {
+$loop->addPeriodicTimer(15, function () use ($logger, $client) {
     //$logger->info("Sending keepalive"); // schh
     $client->send(
         json_encode(
