@@ -55,8 +55,8 @@ $loop->addPeriodicTimer(1800, function () use ($logger, $client) {
     $logger->info("Memory in use after garbage collection: " . memory_get_usage() / 1024 / 1024 . "MB");
 });
 
-// Auth Check
-$loop->addPeriodicTimer(10800, function() use ($logger, $client, $discord, $config) {
+// Auth Corp Check
+$loop->addPeriodicTimer(21600, function() use ($logger, $client, $discord, $config) {
     if ($config["plugins"]["auth"]["periodicCheck"] == "true") {
         $logger->info("Initiating Auth Check");
         $db = $config["database"]["host"];
@@ -64,7 +64,6 @@ $loop->addPeriodicTimer(10800, function() use ($logger, $client, $discord, $conf
         $dbPass = $config["database"]["pass"];
         $dbName = $config["database"]["database"];
         $corpID = $config["plugins"]["auth"]["corpid"];
-        $allyID = $config["plugins"]["auth"]["allianceid"];
         $guildID = $config["plugins"]["auth"]["guildID"];
         $toDiscordChannel = $config["plugins"]["auth"]["alertChannel"];
         $conn = new mysqli($db, $dbUser, $dbPass, $dbName);
@@ -74,8 +73,8 @@ $loop->addPeriodicTimer(10800, function() use ($logger, $client, $discord, $conf
         $result = $conn->query($sql);
         $num_rows = $result->num_rows;
 
-        if ($num_rows>=1){
-            while($rows = $result->fetch_assoc()){
+        if ($num_rows >= 1) {
+            while ($rows = $result->fetch_assoc()) {
                 $charid = $rows['characterID'];
                 $discordid = $rows['discordID'];
                 $url = "https://api.eveonline.com/eve/CharacterAffiliation.xml.aspx?ids=$charid";
@@ -84,8 +83,8 @@ $loop->addPeriodicTimer(10800, function() use ($logger, $client, $discord, $conf
                     foreach ($xml->result->rowset->row as $character) {
                         if ($character->attributes()->corporationID != $corpID) {
                             $discord->api("guild")->members()->redeploy($guildID, $discordid, "");
-                            $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user #" . $discordid ." corp roles removed via auth.");
-                            $logger->info("Removing user ". $discordid);
+                            $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user #" . $discordid . " corp roles removed via auth.");
+                            $logger->info("Removing user " . $discordid);
 
                             $sql2 = "UPDATE authUsers SET active='no' WHERE discordID='$discordid'";
                             $result2 = $conn->query($sql2);
@@ -93,11 +92,26 @@ $loop->addPeriodicTimer(10800, function() use ($logger, $client, $discord, $conf
                     }
                 }
             }
-            $logger->info("All corp users succesfully authed.");
+            $logger->info("All corp users successfully authed.");
+            return null;
 
         }
         $logger->info("No corp users found in database.");
-
+        return null;
+    }
+});
+// Auth Alliance Check
+$loop->addPeriodicTimer(21600, function() use ($logger, $client, $discord, $config) {
+    if ($config["plugins"]["auth"]["periodicCheck"] == "true") {
+        $logger->info("Initiating Auth Check");
+        $db = $config["database"]["host"];
+        $dbUser = $config["database"]["user"];
+        $dbPass = $config["database"]["pass"];
+        $dbName = $config["database"]["database"];
+        $allyID = $config["plugins"]["auth"]["allianceid"];
+        $guildID = $config["plugins"]["auth"]["guildID"];
+        $toDiscordChannel = $config["plugins"]["auth"]["alertChannel"];
+        $conn = new mysqli($db, $dbUser, $dbPass, $dbName);
 
         $sql3 = "SELECT characterID, discordID FROM authUsers WHERE role = 'ally'";
 
@@ -123,7 +137,7 @@ $loop->addPeriodicTimer(10800, function() use ($logger, $client, $discord, $conf
                     }
                 }
             }
-            $logger->info("All alliance users succesfully authed.");
+            $logger->info("All alliance users successfully authed.");
             return null;
 
         }
