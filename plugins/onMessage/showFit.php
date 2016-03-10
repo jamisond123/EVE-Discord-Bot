@@ -17,10 +17,6 @@ class showFit
      * @var
      */
     var $logger;
-    public $db;
-    public $dbUser;
-    public $dbPass;
-    public $dbName;
 
     /**
      * @param $config
