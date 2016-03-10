@@ -28,6 +28,13 @@ class charInfo
     }
 
     /**
+     *
+     */
+    function tick()
+    {
+    }
+
+    /**
      * @param $msgData
      */
     function onMessage($msgData)
