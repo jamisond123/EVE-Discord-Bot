@@ -73,7 +73,7 @@ foreach($pluginDirs as $dir) {
 $logger->info("Loaded: " . count($plugins) . " plugins");
 
 // Load all the timers
-foreach (glob("/plugins/onTime/*.php") as $onTime)
+foreach (glob("plugins/onTime/*.php") as $onTime)
 {
     include $onTime;
 }
