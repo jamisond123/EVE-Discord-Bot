@@ -29,6 +29,8 @@ class auth
     public $forceName;
     public $ssoUrl;
     public $nameEnforce;
+    public $allianceID;
+    public $allyroleName;
 
     /**
      * @param $config
@@ -125,7 +127,7 @@ class auth
                                 insertUser($this->db, $this->dbUser, $this->dbPass, $this->dbName, $userID, $charid, $eveName, 'ally');
                                 disableReg($this->db, $this->dbUser, $this->dbPass, $this->dbName, $code);
                                 $this->discord->api("channel")->messages()->create($channelID, "**Success:** You have now been added to the " . $this->allyroleName . " group. To get more roles, talk to the CEO / Directors");
-                                $this->logger->info("User authed and added to alliance group ". $discordid);
+                                $this->logger->info("User authed and added to alliance group ". $eveName);
                                 return null;
                             }
                         }
@@ -134,7 +136,7 @@ class auth
 
             }
             $this->discord->api("channel")->messages()->create($channelID, "**Failure:** No roles available for your corp or alliance.");
-            $this->logger->info("User was denied due to not being in the correct corp or alliance ". $discordid);
+            $this->logger->info("User was denied due to not being in the correct corp or alliance ". $userName);
             return null;
         }
         return null;
