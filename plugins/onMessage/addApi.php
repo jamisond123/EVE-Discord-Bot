@@ -14,6 +14,7 @@ class addapi
      */
     var $logger;
     public $seatBase;
+    public $seatToken;
 
     /**
      * @param $config
@@ -27,12 +28,6 @@ class addapi
         $this->logger = $logger;
         $this->seatToken = $config["seat"]["token"];
         $this->seatBase = $config["seat"]["url"];
-    }
-    /**
-     *
-     */
-    function tick()
-    {
     }
     /**
      * @param $msgData
