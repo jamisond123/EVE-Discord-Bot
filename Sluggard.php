@@ -73,7 +73,7 @@ foreach($pluginDirs as $dir) {
 $logger->info("Loaded: " . count($plugins) . " plugins");
 
 // Load all the timers
-include(__DIR__ . "plugins/onTime/timers.php");
+include(__DIR__ . "/plugins/onTime/timers.php");
 
 // Setup the connection handlers
 $client->on("connect", function () use ($logger, $client, $token) {
