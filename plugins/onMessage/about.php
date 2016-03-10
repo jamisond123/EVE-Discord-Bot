@@ -60,10 +60,10 @@ Maintainer of this revision: Mr Twinkie
 Based off: The old Sluggard bot.
 Library: discord-hypertext (PHP)
 Current version: " . $gitRevision["short"]. "
-Github Repo: https://github.com/shibdib/EVE-Discord
+Github Repo: https://github.com/shibdib/EVE-Discord-Bot
 
 Statistics:
-Uptime: " . $interval->y . " Year(s), " .$interval->m . " Month(s), " . $interval->d ." Days, ". $interval->h . " Hours, " . $interval->i." Minutes, ".$interval->s." seconds.
+Up-time: " . $interval->y . " Year(s), " .$interval->m . " Month(s), " . $interval->d ." Days, ". $interval->h . " Hours, " . $interval->i." Minutes, ".$interval->s." seconds.
 Memory Usage: ~" . round(memory_get_usage() / 1024 / 1024, 3) . "MB```";
 
             $this->logger->info("Sending about info to {$channelName} on {$guildName}");
