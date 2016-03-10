@@ -73,30 +73,26 @@ $config["eve"] = array(
 );
 
 $config["enabledPlugins"] = array(
-    "onMessage" => array(
-        "about", //info on the bot
-        "apiauth", //api based auth system
-        "auth", //sso based auth system
-        "charInfo", // eve character info using eve-kill
-        //"corpApplication", //still a WIP
-        "corpInfo", // eve corp info
-        "eveStatus", // tq status
-        "help", // bot help program, will list active addons
-        "item", // item info, mostly useless info
-        "price", // price check tool, works for all items and ships. Can either !pc <itemname> for general, or !<systemname> <item> for more specific
-        "time", // global clock with eve time
-        "user", // discord user info
-        "wolframAlpha", // a "smart" tool. Ask you bot questions with !wolf <question>
-        //"saveFit", // fitting tool, still working out the kinks. Recommended to restrict access to this command to avoid spamming
-        "showFit", // show fittings saved using the plugin above
-    ),
-    "onTick" => array(
-        "evemails", // evemail updater, will post corp and alliance mails to a channel.
-        "fileReader", // Jabber ping tool, or really anything. Will read a discord.db file and repost the info into a channel
-        "notifications", // eve notifications to a channel, good for warning users of an attack
-        "twitterOutput", // twitter input to stay up to date on eve happenings
-        "getKillmails"
-    ),
+    "about", //info on the bot
+    "apiauth", //api based auth system
+    "auth", //sso based auth system
+    "charInfo", // eve character info using eve-kill
+    //"corpApplication", //still a WIP
+    "corpInfo", // eve corp info
+    "eveStatus", // tq status
+    "help", // bot help program, will list active addons
+    "item", // item info, mostly useless info
+    "price", // price check tool, works for all items and ships. Can either !pc <itemname> for general, or !<systemname> <item> for more specific
+    "time", // global clock with eve time
+    "user", // discord user info
+    "wolframAlpha", // a "smart" tool. Ask you bot questions with !wolf <question>
+    "evemails", // evemail updater, will post corp and alliance mails to a channel.
+    "fileReader", // Jabber ping tool, or really anything. Will read a discord.db file and repost the info into a channel
+    "notifications", // eve notifications to a channel, good for warning users of an attack
+    "twitterOutput", // twitter input to stay up to date on eve happenings
+    //"saveFit", // fitting tool, still working out the kinks. Recommended to restrict access to this command to avoid spamming
+    "showFit", // show fittings saved using the plugin above
+    "getKillmails"
 );
 
 // Example from the 4M server
