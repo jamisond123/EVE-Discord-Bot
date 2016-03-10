@@ -27,6 +27,7 @@ class apiauth
     public $dbPass;
     public $dbName;
     public $nameEnforce;
+    public $allianceID;
 
     /**
      * @param $config
@@ -43,6 +44,7 @@ class apiauth
         $this->dbPass = $config["database"]["pass"];
         $this->dbName = $config["database"]["database"];
         $this->corpID = $config["plugins"]["auth"]["corpid"];
+        $this->allianceID = $config["plugins"]["auth"]["allianceid"];
         $this->guildID = $config["plugins"]["auth"]["guildID"];
         $this->roleName = $config["plugins"]["auth"]["memberRole"];
         $this->nameEnforce = $config["plugins"]["auth"]["nameEnforce"];
@@ -108,8 +110,28 @@ class apiauth
                             }
                         }
                     }
+                    if ($character->attributes()->allianceID == $this->allianceID) {
+                        if ($this->nameEnforce == 'true') {
+                            if ($character->attributes()->name != $userName) {
+                                $this->discord->api("channel")->messages()->create($channelID, "**Failure:** Your discord name must match your character name.");
+                                return null;
+                            }
+                        }
+                        foreach($guildData["roles"] as $role)
+                        {
+                            $characterID = $character->attributes()->characterID;
+                            $characterName = $character->attributes()->name;
+                            $roleID = $role["id"];
+                            if ($role["name"] == $this->roleName) {
+                                $this->discord->api("guild")->members()->redeploy($this->guildID, $userID, array($roleID));
+                                insertUser($this->db, $this->dbUser, $this->dbPass, $this->dbName, $userID, $characterID, $characterName, 'corp');
+                                $this->discord->api("channel")->messages()->create($channelID, "**Success:** You have now been added to the ". $this->roleName ." group. To get more roles, talk to the CEO / Directors");
+                                return null;
+                            }
+                        }
+                    }
                 }
-                $this->discord->api("channel")->messages()->create($channelID, "**Failure:** No character found in corp.");
+                $this->discord->api("channel")->messages()->create($channelID, "**Failure:** No character found in corp or alliance.");
                 return null;
             }
             return null;
