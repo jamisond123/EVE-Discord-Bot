@@ -25,7 +25,6 @@ class price
      * @var array
      */
     var $triggers = array();
-    public $excludeChannel;
 
     /**
      * @param $config
@@ -47,6 +46,14 @@ class price
     }
 
     /**
+     *
+     */
+    function tick()
+    {
+
+    }
+
+    /**
      * @param $msgData
      */
     function onMessage($msgData)
@@ -57,7 +64,7 @@ class price
         $guildName = $msgData["guild"]["name"];
         $channelID = $msgData["message"]["channelID"];
 
-        // Quick Look up
+        // Quick Lookups
         $quickLookUps = array(
             "plex" => array(
                 "typeID" => 29668,
@@ -78,7 +85,7 @@ class price
             $single = dbQueryRow("SELECT typeID, typeName FROM invTypes WHERE typeName = :item COLLATE NOCASE", array(":item" => ucfirst($itemName)), "ccp");
             $multiple = dbQuery("SELECT typeID, typeName FROM invTypes WHERE typeName LIKE :item COLLATE NOCASE LIMIT 5", array(":item" => "%" . ucfirst($itemName) . "%"), "ccp");
 
-            // Quick look up
+            // Quick lookups
             if(isset($quickLookUps[$itemName]))
                 $single = $quickLookUps[$itemName];
 
@@ -103,6 +110,7 @@ class price
             // If there is a single result, we'll get data now!
             if($single) {
                 $typeID = $single["typeID"];
+                $typeName = $single["typeName"];
 
                 $solarSystemID = $systemName == "pc" ? "global" : $this->solarSystems[$systemName];
 
