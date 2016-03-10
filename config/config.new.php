@@ -1,4 +1,27 @@
 <?php
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016 Robert Sardinia
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 $config = array();
 
@@ -50,26 +73,30 @@ $config["eve"] = array(
 );
 
 $config["enabledPlugins"] = array(
-    "about", //info on the bot
-    "apiauth", //api based auth system
-    "auth", //sso based auth system
-    "charInfo", // eve character info using eve-kill
-    //"corpApplication", //still a WIP
-    "corpInfo", // eve corp info
-    "eveStatus", // tq status
-    "help", // bot help program, will list active addons
-    "item", // item info, mostly useless info
-    "price", // price check tool, works for all items and ships. Can either !pc <itemname> for general, or !<systemname> <item> for more specific
-    "time", // global clock with eve time
-    "user", // discord user info
-    "wolframAlpha", // a "smart" tool. Ask you bot questions with !wolf <question>
-    "evemails", // evemail updater, will post corp and alliance mails to a channel.
-    "fileReader", // Jabber ping tool, or really anything. Will read a discord.db file and repost the info into a channel
-    "notifications", // eve notifications to a channel, good for warning users of an attack
-    "twitterOutput", // twitter input to stay up to date on eve happenings
-    //"saveFit", // fitting tool, still working out the kinks. Recommended to restrict access to this command to avoid spamming
-    "showFit", // show fittings saved using the plugin above
-    "getKillmails"
+    "onMessage" => array(
+        "about", //info on the bot
+        "apiauth", //api based auth system
+        "auth", //sso based auth system
+        "charInfo", // eve character info using eve-kill
+        //"corpApplication", //still a WIP
+        "corpInfo", // eve corp info
+        "eveStatus", // tq status
+        "help", // bot help program, will list active addons
+        "item", // item info, mostly useless info
+        "price", // price check tool, works for all items and ships. Can either !pc <itemname> for general, or !<systemname> <item> for more specific
+        "time", // global clock with eve time
+        "user", // discord user info
+        "wolframAlpha", // a "smart" tool. Ask you bot questions with !wolf <question>
+        //"saveFit", // fitting tool, still working out the kinks. Recommended to restrict access to this command to avoid spamming
+        "showFit", // show fittings saved using the plugin above
+    ),
+    "onTick" => array(
+        "evemails", // evemail updater, will post corp and alliance mails to a channel.
+        "fileReader", // Jabber ping tool, or really anything. Will read a discord.db file and repost the info into a channel
+        "notifications", // eve notifications to a channel, good for warning users of an attack
+        "twitterOutput", // twitter input to stay up to date on eve happenings
+        "getKillmails"
+    ),
 );
 
 // Example from the 4M server
