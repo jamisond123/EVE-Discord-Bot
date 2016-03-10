@@ -107,10 +107,12 @@ class notifications
             }
         }
     }
+
     /**
      * @param $keyID
      * @param $vCode
      * @param $characterID
+     * @return null
      */
     function getNotifications($keyID, $vCode, $characterID)
     {
