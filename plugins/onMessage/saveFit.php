@@ -13,11 +13,7 @@ class saveFit
      * @var
      */
     var $logger;
-    public $db;
-    public $dbUser;
-    public $dbPass;
-    public $dbName;
-    public $fitChannel;
+    public $seatBase;
 
     /**
      * @param $config
@@ -35,7 +31,12 @@ class saveFit
         $this->dbName = $config["database"]["database"];
         $this->fitChannel = $config["plugins"]["saveFits"]["channel"];
     }
-
+    /**
+     *
+     */
+    function tick()
+    {
+    }
     /**
      * @param $msgData
      */
