@@ -37,7 +37,7 @@ $config["database"] = array(
 );
 
 $config["seat"] = array(
-    "url" => "", // http://url.com/
+    "url" => "", // http://url.com/ (ONLY NEEDED FOR THE ADDAPI PLUGIN)
     "token" => "" // api token
 );
 
@@ -46,7 +46,7 @@ $config["discord"] = array(
     "password" => "", // login pass for the bot
     "admin" => "", // The owner of the bot
     "adminID" => "", // The discordID of the owner of the bot
-    "guildID" => "152677265635803136" // The channelID of the corp
+    "guildID" => "152677265635803136" // The channelID of the corp/alliance
 );
 
 // Twitter
@@ -90,9 +90,9 @@ $config["enabledPlugins"] = array(
     "fileReader", // Jabber ping tool, or really anything. Will read a discord.db file and repost the info into a channel
     "notifications", // eve notifications to a channel, good for warning users of an attack
     "twitterOutput", // twitter input to stay up to date on eve happenings
-    //"saveFit", // fitting tool, still working out the kinks. Recommended to restrict access to this command to avoid spamming
-    "showFit", // show fittings saved using the plugin above
-    "getKillmails"
+    //"saveFit", // fitting tool, still a WIP
+    //"showFit", // show fittings saved using the plugin above
+    "getKillmails" // show corp killmails in a chat channel
 );
 
 // Example from the 4M server
@@ -102,9 +102,9 @@ $config["plugins"] = array(
     ),
     "evemails" => array(
         "fromIDs" => array(98047305, 99005805), // fill in with id's you want info from (have to be accessible with the api)
-        "channelID" => 120639051261804544 // what channel id do these post too
+        "channelID" => 120639051261804544 // what channel id like these to post too
     ),
-    "fileReader" => array(
+    "fileReader" => array( // Documentation on this will be added to the wiki, used for pulling and posting jabber pings
         "db" => "/tmp/discord.db", // what file is read, example formatting for pulling info below.
         "channelConfig" => array(
             "pings" => array(
@@ -151,13 +151,13 @@ $config["plugins"] = array(
         "periodicCheck" => "false", // put "true" or "false", stating you either do or don't want the bot auto removing members who leave corp. If not using auth leave as "false".
         "alertChannel" => "", // if using periodic check put the channel you'd like the bot to log removing users in. (Recommended you don't use an active chat channel)
         "nameEnforce" => "false", // put "true" or "false", if you'd like to make sure people's name match character names
-        "url" => "" // put a url here if using sso auth for ur sso page.
+        "url" => "" // put a url here if using sso auth too your sso page.
     ),
     "saveFits" => array(
         "channel" => "" //Restrict saving fits to this channel. Use this to control who has access to saving fits. Use the channel ID.
     ),
     "getKillmails" => array(
         "channel" => "", //killmails post to this channel
-        "corpID" => "" //corpid for killmails
+        "corpID" => "" //corpid for killmails (Currently only works for corp)
     )
 );
