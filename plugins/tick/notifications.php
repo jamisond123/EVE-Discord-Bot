@@ -179,6 +179,9 @@ class notifications
                             $aggressorAllianceName = $this->apiData("alli", $aggressorAllianceID)["allianceName"];
                             $msg = "War declared by {$aggressorAllianceName} has been invalidated. Fighting ends in roughly 24 hours.";
                             break;
+                        case 35: // Insurance payment
+                            $msg = "skip";
+                            break;
                         case 71: // Mission Expiration
                             $msg = "skip";
                             break;
@@ -240,6 +243,12 @@ class notifications
                             break;
                         case 94: // POCO Reinforced
                             $msg = "Customs Office reinforced.";
+                            break;
+                        case 138: // Clone activation
+                            $msg = "skip";
+                            break;
+                        case 140: // Kill report
+                            $msg = "skip";
                             break;
                         case 147: // Entosis has stated
                             $systemID = trim(explode(": ", $notificationString[0])[1]);
