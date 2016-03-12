@@ -32,33 +32,6 @@ gc_enable();
 // Just incase we get launched from somewhere else
 chdir(__DIR__);
 
-// When the bot started
-$startTime = time();
-
-// Require the vendor stuff
-require_once(__DIR__ . "/vendor/autoload.php");
-
-// Require the config
-if (file_exists(__DIR__ . "/config/config.php"))
-    require_once(__DIR__ . "/config/config.php");
-else
-    throw new Exception("config.php not found (you might wanna start by editing and renaming config_new.php)");
-
-// Load the library files (Probably a prettier way to do this that i haven't thought up yet)
-foreach (glob(__DIR__ . "/library/*.php") as $lib)
-    require_once($lib);
-
-// Init the discord library
-$discord = new \Discord\Discord($config["discord"]["email"], $config["discord"]["password"]);
-$token = $discord->token();
-$gateway = $discord->api("gateway")->show()["url"] . "/"; // need to end in / for it to not whine about it.. *sigh*
-
-// Setup the event loop and logger
-$loop = \React\EventLoop\Factory::create();
-$logger = new \Zend\Log\Logger();
-$writer = new \Zend\Log\Writer\Stream("php://output");
-$logger->addWriter($writer);
-
 // Startup the websocket connection
 $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 

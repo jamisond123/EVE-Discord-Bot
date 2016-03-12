@@ -23,7 +23,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+// Require the vendor stuff
+require_once(__DIR__ . "/vendor/autoload.php");
+
+// Load the library files (Probably a prettier way to do this that i haven't thought up yet)
+foreach (glob(__DIR__ . "/library/*.php") as $lib)
+    require_once($lib);
+
+// Setup the event loop and logger
+$loop = \React\EventLoop\Factory::create();
+$logger = new \Zend\Log\Logger();
+$writer = new \Zend\Log\Writer\Stream("php://output");
+$logger->addWriter($writer);
+
+// Check that all the databases are created!
+$databases = array("ccpData.sqlite", "sluggard.sqlite");
+$databaseDir = __DIR__ . "/database";
+if(!file_exists($databaseDir))
+    mkdir($databaseDir);
+foreach($databases as $db)
+    if(!file_exists($databaseDir . "/" . $db))
+        touch($databaseDir . "/" . $db);
+
+// Create the sluggard.sqlite tables
+$logger->info("Checking for the presence of the database tables");
+updateSluggardDB($logger);
+updateCCPData($logger);
+
+// Initiate background tasks
 include 'background.php';
-sleep (20);
-include 'inChat.php';
+$logger->info("Initiating background tasks");
 ?>

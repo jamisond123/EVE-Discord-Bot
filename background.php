@@ -44,34 +44,10 @@ if (file_exists(__DIR__ . "/config/config.php"))
 else
     throw new Exception("config.php not found (you might wanna start by editing and renaming config_new.php)");
 
-// Load the library files (Probably a prettier way to do this that i haven't thought up yet)
-foreach (glob(__DIR__ . "/library/*.php") as $lib)
-    require_once($lib);
-
 // Init the discord library
 $discord = new \Discord\Discord($config["discord"]["email"], $config["discord"]["password"]);
 $token = $discord->token();
 $gateway = $discord->api("gateway")->show()["url"] . "/"; // need to end in / for it to not whine about it.. *sigh*
-
-// Setup the event loop and logger
-$loop = \React\EventLoop\Factory::create();
-$logger = new \Zend\Log\Logger();
-$writer = new \Zend\Log\Writer\Stream("php://output");
-$logger->addWriter($writer);
-
-// Check that all the databases are created!
-$databases = array("ccpData.sqlite", "sluggard.sqlite");
-$databaseDir = __DIR__ . "/database";
-if(!file_exists($databaseDir))
-    mkdir($databaseDir);
-foreach($databases as $db)
-    if(!file_exists($databaseDir . "/" . $db))
-        touch($databaseDir . "/" . $db);
-
-// Create the sluggard.sqlite tables
-$logger->info("Checking for the presence of the database tables");
-updateSluggardDB($logger);
-updateCCPData($logger);
 
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
 $pluginDirs = array(__DIR__ . "/plugins/tick/*.php");
@@ -98,5 +74,10 @@ foreach (glob("plugins/onTime/*.php") as $onTime)
 {
     include $onTime;
 }
+
+//Initiate chat based bot
+include 'inChat.php';
+$logger->info("Starting chat bot.");
+
 
 $loop->run();
