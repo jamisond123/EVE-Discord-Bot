@@ -24,7 +24,7 @@
  */
 
 // More memory allowance
-ini_set("memory_limit", "2048M");
+ini_set("memory_limit", "1024M");
 
 // Enable garbage collection
 gc_enable();
@@ -42,7 +42,7 @@ require_once(__DIR__ . "/vendor/autoload.php");
 if (file_exists(__DIR__ . "/config/config.php"))
     require_once(__DIR__ . "/config/config.php");
 else
-    throw new Exception("config.php not found (you might wanna start by editting and renaming config_new.php)");
+    throw new Exception("config.php not found (you might wanna start by editing and renaming config_new.php)");
 
 // Load the library files (Probably a prettier way to do this that i haven't thought up yet)
 foreach (glob(__DIR__ . "/library/*.php") as $lib)
@@ -59,25 +59,11 @@ $logger = new \Zend\Log\Logger();
 $writer = new \Zend\Log\Writer\Stream("php://output");
 $logger->addWriter($writer);
 
-// Check that all the databases are created!
-$databases = array("ccpData.sqlite", "sluggard.sqlite");
-$databaseDir = __DIR__ . "/database";
-if(!file_exists($databaseDir))
-    mkdir($databaseDir);
-foreach($databases as $db)
-    if(!file_exists($databaseDir . "/" . $db))
-        touch($databaseDir . "/" . $db);
-
-// Create the sluggard.sqlite tables
-$logger->info("Checking for the pressence of the database tables");
-updateSluggardDB($logger);
-updateCCPData($logger);
-
 // Startup the websocket connection
 $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
-$pluginDirs = array(__DIR__ . "/plugins/tick/*.php", __DIR__ . "/plugins/onMessage/*.php");
+$pluginDirs = array(__DIR__ . "/plugins/onMessage/*.php");
 $plugins = array();
 foreach($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
@@ -86,21 +72,19 @@ foreach($pluginDirs as $dir) {
             continue;
 
         require_once($plugin);
-        $logger->info("Loading: " . str_replace(".php", "", basename($plugin)));
+        $logger->info("Loading in chat plugin: " . str_replace(".php", "", basename($plugin)));
         $fileName = str_replace(".php", "", basename($plugin));
         $p = new $fileName();
         $p->init($config, $discord, $logger);
         $plugins[] = $p;
     }
 }
+
+//include keepAlive
+include "plugins/keepAlive.php";
+
 // Number of plugins loaded
 $logger->info("Loaded: " . count($plugins) . " plugins");
-
-// Load all the timers
-foreach (glob("plugins/onTime/*.php") as $onTime)
-{
-    include $onTime;
-}
 
 // Setup the connection handlers
 $client->on("connect", function () use ($logger, $client, $token) {
@@ -170,7 +154,7 @@ $client->on("message", function ($message) use ($client, $logger, $discord, $plu
 
             // Update the users status
             if($data->author->id)
-		        dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastSpoke, lastWritten) VALUES (:id, :name, :lastSeen, :lastSpoke, :lastWritten)", array(":id" => $data->author->id, ":lastSeen" => date("Y-m-d H:i:s"), ":name" => $data->author->username, ":lastSpoke" => date("Y-m-d H:i:s"), ":lastWritten" => $data->content));
+                dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastSpoke, lastWritten) VALUES (:id, :name, :lastSeen, :lastSpoke, :lastWritten)", array(":id" => $data->author->id, ":lastSeen" => date("Y-m-d H:i:s"), ":name" => $data->author->username, ":lastSpoke" => date("Y-m-d H:i:s"), ":lastWritten" => $data->content));
 
             // Run the plugins
             foreach ($plugins as $plugin) {
