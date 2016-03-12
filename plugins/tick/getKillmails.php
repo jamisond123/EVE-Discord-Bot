@@ -114,7 +114,7 @@ class getKillmails
         $xml = simplexml_load_file($url);
         $kills = $xml->result->rowset->row;
         $i = 0;
-        $limit = 6;
+        $limit = 15;
         foreach ($kills as $kill) {
             if ($i < $limit){
                 $killID = $kill->attributes()->killID;
@@ -136,7 +136,7 @@ class getKillmails
                 $this->discord->api("channel")->messages()->create($this->kmChannel, $msg);
                 setPermCache("newestKillmailID", $killID);
 
-                sleep (1);
+                sleep (2);
                 $i++;
             }
             else {
