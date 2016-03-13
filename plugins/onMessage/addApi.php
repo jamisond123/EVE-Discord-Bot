@@ -44,19 +44,21 @@ class addapi
             $channelID = $msgData["message"]["channelID"];
             $data = command($message, $this->information()["trigger"]);
             if (isset($data["trigger"])) {
-                $field = explode(" ",  $data["messageString"]);
+                $field = explode(" ", $data["messageString"]);
                 $post = [
                 'key_id' => $field[0],
                 'v_code' => $field[1],
                 ];
 
                 // Basic check on entry validity. Need to make this more robust.
-                if (strlen($field[0]) <> 7)
-                    return $this->discord->api("channel")->messages()->create($channelID, "**Invalid KeyID**");
-                if (strlen($field[1]) <> 64)
-                    return $this->discord->api("channel")->messages()->create($channelID, "**Invalid vCode**");
+                if (strlen($field[0]) <> 7) {
+                                    return $this->discord->api("channel")->messages()->create($channelID, "**Invalid KeyID**");
+                }
+                if (strlen($field[1]) <> 64) {
+                                    return $this->discord->api("channel")->messages()->create($channelID, "**Invalid vCode**");
+                }
 
-                $url = $this->seatBase.'api/v1/key';
+                $url = $this->seatBase . 'api/v1/key';
 
                 seatPost($url, $post, $this->seatToken);
 

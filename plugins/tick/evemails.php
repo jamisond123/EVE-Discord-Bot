@@ -71,9 +71,10 @@ class evemails
             $keyID = $apiData["keyID"];
             $characterID = $apiData["characterID"];
 
-            if ($keyCounter == 0) // Schedule it for right now
+            if ($keyCounter == 0) {
+                // Schedule it for right now
                 setPermCache("corpMailCheck{$keyID}{$keyOwner}{$characterID}", time() - 5);
-            else {
+            } else {
                 $rescheduleTime = time() + ((1805 / $this->keyCount) * $keyCounter);
                 setPermCache("corpMailCheck{$keyID}{$keyOwner}{$characterID}", $rescheduleTime);
             }
