@@ -38,12 +38,12 @@ function insertUser($db, $user, $pass, $dbName, $userID, $characterID, $eveName,
     $conn = new mysqli($db, $user, $pass, $dbName);
 
     $sql = "INSERT INTO authUsers
-            (characterID, discordID, eveName, active, role)
+            characterID, discordID, eveName, active, role
             VALUES
-            ('$characterID','$userID','$eveName', 'yes', '$type')
+            '$characterID','$userID','$eveName', 'yes', '$type'
             ON DUPLICATE KEY UPDATE
-            discordID     = VALUES($userID),
-            active = VALUES('yes')";
+            discordID=$userID,
+            active='yes'";
 
     if ($conn->query($sql) === TRUE) {
         return null;
