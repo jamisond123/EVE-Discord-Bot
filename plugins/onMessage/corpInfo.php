@@ -51,12 +51,12 @@ class corpInfo
             $url = "http://rena.karbowiak.dk/api/search/corporation/{$messageString}/";
             $data = @json_decode(downloadData($url), true)["corporation"];
 
-            if(empty($data))
+            if (empty($data))
                 return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no results was returned.");
 
-            if(count($data) > 1) {
+            if (count($data) > 1) {
                 $results = array();
-                foreach($data as $corp)
+                foreach ($data as $corp)
                     $results[] = $corp["corporationName"];
 
                 return $this->discord->api("channel")->messages()->create($channelID, "**Error:** more than one result was returned: " . implode(", ", $results));
@@ -64,10 +64,10 @@ class corpInfo
 
             // Get stats
             $corporationID = $data[0]["corporationID"];
-            $statsURL = "https://beta.eve-kill.net/api/corpInfo/corporationID/" . urlencode($corporationID) ."/";
+            $statsURL = "https://beta.eve-kill.net/api/corpInfo/corporationID/" . urlencode($corporationID) . "/";
             $stats = json_decode(downloadData($statsURL), true);
 
-            if(empty($stats))
+            if (empty($stats))
                 return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no data available");
 
             $corporationName = @$stats["corporationName"];

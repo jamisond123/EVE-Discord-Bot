@@ -87,7 +87,7 @@ class apiauth
             }
             // If we have the ID, show it
             elseif ($xml->result->rowset->row[0]) {
-                foreach($xml->result->rowset->row as $character){
+                foreach ($xml->result->rowset->row as $character) {
                     if ($character->attributes()->corporationID == $this->corpID) {
                         if ($this->nameEnforce == 'true') {
                             if ($character->attributes()->name != $userName) {
@@ -95,7 +95,7 @@ class apiauth
                                 return null;
                             }
                         }
-                        foreach($guildData["roles"] as $role)
+                        foreach ($guildData["roles"] as $role)
                         {
                             $characterID = $character->attributes()->characterID;
                             $characterName = $character->attributes()->name;
@@ -103,7 +103,7 @@ class apiauth
                             if ($role["name"] == $this->roleName) {
                                 $this->discord->api("guild")->members()->redeploy($this->guildID, $userID, array($roleID));
                                 insertUser($this->db, $this->dbUser, $this->dbPass, $this->dbName, $userID, $characterID, $characterName, 'corp');
-                                $this->discord->api("channel")->messages()->create($channelID, "**Success:** You have now been added to the ". $this->roleName ." group. To get more roles, talk to the CEO / Directors");
+                                $this->discord->api("channel")->messages()->create($channelID, "**Success:** You have now been added to the " . $this->roleName . " group. To get more roles, talk to the CEO / Directors");
                                 return null;
                             }
                         }

@@ -67,11 +67,11 @@ class evemails
 
         // Schedule all the apiKeys for the future
         $keyCounter = 0;
-        foreach($this->keys as $keyOwner => $apiData) {
+        foreach ($this->keys as $keyOwner => $apiData) {
             $keyID = $apiData["keyID"];
             $characterID = $apiData["characterID"];
 
-            if($keyCounter == 0) // Schedule it for right now
+            if ($keyCounter == 0) // Schedule it for right now
                 setPermCache("corpMailCheck{$keyID}{$keyOwner}{$characterID}", time() - 5);
             else {
                 $rescheduleTime = time() + ((1805 / $this->keyCount) * $keyCounter);
@@ -88,8 +88,9 @@ class evemails
     {
         $check = true;
         foreach ($this->keys as $keyOwner => $api) {
-            if ($check == false)
-                continue;
+            if ($check == false) {
+                            continue;
+            }
 
             $keyID = $api["keyID"];
             $vCode = $api["vCode"];
@@ -116,10 +117,12 @@ class evemails
 
         // Sometimes there is only ONE notification, so.. yeah..
         if (count($data) > 1) {
-            foreach ($data as $getFuckedCCP)
-                $mails[] = $getFuckedCCP["@attributes"];
-        } else
-            $mails[] = $data["@attributes"];
+            foreach ($data as $getFuckedCCP) {
+                            $mails[] = $getFuckedCCP["@attributes"];
+            }
+        } else {
+                    $mails[] = $data["@attributes"];
+        }
 
         usort($mails, array($this, "sortByDate"));
 
@@ -148,8 +151,9 @@ class evemails
                 $updateMaxID = true;
 
                 // set the maxID
-                if ($updateMaxID)
-                    setPermCache("newestCorpMailID", $this->maxID);
+                if ($updateMaxID) {
+                                    setPermCache("newestCorpMailID", $this->maxID);
+                }
             }
         }
     }

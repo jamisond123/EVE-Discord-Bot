@@ -39,10 +39,11 @@ $startTime = time();
 require_once(__DIR__ . "/vendor/autoload.php");
 
 // Require the config
-if (file_exists(__DIR__ . "/config/config.php"))
+if (file_exists(__DIR__ . "/config/config.php")) {
     require_once(__DIR__ . "/config/config.php");
-else
+} else {
     throw new Exception("config.php not found (you might wanna start by editing and renaming config_new.php)");
+}
 
 // Init the discord library
 $discord = new \Discord\Discord($config["discord"]["email"], $config["discord"]["password"]);
@@ -52,10 +53,10 @@ $gateway = $discord->api("gateway")->show()["url"] . "/"; // need to end in / fo
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
 $pluginDirs = array(__DIR__ . "/plugins/tick/*.php");
 $plugins = array();
-foreach($pluginDirs as $dir) {
+foreach ($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
         // Only load the plugins we want to load, according to the config
-        if(!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"]))
+        if (!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"]))
             continue;
 
         require_once($plugin);

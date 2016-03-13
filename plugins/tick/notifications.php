@@ -98,10 +98,10 @@ class notifications
         $this->alliApi = "http://rena.karbowiak.dk/api/alliance/information/";
         // Schedule all the apiKeys for the future
         $keyCounter = 0;
-        foreach($this->keys as $keyOwner => $apiData) {
+        foreach ($this->keys as $keyOwner => $apiData) {
             $keyID = $apiData["keyID"];
             $characterID = $apiData["characterID"];
-            if($keyCounter == 0) // Schedule it for right now
+            if ($keyCounter == 0) // Schedule it for right now
                 setPermCache("notificationCheck{$keyID}{$keyOwner}{$characterID}", time() - 5);
             else {
                 $rescheduleTime = time() + ((1805 / $this->keyCount) * $keyCounter);
@@ -117,8 +117,9 @@ class notifications
     {
         $check = true;
         foreach ($this->keys as $keyOwner => $api) {
-            if ($check == false)
-                continue;
+            if ($check == false) {
+                            continue;
+            }
             $keyID = $api["keyID"];
             $vCode = $api["vCode"];
             $characterID = $api["characterID"];
@@ -145,15 +146,18 @@ class notifications
             $data = json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)), true);
             $data = $data["result"]["rowset"]["row"];
             // If there is no data, just quit..
-            if (empty($data))
-                return;
+            if (empty($data)) {
+                            return;
+            }
             $fixedData = array();
             // Sometimes there is only ONE notification, so.. yeah..
             if (count($data) > 1) {
-                foreach ($data as $getFuckedCCP)
-                    $fixedData[] = $getFuckedCCP["@attributes"];
-            } else
-                $fixedData[] = $data["@attributes"];
+                foreach ($data as $getFuckedCCP) {
+                                    $fixedData[] = $getFuckedCCP["@attributes"];
+                }
+            } else {
+                            $fixedData[] = $data["@attributes"];
+            }
             foreach ($fixedData as $notification) {
                 $notificationID = $notification["notificationID"];
                 $typeID = $notification["typeID"];
@@ -162,8 +166,9 @@ class notifications
                 $sentDate = $notification["sentDate"];
                 //$read = $notification["read"];
                 // If the senderName is in the list of ignores names, then continue and ignore it..
-                if (in_array($senderName, $ignoreNames))
-                    continue;
+                if (in_array($senderName, $ignoreNames)) {
+                                    continue;
+                }
                 if ($notificationID > $this->newestNotificationID) {
                     $notificationString = explode("\n", $this->getNotificationText($keyID, $vCode, $characterID, $notificationID));
                     // Seriously, get fucked CCP
@@ -282,7 +287,7 @@ class notifications
                     }
 
                     /** @noinspection PhpUndefinedVariableInspection */
-                    if ($msg == "skip"){
+                    if ($msg == "skip") {
                         return null;
                     }
                     $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -301,7 +306,7 @@ class notifications
      * @param $vCode
      * @param $characterID
      * @param $notificationID
-     * @return mixed
+     * @return string
      */
     function getNotificationText($keyID, $vCode, $characterID, $notificationID)
     {
@@ -316,9 +321,14 @@ class notifications
     function onMessage($msgData)
     {
     }
+
+    /**
+     * @param string $type
+     * @param string $typeID
+     */
     function apiData($type, $typeID) {
         $downloadFrom = "";
-        switch($type) {
+        switch ($type) {
             case "char":
                 $downloadFrom = $this->charApi;
                 break;

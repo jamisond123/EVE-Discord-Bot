@@ -48,24 +48,24 @@ class saveFit
         $userName = $msgData["message"]["from"];
         $data = command($message, $this->information()["trigger"]);
         if (isset($data["trigger"])) {
-            if ($channelID != $this->fitChannel){
+            if ($channelID != $this->fitChannel) {
                 $this->discord->api("channel")->messages()->create($channelID, "Not allowed to add fits from this channel.");
                 Return Null;
             }
-            $field = explode(" ",  $data["messageString"], 2);
+            $field = explode(" ", $data["messageString"], 2);
             $post = [
                 'fitName' => $field[0],
                 'fit' => $field[1],
             ];
 
-            $fitName = str_replace("_"," ",$field[0]);
-            $cleanApo = str_replace("'","''",$field[1]);
+            $fitName = str_replace("_", " ", $field[0]);
+            $cleanApo = str_replace("'", "''", $field[1]);
 
             $fit = addslashes($cleanApo);
             insertFit($this->db, $this->dbUser, $this->dbPass, $this->dbName, $fitName, $userName, $fit);
 
-            $msg = $field[0] ." Successfully Submitted.";
-            $this->logger->info("Fit submitted by ". $userName);
+            $msg = $field[0] . " Successfully Submitted.";
+            $this->logger->info("Fit submitted by " . $userName);
             $this->discord->api("channel")->messages()->create($channelID, $msg);
         }
         return null;

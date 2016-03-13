@@ -24,7 +24,7 @@
  */
 
 // Plugin tick timer (1 second)
-$loop->addPeriodicTimer(1, function () use ($logger, $plugins) {
+$loop->addPeriodicTimer(1, function() use ($logger, $plugins) {
     foreach ($plugins as $plugin) {
         try {
             $plugin->tick();

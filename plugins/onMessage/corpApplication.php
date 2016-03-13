@@ -68,7 +68,7 @@ class corpApplication
 
             $command = $messageArray[0];
 
-            switch($command) {
+            switch ($command) {
                 case "start":
                     $this->step[$fromID] = 0;
                     $msg = "Welcome to the application process, once you're ready to go to the next question, type !app next, if you need to edit a previous type !app previous. To send in an answer do: !app answer < your answer >";
