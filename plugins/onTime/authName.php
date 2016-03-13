@@ -48,7 +48,7 @@ $loop->addPeriodicTimer(1800, function() use ($logger, $discord, $config) {
                 $discordname = $userData['username'];
                 if ($discordname != $eveName) {
                     $discord->api("guild")->members()->redeploy($guildID, $discordid, "");
-                    $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user " . $discordname ." roles removed via auth because discord name is not set as the user in-game name " . $eveName);
+                    $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user " . $discordname ." roles removed via auth because their discord name does not match their in-game name " . $eveName);
                     $logger->info("Removing user due to name being incorrect ". $discordid);
 
                     $sql2 = "UPDATE authUsers SET active='no' WHERE discordID='$discordid'";
