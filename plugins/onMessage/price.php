@@ -86,22 +86,26 @@ class price
             $multiple = dbQuery("SELECT typeID, typeName FROM invTypes WHERE typeName LIKE :item COLLATE NOCASE LIMIT 5", array(":item" => "%" . ucfirst($itemName) . "%"), "ccp");
 
             // Quick lookups
-            if (isset($quickLookUps[$itemName]))
-                $single = $quickLookUps[$itemName];
+            if (isset($quickLookUps[$itemName])) {
+                            $single = $quickLookUps[$itemName];
+            }
 
             // Sometimes the multiple lookup is returning just one
-            if (count($multiple) == 1)
-                $single = $multiple[0];
+            if (count($multiple) == 1) {
+                            $single = $multiple[0];
+            }
 
             // Check if the channel is restricted    
-            if ($channelID == $this->excludeChannel)
-                return $this->discord->api("channel")->messages()->create($channelID, "**Price Check not allowed in this channel**");
+            if ($channelID == $this->excludeChannel) {
+                            return $this->discord->api("channel")->messages()->create($channelID, "**Price Check not allowed in this channel**");
+            }
 
             // If there are multiple results, and not a single result, it's an error
             if (empty($single) && !empty($multiple)) {
                 $items = array();
-                foreach ($multiple as $item)
-                    $items[] = $item["typeName"];
+                foreach ($multiple as $item) {
+                                    $items[] = $item["typeName"];
+                }
 
                 $items = implode(", ", $items);
                 return $this->discord->api("channel")->messages()->create($channelID, "**Multiple results found:** {$items}");
@@ -115,10 +119,11 @@ class price
                 $solarSystemID = $systemName == "pc" ? "global" : $this->solarSystems[$systemName];
 
                 // Get pricing data
-                if ($solarSystemID == "global")
-                    $data = new SimpleXMLElement(downloadData("https://api.eve-central.com/api/marketstat?typeid={$typeID}"));
-                else
-                    $data = new SimpleXMLElement(downloadData("https://api.eve-central.com/api/marketstat?usesystem={$solarSystemID}&typeid={$typeID}"));
+                if ($solarSystemID == "global") {
+                                    $data = new SimpleXMLElement(downloadData("https://api.eve-central.com/api/marketstat?typeid={$typeID}"));
+                } else {
+                                    $data = new SimpleXMLElement(downloadData("https://api.eve-central.com/api/marketstat?usesystem={$solarSystemID}&typeid={$typeID}"));
+                }
 
                 $lowBuy = number_format((float) $data->marketstat->type->buy->min, 2);
                 $avgBuy = number_format((float) $data->marketstat->type->buy->avg, 2);

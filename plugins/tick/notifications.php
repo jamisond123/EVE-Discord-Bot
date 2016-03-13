@@ -101,9 +101,10 @@ class notifications
         foreach ($this->keys as $keyOwner => $apiData) {
             $keyID = $apiData["keyID"];
             $characterID = $apiData["characterID"];
-            if ($keyCounter == 0) // Schedule it for right now
+            if ($keyCounter == 0) {
+                // Schedule it for right now
                 setPermCache("notificationCheck{$keyID}{$keyOwner}{$characterID}", time() - 5);
-            else {
+            } else {
                 $rescheduleTime = time() + ((1805 / $this->keyCount) * $keyCounter);
                 setPermCache("notificationCheck{$keyID}{$keyOwner}{$characterID}", $rescheduleTime);
             }

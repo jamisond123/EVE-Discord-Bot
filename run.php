@@ -41,11 +41,13 @@ $logger->addWriter($writer);
 // Check that all the databases are created!
 $databases = array("ccpData.sqlite", "sluggard.sqlite");
 $databaseDir = __DIR__ . "/database";
-if (!file_exists($databaseDir))
+if (!file_exists($databaseDir)) {
     mkdir($databaseDir);
-foreach ($databases as $db)
+}
+foreach ($databases as $db) {
     if (!file_exists($databaseDir . "/" . $db))
         touch($databaseDir . "/" . $db);
+}
 
 // Create the sluggard.sqlite tables
 $logger->info("Checking for the presence of the database tables");

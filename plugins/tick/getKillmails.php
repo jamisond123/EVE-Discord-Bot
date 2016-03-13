@@ -76,8 +76,10 @@ class getKillmails
         $this->startMail = $config["plugins"]["getKillmails"]["startMail"];
         $this->lossMail = $config["plugins"]["getKillmails"]["lossMails"];
         $this->spamAmount = $config["plugins"]["getKillmails"]["spamAmount"];
-        if (2 > 1) // Schedule it for right now
+        if (2 > 1) {
+            // Schedule it for right now
             setPermCache("killmailCheck{$this->corpID}", time() - 5);
+        }
     }
 
 
@@ -151,8 +153,7 @@ class getKillmails
                 // Check if it's a structure
                 if ($victimName != "") {
                     $msg = "**{$killTime}**\n\n**{$shipName}** flown by **{$victimName}** of (***{$victimCorpName}|{$victimAllianceName}***) killed in {$systemName}\nhttps://zkillboard.com/kill/{$killID}/";
-                }
-                elseif ($victimName == "") {
+                } elseif ($victimName == "") {
                     $msg = "**{$killTime}**\n\n**{$shipName}** of (***{$victimCorpName}|{$victimAllianceName}***) killed in {$systemName}\nhttps://zkillboard.com/kill/{$killID}/";
                 }
                 $this->discord->api("channel")->messages()->create($this->kmChannel, $msg);
