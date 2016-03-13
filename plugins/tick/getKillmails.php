@@ -56,6 +56,9 @@ class getKillmails
     public $kmChannel;
     public $corpID;
     public $startMail;
+    public $allianceID;
+    public $lossMail;
+    public $spamAmount;
 
     /**
      * @param $config
@@ -69,7 +72,10 @@ class getKillmails
         $this->logger = $logger;
         $this->kmChannel = $config["plugins"]["getKillmails"]["channel"];
         $this->corpID = $config["plugins"]["getKillmails"]["corpID"];
+        $this->allianceID = $config["plugins"]["getKillmails"]["allianceID"];
         $this->startMail = $config["plugins"]["getKillmails"]["startMail"];
+        $this->lossMail = $config["plugins"]["getKillmails"]["lossMails"];
+        $this->spamAmount = $config["plugins"]["getKillmails"]["spamAmount"];
         if(2 > 1) // Schedule it for right now
             setPermCache("killmailCheck{$this->corpID}", time() - 5);
     }
@@ -98,6 +104,7 @@ class getKillmails
             $this->logger->info("Checking for new killmails.");
             $oldID = getPermCache("newestKillmailID");
             $one = '1';
+            /** @noinspection PhpWrongStringConcatenationInspection */
             $updatedID = $oldID + $one;
             setPermCache("newestKillmailID", $updatedID);
             $this->getKM();
@@ -110,14 +117,29 @@ class getKillmails
     {
         $this->newestKillmailID = getPermCache("newestKillmailID");
         $lastMail = $this->newestKillmailID;
-        $url = "https://zkillboard.com/api/xml/no-attackers/no-items/orderDirection/asc/afterKillID/{$lastMail}/corporationID/{$this->corpID}";
+        if($this->allianceID == "0" & $this->lossMail == 'true') {
+            $url = "https://zkillboard.com/api/xml/no-attackers/no-items/orderDirection/asc/afterKillID/{$lastMail}/corporationID/{$this->corpID}";
+        }
+        if($this->allianceID == "0" & $this->lossMail == 'false') {
+            $url = "https://zkillboard.com/api/xml/no-attackers/no-items/kills/orderDirection/asc/afterKillID/{$lastMail}/corporationID/{$this->corpID}";
+        }
+        if($this->allianceID != "0" & $this->lossMail == 'true') {
+            $url = "https://zkillboard.com/api/xml/no-attackers/no-items/orderDirection/asc/afterKillID/{$lastMail}/allianceID/{$this->allianceID}";
+        }
+        if($this->allianceID != "0" & $this->lossMail == 'false') {
+            $url = "https://zkillboard.com/api/xml/no-attackers/no-items/kills/orderDirection/asc/afterKillID/{$lastMail}/allianceID/{$this->allianceID}";
+        }
+
         $xml = simplexml_load_file($url);
         $kills = $xml->result->rowset->row;
         $i = 0;
-        $limit = 15;
+        $limit = $this->spamAmount;
         foreach ($kills as $kill) {
             if ($i < $limit){
                 $killID = $kill->attributes()->killID;
+                if ($this->startMail > $killID){
+                    $killID = $this->startMail;
+                }
                 $solarSystemID = $kill->attributes()->solarSystemID;
                 $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
                 $killTime = $kill->attributes()->killTime;

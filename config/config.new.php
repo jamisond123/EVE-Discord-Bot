@@ -158,6 +158,9 @@ $config["plugins"] = array(
     ),
     "getKillmails" => array(
         "channel" => "", //killmails post to this channel
-        "corpID" => "" //corpid for killmails (Currently only works for corp)
+        "corpID" => "", //corpid for killmails
+        "allianceID" => "0", //allianceid for killmails (Leave as 0 if using it for a corp)
+        "lossMails" => "true", //set as true to post both kills and losses, false to post only kills.
+        "spamAmount" => "15", //Max amount of kills the bot will post every 10 minutes. Default is 15 and won't get the bot kicked for spamming.
     )
 );
