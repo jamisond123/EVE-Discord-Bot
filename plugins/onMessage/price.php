@@ -42,7 +42,7 @@ class price
             $this->triggers[] = "!" . strtolower($system["solarSystemName"]);
         }
         $this->triggers[] = "!pc";
-		    $this->excludeChannel = $config["plugins"]["priceChecker"]["channelID"];
+            $this->excludeChannel = $config["plugins"]["priceChecker"]["channelID"];
     }
 
     /**
@@ -86,21 +86,21 @@ class price
             $multiple = dbQuery("SELECT typeID, typeName FROM invTypes WHERE typeName LIKE :item COLLATE NOCASE LIMIT 5", array(":item" => "%" . ucfirst($itemName) . "%"), "ccp");
 
             // Quick lookups
-            if(isset($quickLookUps[$itemName]))
+            if (isset($quickLookUps[$itemName]))
                 $single = $quickLookUps[$itemName];
 
             // Sometimes the multiple lookup is returning just one
-            if(count($multiple) == 1)
+            if (count($multiple) == 1)
                 $single = $multiple[0];
 
             // Check if the channel is restricted    
-			if ($channelID == $this->excludeChannel)
+            if ($channelID == $this->excludeChannel)
                 return $this->discord->api("channel")->messages()->create($channelID, "**Price Check not allowed in this channel**");
 
             // If there are multiple results, and not a single result, it's an error
-            if(empty($single) && !empty($multiple)) {
+            if (empty($single) && !empty($multiple)) {
                 $items = array();
-                foreach($multiple as $item)
+                foreach ($multiple as $item)
                     $items[] = $item["typeName"];
 
                 $items = implode(", ", $items);
@@ -108,14 +108,14 @@ class price
             }
 
             // If there is a single result, we'll get data now!
-            if($single) {
+            if ($single) {
                 $typeID = $single["typeID"];
                 $typeName = $single["typeName"];
 
                 $solarSystemID = $systemName == "pc" ? "global" : $this->solarSystems[$systemName];
 
                 // Get pricing data
-                if($solarSystemID == "global")
+                if ($solarSystemID == "global")
                     $data = new SimpleXMLElement(downloadData("https://api.eve-central.com/api/marketstat?typeid={$typeID}"));
                 else
                     $data = new SimpleXMLElement(downloadData("https://api.eve-central.com/api/marketstat?usesystem={$solarSystemID}&typeid={$typeID}"));
@@ -139,8 +139,7 @@ class price
    Avg: {$avgSell}
    High: {$highSell}";
                 $this->discord->api("channel")->messages()->create($channelID, $messageData);
-            }
-            else {
+            } else {
                 $this->discord->api("channel")->messages()->create($channelID, "**Error:** ***{$itemName}*** not found");
             }
         }

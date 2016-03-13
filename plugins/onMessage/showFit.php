@@ -57,7 +57,7 @@ class showFit
             $result = mysqli_query($conn, "SELECT * FROM shipFits WHERE fitName='$fitChoice'");
             while ($rows = $result->fetch_assoc()) {
                 $fit = $rows['fit'];
-                $cleanFit = str_replace("''","'",$fit);
+                $cleanFit = str_replace("''", "'", $fit);
                 $fitAuthor = $rows['fitAuthor'];
                 $message = "``` Fit Submitted By: {$fitAuthor}\n\n{$cleanFit}```";
                 $this->discord->api("channel")->messages()->create($channelID, $message);

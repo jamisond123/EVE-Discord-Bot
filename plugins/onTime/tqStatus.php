@@ -31,11 +31,11 @@ $loop->addPeriodicTimer(300, function() use ($logger, $discord, $config) {
 
     // Store the current status in the permanent cache
     $oldStatus = getPermCache("eveTQStatus");
-    if($tqStatus !== $oldStatus) {
-        if($tqStatus == "Offline"){
+    if ($tqStatus !== $oldStatus) {
+        if ($tqStatus == "Offline") {
             /** @noinspection PhpUnusedLocalVariableInspection */
             $api = serverStatus();
-            if ($api = "true"){
+            if ($api = "true") {
                 return null;
             }
         }

@@ -52,8 +52,9 @@ class help
                 $commands = array();
                 foreach ($plugins as $plugin) {
                     $info = $plugin->information();
-                    if (!empty($info["name"]))
-                        $commands[] = $info["name"];
+                    if (!empty($info["name"])) {
+                                            $commands[] = $info["name"];
+                    }
                 }
 
                 $this->discord->api("channel")->messages()->create($channelID, "Here is a list of plugins available: **" . implode("** |  **", $commands) . "** If you'd like help with a specific plugin simply use the command !help <PluginName>");
