@@ -3,8 +3,7 @@
 /**
  * Class corporationmails
  */
-class evemails
-{
+class evemails {
     /**
      * @var
      */
@@ -155,13 +154,13 @@ class evemails
     }
 
     /**
-     * @param $a
-     * @param $b
+     * @param $alpha
+     * @param $bravo
      * @return int
      */
-    function sortByDate($a, $b)
+    function sortByDate($alpha, $bravo)
     {
-        return strcmp($a["sentDate"], $b["sentDate"]);
+        return strcmp($alpha["sentDate"], $bravo["sentDate"]);
     }
 
     /**
