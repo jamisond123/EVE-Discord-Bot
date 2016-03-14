@@ -3,7 +3,7 @@
 
 Discord bot to manage an EVE Online Corp/Alliance discord "guild".
 
-Current Version - 1.0-Beta
+Current Version - 1.0-Beta   
 Should be fairly stable.
 
 Have a look at the [Wiki for info](https://github.com/shibdib/EVE-Discord-Bot/wiki)
