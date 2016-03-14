@@ -41,8 +41,9 @@ $plugins = array();
 foreach ($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
         // Only load the plugins we want to load, according to the config
-        if (!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"]))
-            continue;
+        if (!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"])) {
+                    continue;
+        }
 
         require_once($plugin);
         $logger->info("Loading in chat plugin: " . str_replace(".php", "", basename($plugin)));
@@ -99,13 +100,15 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
             $data = $data->d;
 
             // Skip if it's the bot itself that wrote something
-            if ($data->author->username == $config["bot"]["name"])
-                continue;
+            if ($data->author->username == $config["bot"]["name"]) {
+                            continue;
+            }
 
             // Create the data array for the plugins to use
             $channelData = $discord->api("channel")->show($data->channel_id);
-            if ($channelData["is_private"])
-                $channelData["name"] = $channelData["recipient"]["username"];
+            if ($channelData["is_private"]) {
+                            $channelData["name"] = $channelData["recipient"]["username"];
+            }
 
             $msgData = array(
                 "isBotOwner" => $data->author->username == $config["discord"]["admin"] || $data->author->id == $config["discord"]["adminID"] ? true : false,
@@ -126,8 +129,9 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
             );
 
             // Update the users status
-            if ($data->author->id)
-                dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastSpoke, lastWritten) VALUES (:id, :name, :lastSeen, :lastSpoke, :lastWritten)", array(":id" => $data->author->id, ":lastSeen" => date("Y-m-d H:i:s"), ":name" => $data->author->username, ":lastSpoke" => date("Y-m-d H:i:s"), ":lastWritten" => $data->content));
+            if ($data->author->id) {
+                            dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastSpoke, lastWritten) VALUES (:id, :name, :lastSeen, :lastSpoke, :lastWritten)", array(":id" => $data->author->id, ":lastSeen" => date("Y-m-d H:i:s"), ":name" => $data->author->username, ":lastSpoke" => date("Y-m-d H:i:s"), ":lastWritten" => $data->content));
+            }
 
             // Run the plugins
             foreach ($plugins as $plugin) {
