@@ -135,7 +135,7 @@ class getKillmails
         $xml = simplexml_load_file($url);
         $i = 0;
         $limit = $this->spamAmount;
-        foreach ($xml->result->rowset->row() as $kill) {
+        foreach ($xml->result->rowset->row as $kill) {
             if ($i < $limit) {
                 $killID = $kill->attributes()->killID;
                 if ($this->startMail > $killID) {
