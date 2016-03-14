@@ -172,6 +172,9 @@ class notifications {
                             $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
                             $msg = "War declared by {$aggAllianceName} has been invalidated. Fighting ends in roughly 24 hours.";
                             break;
+                        case 14: // Bounty payment
+                            $msg = "skip";
+                            break;
                         case 35: // Insurance payment
                             $msg = "skip";
                             break;
