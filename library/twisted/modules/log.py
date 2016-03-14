@@ -1,4 +1,4 @@
-logfile = open("/tmp/discord_bot.db", "w")
+logfile = open("/tmp/discord.db", "w")
 
 def log(tbot, user, channel, msg):
 	logfile.write("%s" % (msg))

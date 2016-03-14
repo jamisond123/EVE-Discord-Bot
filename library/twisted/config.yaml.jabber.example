@@ -1,10 +1,10 @@
 protocol: xmpp
-admins: [Mr Twinkie]
-channels: []
-moduleblacklist: []
-network: the-culture.eu
-server: the-culture.eu
-username: mr_twinkie
-nickname: Mr_Twinkie
-password: 1234567890
+admins: [Lucia Denniard]
+channels: [test@conference.xxpizzaxx.com, other@conference.public.xxpizzaxx.com]
+moduleblacklist: [rainbowdash]
+network: xxpizzaxx.com
+server: xxpizzaxx.com
+username: twistedbot
+nickname: TwistedBot
+password: passworgoeshere
 verbosity: 2
