@@ -45,9 +45,10 @@ if (!file_exists($databaseDir)) {
     mkdir($databaseDir);
 }
 foreach ($databases as $db) {
-    if (!file_exists($databaseDir . "/" . $db))
-        touch($databaseDir . "/" . $db);
-}
+    if (!file_exists($databaseDir . "/" . $db)) {
+            touch($databaseDir . "/" . $db);
+    }
+    }
 
 // Create the sluggard.sqlite tables
 $logger->info("Checking for the presence of the database tables");
