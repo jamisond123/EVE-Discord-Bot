@@ -26,8 +26,7 @@
 /**
  * Class notifications
  */
-class notifications
-{
+class notifications {
     /**
      * @var
      */
@@ -174,18 +173,17 @@ class notifications
                 }
                 if ($notificationID > $this->newestNotificationID) {
                     $notificationString = explode("\n", $this->getNotificationText($keyID, $vCode, $characterID, $notificationID));
-                    // Seriously, get fucked CCP
                     switch ($typeID) {
                         case 5: // War Declared
-                            $aggressorAllianceID = trim(explode(": ", $notificationString[2])[1]);
-                            $aggressorAllianceName = $this->apiData("alli", $aggressorAllianceID)["allianceName"];
+                            $aggAllianceID = trim(explode(": ", $notificationString[2])[1]);
+                            $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
                             $delayHours = trim(explode(": ", $notificationString[3])[1]);
-                            $msg = "War declared by {$aggressorAllianceName}. Fighting begins in roughly {$delayHours} hours.";
+                            $msg = "War declared by {$aggAllianceName}. Fighting begins in roughly {$delayHours} hours.";
                             break;
                         case 8: // Alliance war invalidated by CONCORD
-                            $aggressorAllianceID = trim(explode(": ", $notificationString[2])[1]);
-                            $aggressorAllianceName = $this->apiData("alli", $aggressorAllianceID)["allianceName"];
-                            $msg = "War declared by {$aggressorAllianceName} has been invalidated. Fighting ends in roughly 24 hours.";
+                            $aggAllianceID = trim(explode(": ", $notificationString[2])[1]);
+                            $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
+                            $msg = "War declared by {$aggAllianceName} has been invalidated. Fighting ends in roughly 24 hours.";
                             break;
                         case 35: // Insurance payment
                             $msg = "skip";
@@ -194,12 +192,12 @@ class notifications
                             $msg = "skip";
                             break;
                         case 75: // POS / POS Module under attack
-                            $aggressorAllianceID = trim(explode(": ", $notificationString[0])[1]);
-                            $aggressorAllianceName = $this->apiData("alli", $aggressorAllianceID)["allianceName"];
-                            $aggressorCorpID = trim(explode(": ", $notificationString[1])[1]);
-                            $aggressorCorpName = $this->apiData("corp", $aggressorCorpID)["corporationName"];
-                            $aggressorID = trim(explode(": ", $notificationString[2])[1]);
-                            $aggressorCharacterName = $this->apiData("char", $aggressorID)["characterName"];
+                            $aggAllianceID = trim(explode(": ", $notificationString[0])[1]);
+                            $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
+                            $aggCorpID = trim(explode(": ", $notificationString[1])[1]);
+                            $aggCorpName = $this->apiData("corp", $aggCorpID)["corporationName"];
+                            $aggID = trim(explode(": ", $notificationString[2])[1]);
+                            $aggCharacterName = $this->apiData("char", $aggID)["characterName"];
                             $armorValue = trim(explode(": ", $notificationString[3])[1]);
                             $hullValue = trim(explode(": ", $notificationString[4])[1]);
                             $moonID = trim(explode(": ", $notificationString[5])[1]);
@@ -209,7 +207,7 @@ class notifications
                             $typeID = trim(explode(": ", $notificationString[8])[1]);
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $typeID), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
-                            $msg = "{$typeName} under attack in **{$systemName} - {$moonName}** by {$aggressorCharacterName} ({$aggressorCorpName} / {$aggressorAllianceName}). Status: Hull: {$hullValue}, Armor: {$armorValue}, Shield: {$shieldValue}";
+                            $msg = "{$typeName} under attack in **{$systemName} - {$moonName}** by {$aggCharacterName} ({$aggCorpName} / {$aggAllianceName}). Status: Hull: {$hullValue}, Armor: {$armorValue}, Shield: {$shieldValue}";
                             break;
                         case 76: // Tower resource alert
                             $moonID = trim(explode(": ", $notificationString[2])[1]);
@@ -222,32 +220,32 @@ class notifications
                             $msg = "POS in {$systemName} - {$moonName} needs fuel. Only {$blocksRemaining} {$typeName}'s remaining.";
                             break;
                         case 88: // IHUB is being attacked
-                            $aggressorAllianceID = trim(explode(": ", $notificationString[0])[1]);
-                            $aggressorAllianceName = $this->apiData("alli", $aggressorAllianceID)["allianceName"];
-                            $aggressorCorpID = trim(explode(": ", $notificationString[0])[1]);
-                            $aggressorCorpName = $this->apiData("corp", $aggressorCorpID)["corporationName"];
-                            $aggressorID = trim(explode(": ", $notificationString[1])[1]);
-                            $aggressorCharacterName = $this->apiData("char", $aggressorID)["characterName"];
+                            $aggAllianceID = trim(explode(": ", $notificationString[0])[1]);
+                            $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
+                            $aggCorpID = trim(explode(": ", $notificationString[0])[1]);
+                            $aggCorpName = $this->apiData("corp", $aggCorpID)["corporationName"];
+                            $aggID = trim(explode(": ", $notificationString[1])[1]);
+                            $aggCharacterName = $this->apiData("char", $aggID)["characterName"];
                             $armorValue = trim(explode(": ", $notificationString[3])[1]);
                             $hullValue = trim(explode(": ", $notificationString[4])[1]);
                             $shieldValue = trim(explode(": ", $notificationString[5])[1]);
                             $solarSystemID = trim(explode(": ", $notificationString[6])[1]);
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
-                            $msg = "IHUB under attack in **{$systemName}** by {$aggressorCharacterName} ({$aggressorCorpName} / {$aggressorAllianceName}). Status: Hull: {$hullValue}, Armor: {$armorValue}, Shield: {$shieldValue}";
+                            $msg = "IHUB under attack in **{$systemName}** by {$aggCharacterName} ({$aggCorpName} / {$aggAllianceName}). Status: Hull: {$hullValue}, Armor: {$armorValue}, Shield: {$shieldValue}";
                             break;
                         case 93: // Customs office is being attacked
-                            $aggressorAllianceID = trim(explode(": ", $notificationString[0])[1]);
-                            $aggressorAllianceName = $this->apiData("alli", $aggressorAllianceID)["allianceName"];
-                            $aggressorCorpID = trim(explode(": ", $notificationString[0])[1]);
-                            $aggressorCorpName = $this->apiData("corp", $aggressorCorpID)["corporationName"];
-                            $aggressorID = trim(explode(": ", $notificationString[2])[1]);
-                            $aggressorCharacterName = $this->apiData("char", $aggressorID)["characterName"];
+                            $aggAllianceID = trim(explode(": ", $notificationString[0])[1]);
+                            $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
+                            $aggCorpID = trim(explode(": ", $notificationString[0])[1]);
+                            $aggCorpName = $this->apiData("corp", $aggCorpID)["corporationName"];
+                            $aggID = trim(explode(": ", $notificationString[2])[1]);
+                            $aggCharacterName = $this->apiData("char", $aggID)["characterName"];
                             $planetID = trim(explode(": ", $notificationString[3])[1]);
                             $planetName = dbQueryField("SELECT itemName FROM mapAllCelestials WHERE itemID = :id", "itemName", array(":id" => $planetID), "ccp");
                             $shieldValue = trim(explode(": ", $notificationString[5])[1]);
                             $solarSystemID = trim(explode(": ", $notificationString[6])[1]);
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
-                            $msg = "Customs Office under attack in **{$systemName}** ($planetName) by {$aggressorCharacterName} ({$aggressorCorpName} / {$aggressorAllianceName}). Shield Status: {$shieldValue}";
+                            $msg = "Customs Office under attack in **{$systemName}** ($planetName) by {$aggCharacterName} ({$aggCorpName} / {$aggAllianceName}). Shield Status: {$shieldValue}";
                             break;
                         case 94: // POCO Reinforced
                             $msg = "Customs Office reinforced.";
