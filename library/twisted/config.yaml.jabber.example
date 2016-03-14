@@ -1,0 +1,10 @@
+protocol: xmpp
+admins: [Mr Twinkie]
+channels: []
+moduleblacklist: []
+network: the-culture.eu
+server: the-culture.eu
+username: mr_twinkie
+nickname: Mr_Twinkie
+password: 1234567890
+verbosity: 2
