@@ -51,15 +51,17 @@ class item
         if (isset($data["trigger"])) {
             $item = $data["messageString"];
 
-            if (is_numeric($item))
-                $data = dbQueryRow("SELECT * FROM invTypes WHERE typeID = :item", array(":item" => $item), "ccp");
-            else
-                $data = dbQueryRow("SELECT * FROM invTypes WHERE typeName = :item COLLATE NOCASE", array(":item" => $item), "ccp");
+            if (is_numeric($item)) {
+                            $data = dbQueryRow("SELECT * FROM invTypes WHERE typeID = :item", array(":item" => $item), "ccp");
+            } else {
+                            $data = dbQueryRow("SELECT * FROM invTypes WHERE typeName = :item COLLATE NOCASE", array(":item" => $item), "ccp");
+            }
 
             if ($data) {
                 $msg = "```";
-                foreach ($data as $key => $value)
-                    $msg .= $key . ": " . $value . "\n";
+                foreach ($data as $key => $value) {
+                                    $msg .= $key . ": " . $value . "\n";
+                }
                 $msg .= "```";
                 $this->logger->info("Sending item information info to {$channelName} on {$guildName}");
                 $this->discord->api("channel")->messages()->create($channelID, $msg);

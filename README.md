@@ -1,4 +1,4 @@
-[![Code Climate](https://codeclimate.com/repos/56debad454d931143d00a4f1/badges/c9e60707fd85b3f68719/gpa.svg)](https://codeclimate.com/repos/56debad454d931143d00a4f1/feed)  [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/shibdib/eve-discord-bot.svg)](http://isitmaintained.com/project/shibdib/eve-discord-bot "Average time to resolve an issue")  [![Percentage of issues still open](http://isitmaintained.com/badge/open/shibdib/eve-discord-bot.svg)](http://isitmaintained.com/project/shibdib/eve-discord-bot "Percentage of issues still open")
+[![Code Climate](https://codeclimate.com/github/shibdib/EVE-Discord-Bot/badges/gpa.svg)](https://codeclimate.com/github/shibdib/EVE-Discord-Bot)  [![Build Status](https://scrutinizer-ci.com/g/shibdib/EVE-Discord-Bot/badges/build.png?b=master)](https://scrutinizer-ci.com/g/shibdib/EVE-Discord-Bot/build-status/master)  [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/shibdib/EVE-Discord-Bot/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/shibdib/EVE-Discord-Bot/?branch=master)
 
 
 Discord bot to manage an EVE Online Corp/Alliance discord "guild".
@@ -6,3 +6,6 @@ Discord bot to manage an EVE Online Corp/Alliance discord "guild".
 Currently in a closed test state, not recommended for production yet.
 
 Have a look at the [Wiki for info](https://github.com/shibdib/EVE-Discord-Bot/wiki)
+
+
+Or jump into the [MAMBA Discord](https://discord.gg/0qsFaq4lpZHWX0pB) and ask around for Mr Twinkie

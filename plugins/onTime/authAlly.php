@@ -41,8 +41,8 @@ $loop->addPeriodicTimer(21600, function() use ($logger, $discord, $config) {
         $result3 = $conn->query($sql3);
         $num_rows2 = $result3->num_rows;
 
-        if ($num_rows2>=1){
-            while($rows = $result3->fetch_assoc()){
+        if ($num_rows2 >= 1) {
+            while ($rows = $result3->fetch_assoc()) {
                 $charid = $rows['characterID'];
                 $discordid = $rows['discordID'];
                 $url = "https://api.eveonline.com/eve/CharacterAffiliation.xml.aspx?ids=$charid";
@@ -51,8 +51,8 @@ $loop->addPeriodicTimer(21600, function() use ($logger, $discord, $config) {
                     foreach ($xml->result->rowset->row as $character) {
                         if ($character->attributes()->allianceID != $allyID) {
                             $discord->api("guild")->members()->redeploy($guildID, $discordid, "");
-                            $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user #" . $discordid ." alliance roles removed via auth.");
-                            $logger->info("Removing user ". $discordid);
+                            $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user #" . $discordid . " alliance roles removed via auth.");
+                            $logger->info("Removing user " . $discordid);
 
                             $sql4 = "UPDATE authUsers SET active='no' WHERE discordID='$discordid'";
                             $result4 = $conn->query($sql4);

@@ -49,30 +49,35 @@ class charInfo
 
             // Most EVE players on Discord use their ingame name, so lets support @highlights
             $messageString = stristr($data["messageString"], "@") ? str_replace("<@", "", str_replace(">", "", $data["messageString"])) : $data["messageString"];
-            if(is_numeric($messageString)) // The person used @highlighting, so now we got a discord id, lets map that to a name
+            if (is_numeric($messageString)) {
+                // The person used @highlighting, so now we got a discord id, lets map that to a name
                 $messageString = dbQueryField("SELECT name FROM usersSeen WHERE id = :id", "name", array(":id" => $messageString));
+            }
 
             $url = "http://rena.karbowiak.dk/api/search/character/{$messageString}/";
             $data = @json_decode(downloadData($url), true)["character"];
 
-            if(empty($data))
-                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no results was returned.");
+            if (empty($data)) {
+                            return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no results was returned.");
+            }
 
-            if(count($data) > 1) {
+            if (count($data) > 1) {
                 $results = array();
-                foreach($data as $char)
-                    $results[] = $char["characterName"];
+                foreach ($data as $char) {
+                                    $results[] = $char["characterName"];
+                }
 
                 return $this->discord->api("channel")->messages()->create($channelID, "**Error:** more than one result was returned: " . implode(", ", $results));
             }
 
             // Get stats
             $characterID = $data[0]["characterID"];
-            $statsURL = "https://beta.eve-kill.net/api/charInfo/characterID/" . urlencode($characterID) ."/";
+            $statsURL = "https://beta.eve-kill.net/api/charInfo/characterID/" . urlencode($characterID) . "/";
             $stats = json_decode(downloadData($statsURL), true);
 
-            if(empty($stats))
-                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no data available");
+            if (empty($stats)) {
+                            return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no data available");
+            }
 
             $characterName = @$stats["characterName"];
             $corporationName = @$stats["corporationName"];

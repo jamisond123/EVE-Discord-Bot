@@ -53,21 +53,21 @@ class time
             $date = date("d-m-Y");
             $fullDate = date("Y-m-d H:i:s");
             $datetime = new DateTime($fullDate);
-            $et = $datetime->setTimezone(new DateTimeZone("America/New_York"));
-            $et = $et->format("H:i:s");
-            $pt = $datetime->setTimezone(new DateTimeZone("America/Los_Angeles"));
-            $pt = $pt->format("H:i:s");
+            $est = $datetime->setTimezone(new DateTimeZone("America/New_York"));
+            $est = $est->format("H:i:s");
+            $pst = $datetime->setTimezone(new DateTimeZone("America/Los_Angeles"));
+            $pst = $pst->format("H:i:s");
             $utc = $datetime->setTimezone(new DateTimeZone("UTC"));
             $utc = $utc->format("H:i:s");
             $cet = $datetime->setTimezone(new DateTimeZone("Europe/Copenhagen"));
             $cet = $cet->format("H:i:s");
             $msk = $datetime->setTimezone(new DateTimeZone("Europe/Moscow"));
             $msk = $msk->format("H:i:s");
-            $aest = $datetime->setTimezone(new DateTimeZone("Australia/Sydney"));
-            $aest = $aest->format("H:i:s");
+            $aus = $datetime->setTimezone(new DateTimeZone("Australia/Sydney"));
+            $aus = $aus->format("H:i:s");
 
             $this->logger->info("Sending time info to {$channelName} on {$guildName}");
-            $this->discord->api("channel")->messages()->create($channelID, "**EVE Time:** {$utc} / **EVE Date:** {$date} / **PT:** {$pt} / **ET:** {$et} / **CET:** {$cet} / **MSK:** {$msk} / **AEST:** {$aest}");
+            $this->discord->api("channel")->messages()->create($channelID, "**EVE Time:** {$utc} / **EVE Date:** {$date} / **PT:** {$pst} / **ET:** {$est} / **CET:** {$cet} / **MSK:** {$msk} / **AEST:** {$aus}");
         }
     }
 

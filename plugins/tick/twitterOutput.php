@@ -68,15 +68,16 @@ class twitterOutput
             try {
                 $data = $this->twitter->load(Twitter::ME_AND_FRIENDS, 5);
                 foreach ($data as $message) {
-                    $text = (array)$message->text;
-                    $createdAt = (array)$message->created_at;
-                    $postedBy = (array)$message->user->name;
-                    $screenName = (array)$message->user->screen_name;
-                    $id = (int)$message->id;
+                    $text = (array) $message->text;
+                    $createdAt = (array) $message->created_at;
+                    $postedBy = (array) $message->user->name;
+                    $screenName = (array) $message->user->screen_name;
+                    $id = (int) $message->id;
                     $this->lastID = getPermCache("twitterLatestID"); // get the last posted ID
 
-                    if ($id <= $this->lastID)
-                        continue;
+                    if ($id <= $this->lastID) {
+                                            continue;
+                    }
 
                     $this->maxID = max($id, $this->maxID);
 
@@ -87,8 +88,9 @@ class twitterOutput
 
                     $continue = true;
 
-                    if (sizeof($data))
-                        setPermCache("twitterLatestID", $this->maxID);
+                    if (sizeof($data)) {
+                                            setPermCache("twitterLatestID", $this->maxID);
+                    }
                 }
             } catch (Exception $e) {
                 //$this->logger->err("Twitter Error: " . $e->getMessage()); // Don't show there was an error, it's most likely just a rate limit

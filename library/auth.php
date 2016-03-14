@@ -37,7 +37,8 @@ function insertUser($db, $user, $pass, $dbName, $userID, $characterID, $eveName,
 
     $conn = new mysqli($db, $user, $pass, $dbName);
 
-    $sql = "INSERT INTO authUsers (characterID, discordID, eveName, role) VALUES ('$characterID','$userID','$eveName','$type')";
+    $sql = "REPLACE into authUsers (characterID, discordID, eveName, active, role) values('$characterID','$userID','$eveName', 'yes', '$type')";
+
 
     if ($conn->query($sql) === TRUE) {
         return null;

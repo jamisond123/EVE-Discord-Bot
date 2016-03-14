@@ -38,11 +38,12 @@ $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
 $pluginDirs = array(__DIR__ . "/plugins/onMessage/*.php");
 $plugins = array();
-foreach($pluginDirs as $dir) {
+foreach ($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
         // Only load the plugins we want to load, according to the config
-        if(!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"]))
-            continue;
+        if (!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"])) {
+                    continue;
+        }
 
         require_once($plugin);
         $logger->info("Loading in chat plugin: " . str_replace(".php", "", basename($plugin)));
@@ -60,7 +61,7 @@ include "plugins/keepAlive.php";
 $logger->info("Loaded: " . count($plugins) . " plugins");
 
 // Setup the connection handlers
-$client->on("connect", function () use ($logger, $client, $token) {
+$client->on("connect", function() use ($logger, $client, $token) {
     $logger->notice("Connected!");
     $client->send(
         json_encode(
@@ -82,7 +83,7 @@ $client->on("connect", function () use ($logger, $client, $token) {
     );
 });
 
-$client->on("message", function ($message) use ($client, $logger, $discord, $plugins, $config) {
+$client->on("message", function($message) use ($client, $logger, $discord, $plugins, $config) {
     // Decode the data
     $data = json_decode($message->getData());
 
@@ -99,13 +100,15 @@ $client->on("message", function ($message) use ($client, $logger, $discord, $plu
             $data = $data->d;
 
             // Skip if it's the bot itself that wrote something
-            if($data->author->username == $config["bot"]["name"])
-                continue;
+            if ($data->author->username == $config["bot"]["name"]) {
+                            continue;
+            }
 
             // Create the data array for the plugins to use
             $channelData = $discord->api("channel")->show($data->channel_id);
-            if ($channelData["is_private"])
-                $channelData["name"] = $channelData["recipient"]["username"];
+            if ($channelData["is_private"]) {
+                            $channelData["name"] = $channelData["recipient"]["username"];
+            }
 
             $msgData = array(
                 "isBotOwner" => $data->author->username == $config["discord"]["admin"] || $data->author->id == $config["discord"]["adminID"] ? true : false,
@@ -126,8 +129,9 @@ $client->on("message", function ($message) use ($client, $logger, $discord, $plu
             );
 
             // Update the users status
-            if($data->author->id)
-                dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastSpoke, lastWritten) VALUES (:id, :name, :lastSeen, :lastSpoke, :lastWritten)", array(":id" => $data->author->id, ":lastSeen" => date("Y-m-d H:i:s"), ":name" => $data->author->username, ":lastSpoke" => date("Y-m-d H:i:s"), ":lastWritten" => $data->content));
+            if ($data->author->id) {
+                            dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastSpoke, lastWritten) VALUES (:id, :name, :lastSeen, :lastSpoke, :lastWritten)", array(":id" => $data->author->id, ":lastSeen" => date("Y-m-d H:i:s"), ":name" => $data->author->username, ":lastSpoke" => date("Y-m-d H:i:s"), ":lastWritten" => $data->content));
+            }
 
             // Run the plugins
             foreach ($plugins as $plugin) {
@@ -152,7 +156,7 @@ $client->on("message", function ($message) use ($client, $logger, $discord, $plu
             break;
 
         case "PRESENCE_UPDATE": // Update a users status
-            if($data->d->user->id) {
+            if ($data->d->user->id) {
                 $id = $data->d->user->id;
                 $lastSeen = date("Y-m-d H:i:s");
                 $lastStatus = $data->d->status;
@@ -167,7 +171,7 @@ $client->on("message", function ($message) use ($client, $logger, $discord, $plu
     }
 });
 
-$client->open()->then(function () use ($logger, $client) {
+$client->open()->then(function() use ($logger, $client) {
     $logger->notice("Connection opened");
 });
 

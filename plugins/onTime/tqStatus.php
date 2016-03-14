@@ -31,7 +31,14 @@ $loop->addPeriodicTimer(300, function() use ($logger, $discord, $config) {
 
     // Store the current status in the permanent cache
     $oldStatus = getPermCache("eveTQStatus");
-    if($tqStatus !== $oldStatus) {
+    if ($tqStatus !== $oldStatus) {
+        if ($tqStatus == "Offline") {
+            /** @noinspection PhpUnusedLocalVariableInspection */
+            $api = serverStatus();
+            if ($api = "true") {
+                return null;
+            }
+        }
         $msg = "**New TQ Status:** ***{$tqStatus}*** / ***{$tqOnline}*** users online.";
         $logger->info("TQ Status changed from {$oldStatus} to {$tqStatus}");
         $discord->api("channel")->messages()->create($config["plugins"]["periodicTQStatus"]["channelID"], $msg);

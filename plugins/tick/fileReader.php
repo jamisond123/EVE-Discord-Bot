@@ -42,8 +42,9 @@ class fileReader
         $this->logger = $logger;
         $this->channelConfig = $config["plugins"]["fileReader"]["channelConfig"];
         $this->db = $config["plugins"]["fileReader"]["db"];
-        if (!is_file($this->db))
-            touch($this->db);
+        if (!is_file($this->db)) {
+                    touch($this->db);
+        }
     }
 
     /**
@@ -69,8 +70,9 @@ class fileReader
                 $message = "";
                 foreach ($data as $row) {
                     $row = str_replace("\n", "", str_replace("\r", "", str_replace("^@", "", $row)));
-                    if ($row == "" || $row == " ")
-                        continue;
+                    if ($row == "" || $row == " ") {
+                                            continue;
+                    }
 
                     $message .= $row . " | ";
                     usleep(300000);
@@ -80,21 +82,20 @@ class fileReader
                 $message = trim(substr($message, 0, -2));
 
                 $defaultID = 0;
-                foreach($this->channelConfig as $chanName => $chanConfig) {
+                foreach ($this->channelConfig as $chanName => $chanConfig) {
                     // If a channel is marked as default (usually the first on the list) we populate defaultID here, just to make sure..
-                    if($chanConfig["default"] == true)
-                        $defaultID = $chanConfig["channelID"];
+                    if ($chanConfig["default"] == true) {
+                                            $defaultID = $chanConfig["channelID"];
+                    }
 
                     // Search for a channel where the search string matches the actual message
-                    if(stristr($message, $chanConfig["searchString"])) {
+                    if (stristr($message, $chanConfig["searchString"])) {
                         $message = $chanConfig["textStringPrepend"] . " " . $message . " " . $chanConfig["textStringAppend"];
                         $channelID = $chanConfig["channelID"];
-                    }
-                    elseif($chanConfig["searchString"] == false) { // If no match was found, and searchString is false, just use that
-                        $message = $chanConfig["textStringPrepend"] . " " . $message . " " .$chanConfig["textStringAppend"];
+                    } elseif ($chanConfig["searchString"] == false) { // If no match was found, and searchString is false, just use that
+                        $message = $chanConfig["textStringPrepend"] . " " . $message . " " . $chanConfig["textStringAppend"];
                         $channelID = $chanConfig["channelID"];
-                    }
-                    else { // If something fucked up, we'll just go this route..
+                    } else { // If something fucked up, we'll just go this route..
                         $channelID = isset($defaultID) ? $defaultID : $chanConfig["channelID"]; // If default ID isn't set, then we just pick whatever we can..
                     }
                 }

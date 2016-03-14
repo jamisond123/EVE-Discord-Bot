@@ -52,22 +52,26 @@ class wolframAlpha
             $response = $this->wolf->getResults($messageString);
 
             // There was an error
-            if($response->isError())
-                var_dump($response->error);
+            if ($response->isError()) {
+                            var_dump($response->error);
+            }
 
             $guess = $response->getPods();
-            if(isset($guess[1])) {
+            if (isset($guess[1])) {
                 $guess = $guess[1]->getSubpods();
                 $text = $guess[0]->plaintext;
                 $image = $guess[0]->image->attributes["src"];
 
-                if(stristr($text, "\n"))
-                    $text = str_replace("\n", " | ", $text);
+                if (stristr($text, "\n")) {
+                                    $text = str_replace("\n", " | ", $text);
+                }
 
-                if(!empty($text))
-                    $this->discord->api("channel")->messages()->create($channelID, $text);
-                if(!empty($image))
-                    $this->discord->api("channel")->messages()->create($channelID, $image);
+                if (!empty($text)) {
+                                    $this->discord->api("channel")->messages()->create($channelID, $text);
+                }
+                if (!empty($image)) {
+                                    $this->discord->api("channel")->messages()->create($channelID, $image);
+                }
             }
         }
     }
