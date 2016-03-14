@@ -103,9 +103,6 @@ class notifications {
             if ($keyCounter == 0) {
                 // Schedule it for right now
                 setPermCache("notificationCheck{$keyID}{$keyOwner}{$characterID}", time() - 5);
-            } else {
-                $rescheduleTime = time() + ((1805 / $this->keyCount) * $keyCounter);
-                setPermCache("notificationCheck{$keyID}{$keyOwner}{$characterID}", $rescheduleTime);
             }
             $keyCounter++;
         }
@@ -141,9 +138,7 @@ class notifications {
      */
     function getNotifications($keyID, $vCode, $characterID)
     {
-        try { // Seriously CCP.. *sigh*
-            // Ignore notifications from these douchebags..
-            $ignoreNames = array("CCP");
+        try {
             $url = "https://api.eveonline.com/char/Notifications.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}";
             $data = json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)), true);
             $data = $data["result"]["rowset"]["row"];
@@ -153,24 +148,16 @@ class notifications {
             }
             $fixedData = array();
             // Sometimes there is only ONE notification, so.. yeah..
+            $fixedData[] = $data["@attributes"];
             if (count($data) > 1) {
-                foreach ($data as $getFuckedCCP) {
-                                    $fixedData[] = $getFuckedCCP["@attributes"];
+                foreach ($data as $multiNotif) {
+                                    $fixedData[] = $multiNotif["@attributes"];
                 }
-            } else {
-                            $fixedData[] = $data["@attributes"];
             }
             foreach ($fixedData as $notification) {
                 $notificationID = $notification["notificationID"];
                 $typeID = $notification["typeID"];
-                //$senderID = $notification["senderID"];
-                $senderName = $notification["senderName"];
                 $sentDate = $notification["sentDate"];
-                //$read = $notification["read"];
-                // If the senderName is in the list of ignores names, then continue and ignore it..
-                if (in_array($senderName, $ignoreNames)) {
-                                    continue;
-                }
                 if ($notificationID > $this->newestNotificationID) {
                     $notificationString = explode("\n", $this->getNotificationText($keyID, $vCode, $characterID, $notificationID));
                     switch ($typeID) {
@@ -299,7 +286,7 @@ class notifications {
                 }
             }
         } catch (Exception $e) {
-            var_dump("Notification Error: " . $e->getMessage());
+            $this->logger->info("Notification Error: " . $e->getMessage());
         }
     }
     /**
