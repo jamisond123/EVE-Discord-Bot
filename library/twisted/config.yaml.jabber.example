@@ -1,10 +1,10 @@
 protocol: xmpp
-admins: [Lucia Denniard]
-channels: [test@conference.xxpizzaxx.com, other@conference.public.xxpizzaxx.com]
-moduleblacklist: [rainbowdash]
-network: xxpizzaxx.com
-server: xxpizzaxx.com
-username: twistedbot
-nickname: TwistedBot
-password: passworgoeshere
+admins: []
+channels: []
+moduleblacklist: []
+network: jabber_domain
+server: jabber_domain
+username: jabber_name
+nickname: jabber_name
+password: password
 verbosity: 2
