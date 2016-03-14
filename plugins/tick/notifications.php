@@ -133,10 +133,12 @@ class notifications
             }
         }
     }
+
     /**
      * @param $keyID
      * @param $vCode
      * @param $characterID
+     * @return null
      */
     function getNotifications($keyID, $vCode, $characterID)
     {
@@ -317,15 +319,16 @@ class notifications
         return $data;
     }
     /**
-     * @param $msgData
+     *
      */
-    function onMessage($msgData)
+    function onMessage()
     {
     }
 
     /**
      * @param string $type
      * @param string $typeID
+     * @return mixed
      */
     function apiData($type, $typeID) {
         $downloadFrom = "";
