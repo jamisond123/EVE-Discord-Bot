@@ -66,7 +66,7 @@ class auth
      */
     function onMessage($msgData)
     {
-        $userID = @$msgData["channel"]["recipient"]["id"];
+        $userID = $msgData["message"]["fromID"];
         $userName = $msgData["message"]["from"];
         $message = $msgData["message"]["message"];
         $channelID = $msgData["message"]["channelID"];
@@ -149,7 +149,7 @@ class auth
         return array(
             "name" => "auth",
             "trigger" => array("!auth"),
-            "information" => "SSO based auth system. " . $this->ssoUrl . " be sure you ***private message the bot when performing this command.***"
+            "information" => "SSO based auth system. " . $this->ssoUrl . " Visit the link and login with your main EVE account, select the correct character, and put the !auth <string> you receive in chat."
         );
     }
     /**
