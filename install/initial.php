@@ -25,7 +25,7 @@
 
 // Check that all the databases are created!
 $databases = array("ccpData.sqlite", "sluggard.sqlite");
-$databaseDir = __DIR__ . "../database";
+$databaseDir = __DIR__ . "/../database";
 if (!file_exists($databaseDir)) {
     mkdir($databaseDir);
 }

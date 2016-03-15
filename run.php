@@ -41,7 +41,6 @@ $logger->addWriter($writer);
 $initial = getPermCache('initialInstall');
 if ($initial != "1") {
     include  __DIR__ . "/install/initial.php";
-    file_put_contents( __DIR__ . '/install/initial.txt','1');
 }
 
 // Initiate background tasks
