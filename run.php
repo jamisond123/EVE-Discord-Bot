@@ -38,8 +38,8 @@ $logger = new \Zend\Log\Logger();
 $writer = new \Zend\Log\Writer\Stream("php://output");
 $logger->addWriter($writer);
 
-$initialInstall = __DIR__ . "/install/initial.txt";
-if (!file_exists($initialInstall)) {
+$initial = getPermCache('initialInstall');
+if ($initial != "1") {
     include  __DIR__ . "/install/initial.php";
     file_put_contents( __DIR__ . '/install/initial.txt','1');
 }

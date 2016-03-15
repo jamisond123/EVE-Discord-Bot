@@ -25,7 +25,7 @@
 
 // Check that all the databases are created!
 $databases = array("ccpData.sqlite", "sluggard.sqlite");
-$databaseDir = __DIR__ . "/database";
+$databaseDir = __DIR__ . "../database";
 if (!file_exists($databaseDir)) {
     mkdir($databaseDir);
 }
@@ -35,6 +35,7 @@ foreach ($databases as $db) {
     }
 }
 // Create the sluggard.sqlite tables
-$logger->info("Checking for the presence of the database tables");
+$logger->info("Performing Initial DB Install");
 updateSluggardDB($logger);
 updateCCPData($logger);
+setPermCache("initialInstall", "1");
