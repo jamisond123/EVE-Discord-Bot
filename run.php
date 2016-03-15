@@ -38,10 +38,10 @@ $logger = new \Zend\Log\Logger();
 $writer = new \Zend\Log\Writer\Stream("php://output");
 $logger->addWriter($writer);
 
-$initialInstall = __DIR__ . "/install/initial.php";
-if (file_exists($initialInstall)) {
+$initialInstall = __DIR__ . "/install/initial.txt";
+if (!file_exists($initialInstall)) {
     include  __DIR__ . "/install/initial.php";
-    rename(__DIR__ . "/install/initial.php", __DIR__ . "/install/oldInitial.php");
+    file_put_contents( __DIR__ . '/install/initial.txt','1');
 }
 
 // Initiate background tasks
