@@ -111,9 +111,6 @@ class evemails {
         $data = $data["result"]["rowset"]["row"];
 
         $mails = array();
-        if (empty($data["@attributes"])) {
-            return;
-        }
         $mails[] = $data["@attributes"];
         // Sometimes there is only ONE notification, so.. yeah..
         if (count($data) > 1) {
