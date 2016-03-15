@@ -41,8 +41,7 @@ $logger->addWriter($writer);
 $initialInstall = __DIR__ . "/install/initial.php";
 if (file_exists($initialInstall)) {
     include  __DIR__ . "/install/initial.php";
-    $oldInstall = __DIR__ . "/install/oldInitial.php";
-    rename($initialInstall, $oldInstall);
+    rename(__DIR__ . "/install/initial.php", __DIR__ . "/install/oldInitial.php");
 }
 
 // Initiate background tasks
