@@ -39,7 +39,7 @@ $writer = new \Zend\Log\Writer\Stream("php://output");
 $logger->addWriter($writer);
 
 $initialInstall = __DIR__ . "/install/initial.php";
-if (!file_exists($initialInstall)) {
+if (file_exists($initialInstall)) {
     include  __DIR__ . "/install/initial.php";
     delete($initialInstall);
 }
