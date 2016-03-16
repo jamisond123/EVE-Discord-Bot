@@ -93,7 +93,7 @@ class deleteFit
     function information()
     {
         return array(
-            "name" => "deleteFit",
+            "name" => "deletefit",
             "trigger" => array("!deletefit"),
             "information" => "Delete a saved fit. **!deletefit <fit name>**"
         );
