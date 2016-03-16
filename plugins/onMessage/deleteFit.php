@@ -24,9 +24,9 @@
  */
 
 /**
- * Class showFit
+ * Class deleteFit
  */
-class showFit
+class deleteFit
 {
     /**
      * @var
@@ -72,28 +72,17 @@ class showFit
         $data = command($message, $this->information()["trigger"]);
         if (isset($data["trigger"])) {
             $fitChoice = stristr($data["messageString"], "@") ? str_replace("<@", "", str_replace(">", "", $data["messageString"])) : $data["messageString"];
-            if ($fitChoice == "list"){
-                $list = dbQuery("SELECT fit FROM shipFits", array());
-                if ($list) {
-                    $msg = "Currently Saved Fits: ";
-                    foreach ($list as $fit) {
-                        $msg .= "**" . ucwords($fit["fit"]) . "**, ";
-                    }
-                    $msg .= " ";
-                    $this->discord->api("channel")->messages()->create($channelID, $msg);
-                    return null;
-                }
+
+            if ($channelID != $this->fitChannel) {
+                $this->discord->api("channel")->messages()->create($channelID, "Not allowed to delete fits from this channel.");
+                Return Null;
             }
 
-            $fit = dbQueryRow("SELECT * FROM shipFits WHERE (fit = :fit COLLATE NOCASE)", array(":fit" => $fitChoice));
+            dbExecute("DELETE FROM shipFits WHERE fit='$fitChoice'", array());
 
-            if ($fit) {
-                $message = "``` Fit Submitted By: {$fit["submitter"]}```\n{$fit["fitLink"]}";
-                $this->logger->info("Sending fit to {$channelID}");
-                $this->discord->api("channel")->messages()->create($channelID, $message);
-            } else {
-                $this->discord->api("channel")->messages()->create($channelID, "**Error:** no fit found. Try **!fit list** for a list of saved fits.");
-            }
+            $message = "``` {$fitChoice} deleted from save ship fittings. ```";
+            $this->logger->info("Fit Deleted - {$fitChoice}");
+            $this->discord->api("channel")->messages()->create($channelID, $message);
         }
     }
 
@@ -103,9 +92,9 @@ class showFit
     function information()
     {
         return array(
-            "name" => "fit",
-            "trigger" => array("!fit"),
-            "information" => "Show a saved fitting. Use **!fit list** to see a list of currently save fittings and then **!fit <fit_name>** for details."
+            "name" => "deleteFit",
+            "trigger" => array("!deletefit"),
+            "information" => "Delete a saved fit. **!deletefit <fit name>**"
         );
     }
 }
