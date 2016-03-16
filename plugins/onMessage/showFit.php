@@ -74,13 +74,14 @@ class showFit
             if ($fitChoice == "list"){
                 $list = dbQueryRow("SELECT fit FROM shipFits", array());
                 if ($list) {
-                    $msg = "```";
+                    $msg = " ";
                     foreach ($list as $fit) {
-                        $msg .= "Currently Saved Fits: " . $fit . ", ";
+                        $msg .= "Currently Saved Fits: **" . $fit . "**, ";
                     }
-                    $msg .= "```";
+                    $msg .= " ";
                     $this->logger->info("Sending item information info to {$channelName} on {$guildName}");
                     $this->discord->api("channel")->messages()->create($channelID, $msg);
+                    return null;
                 }
             }
             $fit = dbQueryRow("SELECT * FROM shipFits WHERE (fit = :fit COLLATE NOCASE)", array(":fit" => $fitChoice));
