@@ -63,6 +63,7 @@ class deleteFit
 
     /**
      * @param $msgData
+     * @return null
      */
     function onMessage($msgData)
     {
