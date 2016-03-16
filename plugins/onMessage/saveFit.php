@@ -82,7 +82,7 @@ class saveFit
             $cleanApo = str_replace("'", "''", $field[1]);
 
             $fit = addslashes($cleanApo);
-            $insert = dbQuery("INSERT INTO shipFits (submitter,fit,fitLink) VALUES ('$userName', '$fitName', '$fit')", array());
+            $insert = dbExecute("INSERT INTO shipFits (submitter,fit,fitLink) VALUES ('$userName', '$fitName', '$fit')", array());
 
             if($insert){
                 $msg = $field[0] . " Successfully Submitted.";
@@ -100,7 +100,7 @@ class saveFit
         return array(
             "name" => "savefit",
             "trigger" => array("!savefit"),
-            "information" => "Use !savefit <fit_name> <eft_fit> to save a fit to be called using the !fit command. Please include underscores in place of spaces for the fit name. They will be removed later on."
+            "information" => "Use !savefit <fit_name> <https://o.smium.org link to fit> to save a fit to be called using the !fit command. Please include underscores in place of spaces for the fit name. They will be automatically removed once the fit is submitted."
         );
     }
     /**

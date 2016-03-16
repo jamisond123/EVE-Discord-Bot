@@ -72,11 +72,11 @@ class showFit
         if (isset($data["trigger"])) {
             $fitChoice = stristr($data["messageString"], "@") ? str_replace("<@", "", str_replace(">", "", $data["messageString"])) : $data["messageString"];
             if ($fitChoice == "list"){
-                $list = dbQueryRow("SELECT fit FROM shipFits", array());
+                $list = dbQuery("SELECT fit FROM shipFits", array());
                 if ($list) {
                     $msg = "Currently Saved Fits: ";
                     foreach ($list as $fit) {
-                        $msg .= "**" . ucwords($fit) . "**, ";
+                        $msg .= "**" . ucwords($fit["fit"]) . "**, ";
                     }
                     $msg .= " ";
                     $this->discord->api("channel")->messages()->create($channelID, $msg);
@@ -103,7 +103,7 @@ class showFit
         return array(
             "name" => "fit",
             "trigger" => array("!fit"),
-            "information" => "Show a saved fitting. !fit <fit_name>"
+            "information" => "Show a saved fitting. Use **!fit list** to see a list of currently save fittings and then **!fit <fit_name>** for details."
         );
     }
 }
