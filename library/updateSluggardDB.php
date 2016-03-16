@@ -25,7 +25,7 @@
 
 function updateSluggardDB($logger)
 {
-    $tables = array("users", "usersSeen", "storage", "authUsers", "pendingUsers", "shipFits");
+    $tables = array("users", "usersSeen", "storage", "shipFits");
 
     $tableCreateCode = array(
         "users" => "
