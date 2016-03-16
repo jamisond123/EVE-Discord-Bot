@@ -77,6 +77,12 @@ class getKillmails
         $this->lossMail = $config["plugins"]["getKillmails"]["lossMails"];
         $this->spamAmount = $config["plugins"]["getKillmails"]["spamAmount"];
         if (2 > 1) {
+            //Check for a higher set value
+            $currentID = getPermCache("newestKillmailID");
+            if($currentID == null){
+                setPermCache("newestKillmailID", $this->startMail);
+            }
+
             // Schedule it for right now
             setPermCache("killmailCheck{$this->corpID}", time() - 5);
         }
