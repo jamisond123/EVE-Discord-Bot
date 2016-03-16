@@ -79,7 +79,7 @@ class getKillmails
         if (2 > 1) {
             //Check for a higher set value
             $currentID = getPermCache("newestKillmailID");
-            if($currentID == null){
+            if ($currentID == null) {
                 setPermCache("newestKillmailID", $this->startMail); 
             }
 
