@@ -77,7 +77,6 @@ $config["enabledPlugins"] = array(
     "apiauth", //api based auth system
     "auth", //sso based auth system
     "charInfo", // eve character info using eve-kill
-    //"corpApplication", //still a WIP
     "corpInfo", // eve corp info
     "eveStatus", // tq status
     "help", // bot help program, will list active addons
@@ -92,6 +91,7 @@ $config["enabledPlugins"] = array(
     "twitterOutput", // twitter input to stay up to date on eve happenings
     //"saveFit", // fitting tool, still a WIP
     //"showFit", // show fittings saved using the plugin above
+    //"deleteFit", // Delete saved fittings
     "getKillmails" // show corp killmails in a chat channel
 );
 
@@ -154,7 +154,7 @@ $config["plugins"] = array(
         "url" => "" // put a url here if using sso auth too your sso page.
     ),
     "saveFits" => array(
-        "channel" => "" //Restrict saving fits to this channel. Use this to control who has access to saving fits. Use the channel ID.
+        "channel" => 12345 //Restrict saving/deleting fits to this channel. Use this to control who has access to altering fits. Use the channel ID.
     ),
     "getKillmails" => array(
         "channel" => "", //killmails post to this channel
