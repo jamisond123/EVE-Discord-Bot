@@ -57,8 +57,10 @@ class saveFit
     function tick()
     {
     }
+
     /**
      * @param $msgData
+     * @return null
      */
     function onMessage($msgData)
     {
@@ -72,6 +74,10 @@ class saveFit
                 $this->discord->api("channel")->messages()->create($channelID, "Not allowed to add fits from this channel.");
                 Return Null;
             }
+            if(substr_count($data["messageString"], " ") > 2){
+                $this->discord->api("channel")->messages()->create($channelID, "Submission format incorrect. Should be !savefit <fit_name> <https://o.smium.org/ link>");
+                Return Null;
+            }
             $field = explode(" ", $data["messageString"], 2);
             $post = [
                 'fitName' => $field[0],
@@ -82,13 +88,12 @@ class saveFit
             $cleanApo = str_replace("'", "''", $field[1]);
 
             $fit = addslashes($cleanApo);
-            $insert = dbExecute("INSERT INTO shipFits (submitter,fit,fitLink) VALUES ('$userName', '$fitName', '$fit')", array());
+            dbExecute("INSERT INTO shipFits (submitter,fit,fitLink) VALUES ('$userName', '$fitName', '$fit')", array());
 
-            if($insert){
-                $msg = $field[0] . " Successfully Submitted.";
-                $this->logger->info("Fit submitted by " . $userName);
-                $this->discord->api("channel")->messages()->create($channelID, $msg);
-            }
+            $msg = $fitName . " Successfully Submitted.";
+            $this->logger->info("Fit - " . $fitName ." submitted by " . $userName);
+            $this->discord->api("channel")->messages()->create($channelID, $msg);
+
         }
         return null;
     }
@@ -100,7 +105,7 @@ class saveFit
         return array(
             "name" => "savefit",
             "trigger" => array("!savefit"),
-            "information" => "Use !savefit <fit_name> <https://o.smium.org link to fit> to save a fit to be called using the !fit command. Please include underscores in place of spaces for the fit name. They will be automatically removed once the fit is submitted."
+            "information" => "Use **!savefit <fit_name> <https://o.smium.org link to fit>** to save a fit to be called using the !fit command. Please include underscores in place of spaces for the fit name. They will be automatically removed once the fit is submitted."
         );
     }
     /**
