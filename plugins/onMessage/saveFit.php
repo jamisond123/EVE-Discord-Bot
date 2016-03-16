@@ -74,7 +74,7 @@ class saveFit
                 $this->discord->api("channel")->messages()->create($channelID, "Not allowed to add fits from this channel.");
                 Return Null;
             }
-            if(substr_count($data["messageString"], " ") > 2){
+            if (substr_count($data["messageString"], " ") > 2) {
                 $this->discord->api("channel")->messages()->create($channelID, "Submission format incorrect. Should be !savefit <fit_name> <https://o.smium.org/ link>");
                 Return Null;
             }
@@ -91,7 +91,7 @@ class saveFit
             dbExecute("INSERT INTO shipFits (submitter,fit,fitLink) VALUES ('$userName', '$fitName', '$fit')", array());
 
             $msg = $fitName . " Successfully Submitted.";
-            $this->logger->info("Fit - " . $fitName ." submitted by " . $userName);
+            $this->logger->info("Fit - " . $fitName . " submitted by " . $userName);
             $this->discord->api("channel")->messages()->create($channelID, $msg);
 
         }
