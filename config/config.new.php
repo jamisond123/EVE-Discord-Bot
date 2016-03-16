@@ -77,7 +77,6 @@ $config["enabledPlugins"] = array(
     "apiauth", //api based auth system
     "auth", //sso based auth system
     "charInfo", // eve character info using eve-kill
-    //"corpApplication", //still a WIP
     "corpInfo", // eve corp info
     "eveStatus", // tq status
     "help", // bot help program, will list active addons
