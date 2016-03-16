@@ -44,7 +44,7 @@ class apiauth
         $this->dbName = $config["database"]["database"];
         $this->corpID = $config["plugins"]["auth"]["corpid"];
         $this->guildID = $config["plugins"]["auth"]["guildID"];
-        $this->roleName = $config["plugins"]["auth"]["memberRole"];
+        $this->roleName = $config["plugins"]["auth"]["corpmemberRole"];
         $this->nameEnforce = $config["plugins"]["auth"]["nameEnforce"];
     }
     /**
