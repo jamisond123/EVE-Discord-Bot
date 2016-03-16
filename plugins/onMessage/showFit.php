@@ -74,12 +74,11 @@ class showFit
             if ($fitChoice == "list"){
                 $list = dbQueryRow("SELECT fit FROM shipFits", array());
                 if ($list) {
-                    $msg = " ";
+                    $msg = "Currently Saved Fits: ";
                     foreach ($list as $fit) {
-                        $msg .= "Currently Saved Fits: **" . ucwords($fit) . "**, ";
+                        $msg .= "**" . ucwords($fit) . "**, ";
                     }
                     $msg .= " ";
-                    $this->logger->info("Sending item information info to {$channelName} on {$guildName}");
                     $this->discord->api("channel")->messages()->create($channelID, $msg);
                     return null;
                 }
