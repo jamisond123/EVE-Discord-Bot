@@ -80,7 +80,7 @@ class deleteFit
 
             dbExecute("DELETE FROM shipFits WHERE fit='$fitChoice'", array());
 
-            $message = "``` {$fitChoice} deleted from save ship fittings. ```";
+            $message = "``` {$fitChoice} Deleted from saved ship fittings. ```";
             $this->logger->info("Fit Deleted - {$fitChoice}");
             $this->discord->api("channel")->messages()->create($channelID, $message);
         }
