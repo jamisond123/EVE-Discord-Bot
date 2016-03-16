@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The MIT License (MIT)
  *
@@ -24,25 +23,8 @@
  * SOFTWARE.
  */
 
-// Require the vendor stuff
-require_once(__DIR__ . "/vendor/autoload.php");
-
-// Load the library files (Probably a prettier way to do this that i haven't thought up yet)
-foreach (glob(__DIR__ . "/library/*.php") as $lib) {
-    require_once($lib);
-}
-
-// Setup the event loop and logger
-$loop = \React\EventLoop\Factory::create();
-$logger = new \Zend\Log\Logger();
-$writer = new \Zend\Log\Writer\Stream("php://output");
-$logger->addWriter($writer);
-
-$initial = getPermCache('initialInstall');
-if ($initial != "1") {
-    include  __DIR__ . "/install/initial.php";
-}
-
-// Initiate background tasks
-include 'background.php';
-$logger->info("Initiating background tasks");
+// CCP Database Check
+$loop->addPeriodicTimer(86400, function() use ($logger, $discord, $config) {
+    $logger->info("Checking for updated CCP DB");
+    updateCCPData($logger);
+});

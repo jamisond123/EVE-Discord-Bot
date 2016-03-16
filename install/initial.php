@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The MIT License (MIT)
  *
@@ -24,25 +23,19 @@
  * SOFTWARE.
  */
 
-// Require the vendor stuff
-require_once(__DIR__ . "/vendor/autoload.php");
-
-// Load the library files (Probably a prettier way to do this that i haven't thought up yet)
-foreach (glob(__DIR__ . "/library/*.php") as $lib) {
-    require_once($lib);
+// Check that all the databases are created!
+$databases = array("ccpData.sqlite", "sluggard.sqlite");
+$databaseDir = __DIR__ . "/../database";
+if (!file_exists($databaseDir)) {
+    mkdir($databaseDir);
 }
-
-// Setup the event loop and logger
-$loop = \React\EventLoop\Factory::create();
-$logger = new \Zend\Log\Logger();
-$writer = new \Zend\Log\Writer\Stream("php://output");
-$logger->addWriter($writer);
-
-$initial = getPermCache('initialInstall');
-if ($initial != "1") {
-    include  __DIR__ . "/install/initial.php";
+foreach ($databases as $db) {
+    if (!file_exists($databaseDir . "/" . $db)) {
+        touch($databaseDir . "/" . $db);
+    }
 }
-
-// Initiate background tasks
-include 'background.php';
-$logger->info("Initiating background tasks");
+// Create the sluggard.sqlite tables
+$logger->info("Performing Initial DB Install");
+updateSluggardDB($logger);
+updateCCPData($logger);
+setPermCache("initialInstall", "1");

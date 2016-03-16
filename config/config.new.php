@@ -87,7 +87,7 @@ $config["enabledPlugins"] = array(
     "user", // discord user info
     "wolframAlpha", // a "smart" tool. Ask you bot questions with !wolf <question>
     "evemails", // evemail updater, will post corp and alliance mails to a channel.
-    "fileReader", // Jabber ping tool, or really anything. Will read a discord.db file and repost the info into a channel
+    //"fileReader", // Read advanced plugin config section of the wiki
     "notifications", // eve notifications to a channel, good for warning users of an attack
     "twitterOutput", // twitter input to stay up to date on eve happenings
     //"saveFit", // fitting tool, still a WIP
@@ -105,13 +105,13 @@ $config["plugins"] = array(
         "channelID" => 120639051261804544 // what channel id like these to post too
     ),
     "fileReader" => array( // Documentation on this will be added to the wiki, used for pulling and posting jabber pings
-        "db" => "/tmp/discord.db", // what file is read, example formatting for pulling info below.
+        "db" => "/tmp/discord.db", // what file is read, DO NOT CHANGE.
         "channelConfig" => array(
             "pings" => array(
-                "default" => true,
-                "searchString" => false, // if the line contains this string it posts, to post everything leave it as false
+                "default" => true, // is this particular filter active?
+                "searchString" => "broadcast", // The plugin will search for this string and post any messages that contain it. To have the bot share everything change it to false without any quotes.
                 "textStringPrepend" => "@everyone |", // this prepend will ping all discord users with access to the channel
-                "textStringAppend" => "",
+                "textStringAppend" => "", // anything ud like to add to the tail end of the bots message
                 "channelID" => 119136919346085888 // channel it posts too
             ),
             "intel" => array(
