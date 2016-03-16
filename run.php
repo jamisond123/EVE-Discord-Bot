@@ -43,6 +43,8 @@ if ($initial != "1") {
     include  __DIR__ . "/install/initial.php";
 }
 
+updateSluggardDB($logger);
+
 // Initiate background tasks
 include 'background.php';
 $logger->info("Initiating background tasks");
