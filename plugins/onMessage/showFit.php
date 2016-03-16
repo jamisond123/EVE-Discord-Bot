@@ -71,11 +71,22 @@ class showFit
         $data = command($message, $this->information()["trigger"]);
         if (isset($data["trigger"])) {
             $fitChoice = stristr($data["messageString"], "@") ? str_replace("<@", "", str_replace(">", "", $data["messageString"])) : $data["messageString"];
-
+            if ($fitChoice == "list"){
+                $list = dbQueryRow("SELECT fit FROM shipFits", array());
+                if ($list) {
+                    $msg = "```";
+                    foreach ($list as $fit) {
+                        $msg .= "Currently Saved Fits: " . $fit . ", ";
+                    }
+                    $msg .= "```";
+                    $this->logger->info("Sending item information info to {$channelName} on {$guildName}");
+                    $this->discord->api("channel")->messages()->create($channelID, $msg);
+                }
+            }
             $fit = dbQueryRow("SELECT * FROM shipFits WHERE (fit = :fit COLLATE NOCASE)", array(":fit" => $fitChoice));
 
             if ($fit) {
-                $message = "``` Fit Submitted By: {$fit["submitter"]}\n\n{$fit["fitLink"]}```";
+                $message = "``` Fit Submitted By: {$fit["submitter"]}```\n{$fit["fitLink"]}```";
                 $this->logger->info("Sending fit to {$channelID}");
                 $this->discord->api("channel")->messages()->create($channelID, $message);
             } else {
