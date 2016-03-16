@@ -105,7 +105,7 @@ class showFit
         return array(
             "name" => "fit",
             "trigger" => array("!fit"),
-            "information" => "Show a saved fitting. Use **!fit list** to see a list of currently save fittings and then **!fit <fit_name>** for details."
+            "information" => "Show a saved fitting. Use **!fit list** to see a list of currently saved fittings and then **!fit <fit_name>** for details."
         );
     }
 }
