@@ -76,7 +76,7 @@ class showFit
                 if ($list) {
                     $msg = " ";
                     foreach ($list as $fit) {
-                        $msg .= "Currently Saved Fits: **" . $fit . "**, ";
+                        $msg .= "Currently Saved Fits: **" . ucwords($fit) . "**, ";
                     }
                     $msg .= " ";
                     $this->logger->info("Sending item information info to {$channelName} on {$guildName}");
@@ -87,7 +87,7 @@ class showFit
             $fit = dbQueryRow("SELECT * FROM shipFits WHERE (fit = :fit COLLATE NOCASE)", array(":fit" => $fitChoice));
 
             if ($fit) {
-                $message = "``` Fit Submitted By: {$fit["submitter"]}```\n{$fit["fitLink"]}```";
+                $message = "``` Fit Submitted By: {$fit["submitter"]}```\n{$fit["fitLink"]}";
                 $this->logger->info("Sending fit to {$channelID}");
                 $this->discord->api("channel")->messages()->create($channelID, $message);
             } else {
