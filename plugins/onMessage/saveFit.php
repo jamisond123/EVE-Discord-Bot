@@ -49,10 +49,6 @@ class saveFit
         $this->config = $config;
         $this->discord = $discord;
         $this->logger = $logger;
-        $this->db = $config["database"]["host"];
-        $this->dbUser = $config["database"]["user"];
-        $this->dbPass = $config["database"]["pass"];
-        $this->dbName = $config["database"]["database"];
         $this->fitChannel = $config["plugins"]["saveFits"]["channel"];
     }
     /**
