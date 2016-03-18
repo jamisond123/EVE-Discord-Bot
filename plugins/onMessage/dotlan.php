@@ -144,7 +144,7 @@ class dotlan
         return array(
             "name" => "dotlan",
             "trigger" => array("!dotlan"),
-            "information" => "Get quick links to Dotlan. Use **!dotlan system** __*system_name*__ or **!dotlan region** __*region_name*__ or **!dotlan range** __*ship,jc_lvl system_name*__ or **!dotlan plan** __*ship,jc_lvl start_system end_system*__  *!!jc_lvl is Jump Cal. in number form 1-5!!*"
+            "information" => "Get quick links to Dotlan.\n For System Info Use **!dotlan system** *system_name* \n For Region Info Use **!dotlan region** *region_name* \n To Get Jump Range Details Use **!dotlan range** *ship,jc_lvl system_name* \n To Figure Out a Jump Route Use **!dotlan plan** *ship,jc_lvl start_system end_system* \n\n *!!jc_lvl is Jump Cal. in number form 1-5!!*"
         );
     }
 }
