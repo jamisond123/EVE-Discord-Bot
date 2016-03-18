@@ -71,26 +71,71 @@ class dotlan
 
         $data = command($message, $this->information()["trigger"]);
         if (isset($data["trigger"])) {
-            $input = explode(' ', $data["messageString"]);
+            $input = explode(' ', $data["messageString"], 2);
             if ($input[0] == "system"){
-                $system = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE solarSystemName = :id", "solarSystemID", array(":id" => $input[1]), "ccp");
-                if ($system = null){
+                $system = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE (solarSystemName = :id COLLATE NOCASE)", "solarSystemID", array(":id" => $input[1]), "ccp");
+                if ($system == NULL){
                     $this->discord->api("channel")->messages()->create($channelID, "System Not Found.");
                     return null;
                 }
-                $url = "http://evemaps.dotlan.net/system/{$input[1]}";
+                $clean = str_replace(' ','_',$input[1]);
+                $url = "http://evemaps.dotlan.net/system/{$clean}";
+                $msg = "DOTLAN map for **{$input[1]}** - {$url}";
+                $this->discord->api("channel")->messages()->create($channelID, $msg);
+                return null;
             }
 
-            $fit = dbQueryRow("SELECT * FROM shipFits WHERE (fit = :fit COLLATE NOCASE)", array(":fit" => $fitChoice));
+            if ($input[0] == "region"){
+                $system = dbQueryField("SELECT regionID FROM mapRegions WHERE (regionName = :id COLLATE NOCASE)", "regionID", array(":id" => $input[1]), "ccp");
+                if ($system == NULL){
+                    $this->discord->api("channel")->messages()->create($channelID, "Region Not Found.");
+                    return null;
+                }
+                $clean = str_replace(' ','_',$input[1]);
+                $url = "http://evemaps.dotlan.net/map/{$clean}";
+                $msg = "DOTLAN map for **{$input[1]}** - {$url}";
+                $this->discord->api("channel")->messages()->create($channelID, $msg);
+                return null;
+            }
 
-            if ($fit) {
-                $message = "``` Fit Submitted By: {$fit["submitter"]}```\n{$fit["fitLink"]}";
-                $this->logger->info("Sending fit to {$channelID}");
-                $this->discord->api("channel")->messages()->create($channelID, $message);
-            } else {
-                $this->discord->api("channel")->messages()->create($channelID, "**Error:** no fit found. Try **!fit list** for a list of saved fits.");
+            if ($input[0] == "range"){
+                $range =  explode(' ', $input[1]);
+                $system = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE (solarSystemName = :id COLLATE NOCASE)", "solarSystemID", array(":id" => $range[1]), "ccp");
+                if ($system == NULL){
+                    $this->discord->api("channel")->messages()->create($channelID, "System Not Found.");
+                    return null;
+                }
+                $cleanSystem = str_replace(' ','_',$range[1]);
+                $cleanShip = ucfirst($range[0]);
+                $url = "http://evemaps.dotlan.net/range/{$cleanShip}/{$cleanSystem}";
+                $msg = "Jump Range for an {$cleanShip} from **{$range[1]}** - {$url}";
+                $this->discord->api("channel")->messages()->create($channelID, $msg);
+                return null;
+            }
+
+            if ($input[0] == "plan"){
+                $plan =  explode(' ', $input[1]);
+                $system1 = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE (solarSystemName = :id COLLATE NOCASE)", "solarSystemID", array(":id" => $plan[1]), "ccp");
+                if ($system1 == NULL){
+                    $this->discord->api("channel")->messages()->create($channelID, "System Not Found.");
+                    return null;
+                }
+                $system2 = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE (solarSystemName = :id COLLATE NOCASE)", "solarSystemID", array(":id" => $plan[2]), "ccp");
+                if ($system2 == NULL){
+                    $this->discord->api("channel")->messages()->create($channelID, "System Not Found.");
+                    return null;
+                }
+                $cleanSystem1 = str_replace(' ','_',$plan[1]);
+                $cleanSystem2 = str_replace(' ','_',$plan[2]);
+                $cleanShip = ucfirst($plan[0]);
+                $url = "http://evemaps.dotlan.net/jump/{$cleanShip}55,S/{$cleanSystem1}:{$cleanSystem2}";
+                $msg = "Jump Plan for an {$cleanShip} from **{$plan[1]}** to **{$plan[2]}** - {$url}";
+                $this->discord->api("channel")->messages()->create($channelID, $msg);
+                return null;
             }
         }
+        $this->discord->api("channel")->messages()->create($channelID, "Incorrect format, try **!help dotlan** for more info.");
+        return null;
     }
 
     /**
@@ -101,7 +146,7 @@ class dotlan
         return array(
             "name" => "dotlan",
             "trigger" => array("!dotlan"),
-            "information" => "Show a saved fitting. Use **!fit list** to see a list of currently saved fittings and then **!fit <fit_name>** for details."
+            "information" => "Get quick links to Dotlan. Use **!dotlan system** __*system_name*__ or **!dotlan region** __*region_name*__ or **!dotlan range** __*ship,jc_lvl system_name*__ or **!dotlan plan** __*ship,jc_lvl start_system end_system*__  *!!jc_lvl is your Jump Cal. level in number form 1-5!!*"
         );
     }
 }
