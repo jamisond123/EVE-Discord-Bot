@@ -95,6 +95,11 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
             //$heartbeatInterval = $data->d->heartbeat_interval / 1000.0;
             break;
 
+        case "CLOSE":
+            $logger->notice("CLOSE frame for websocket received, restarting.");
+            include_once "library/webSocket.php";
+            break;
+
         case "MESSAGE_CREATE":
             // Map the data to $data, we don't need all the opcodes and whatnots here
             $data = $data->d;
