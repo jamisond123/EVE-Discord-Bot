@@ -51,7 +51,6 @@ class dotlan
         $this->config = $config;
         $this->discord = $discord;
         $this->logger = $logger;
-        $this->fitChannel = $config["plugins"]["saveFits"]["channel"];
     }
 
     /**
@@ -63,6 +62,7 @@ class dotlan
 
     /**
      * @param $msgData
+     * @return null
      */
     function onMessage($msgData)
     {
@@ -108,7 +108,7 @@ class dotlan
                 $cleanSystem = str_replace(' ','_',$range[1]);
                 $cleanShip = ucfirst($range[0]);
                 $url = "http://evemaps.dotlan.net/range/{$cleanShip}/{$cleanSystem}";
-                $msg = "Jump Range for an {$cleanShip} from **{$range[1]}** - {$url}";
+                $msg = "Jump Range for a {$cleanShip} from **{$range[1]}** - {$url}";
                 $this->discord->api("channel")->messages()->create($channelID, $msg);
                 return null;
             }
@@ -129,13 +129,11 @@ class dotlan
                 $cleanSystem2 = str_replace(' ','_',$plan[2]);
                 $cleanShip = ucfirst($plan[0]);
                 $url = "http://evemaps.dotlan.net/jump/{$cleanShip}55,S/{$cleanSystem1}:{$cleanSystem2}";
-                $msg = "Jump Plan for an {$cleanShip} from **{$plan[1]}** to **{$plan[2]}** - {$url}";
+                $msg = "Jump Plan for a {$cleanShip} from **{$plan[1]}** to **{$plan[2]}** - {$url}";
                 $this->discord->api("channel")->messages()->create($channelID, $msg);
                 return null;
             }
         }
-        $this->discord->api("channel")->messages()->create($channelID, "Incorrect format, try **!help dotlan** for more info.");
-        return null;
     }
 
     /**
@@ -146,7 +144,7 @@ class dotlan
         return array(
             "name" => "dotlan",
             "trigger" => array("!dotlan"),
-            "information" => "Get quick links to Dotlan. Use **!dotlan system** __*system_name*__ or **!dotlan region** __*region_name*__ or **!dotlan range** __*ship,jc_lvl system_name*__ or **!dotlan plan** __*ship,jc_lvl start_system end_system*__  *!!jc_lvl is your Jump Cal. level in number form 1-5!!*"
+            "information" => "Get quick links to Dotlan. Use **!dotlan system** __*system_name*__ or **!dotlan region** __*region_name*__ or **!dotlan range** __*ship,jc_lvl system_name*__ or **!dotlan plan** __*ship,jc_lvl start_system end_system*__  *!!jc_lvl is Jump Cal. in number form 1-5!!*"
         );
     }
 }
