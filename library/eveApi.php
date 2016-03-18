@@ -10,6 +10,7 @@ function serverStatus(){
     curl_setopt_array($ch, array(
         CURLOPT_FOLLOWLOCATION => true, // Yes, we want to follow a redirect
         CURLOPT_RETURNTRANSFER => true, // Yes, we want that curl_exec returns the fetched data
+        CURLOPT_TIMEOUT => 15,
         CURLOPT_SSL_VERIFYPEER => false, // Do not verify the SSL certificate
     ));
     // Fetch the data from the URL

@@ -47,7 +47,7 @@ class auth
         $this->dbPass = $config["database"]["pass"];
         $this->dbName = $config["database"]["database"];
         $this->corpID = $config["plugins"]["auth"]["corpid"];
-        $this->allianceID = $config["plugins"]["auth"]["allianceid"];
+        $this->allianceID = $config["plugins"]["auth"]["allianceID"];
         $this->guildID = $config["plugins"]["auth"]["guildID"];
         $this->roleName = $config["plugins"]["auth"]["corpmemberRole"];
         $this->allyroleName = $config["plugins"]["auth"]["allymemberRole"];

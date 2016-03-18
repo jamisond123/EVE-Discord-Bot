@@ -92,7 +92,8 @@ $config["enabledPlugins"] = array(
     //"saveFit", // fitting tool, still a WIP
     //"showFit", // show fittings saved using the plugin above
     //"deleteFit", // Delete saved fittings
-    "getKillmails" // show corp killmails in a chat channel
+    "getKillmails", // show corp killmails in a chat channel
+    "dotlan" // easily link systems/regions/jump maps
 );
 
 // Example from the 4M server
@@ -144,7 +145,7 @@ $config["plugins"] = array(
     ),
     "auth" => array(
         "corpid" => "",
-        "allianceid" => "0", // If you'd like to auth base on alliance put the alliance ID here.. also works to set blues.. DOES NOT WORK WITH API AUTH
+        "allianceID" => "0", // If you'd like to auth base on alliance put the alliance ID here.. also works to set blues.. DOES NOT WORK WITH API AUTH
         "guildID" => "", // The serverID for your discord server.
         "corpmemberRole" => "", // The name of the role your CORP members will be assigned too if the auth plugin is active.
         "allymemberRole" => "", // The name of the role your ALLY members will be assigned too if the auth plugin is active.
