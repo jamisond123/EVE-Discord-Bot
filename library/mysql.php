@@ -89,11 +89,14 @@ function selectPending($url, $user, $pass, $dbName, $authCode){
         $stmt->execute();
 
         // Return Row
-        $result = $stmt->get_result();
+        $stmt->bind_result($row);
+        while ($stmt->fetch())
+        {
+            return $row;
+        }
 
         // Close the prepared statement.
-        $stmt->close();
-        return $result;
+
     }
     return null;
 }
