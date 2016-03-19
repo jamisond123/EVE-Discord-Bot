@@ -34,7 +34,7 @@ function downloadData($url)
         $userAgent = "Discord bot";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_USERAGENT, $userAgent);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 8);
         curl_setopt($curl, CURLOPT_POST, false);
         curl_setopt($curl, CURLOPT_FORBID_REUSE, false);
         curl_setopt($curl, CURLOPT_ENCODING, "");
