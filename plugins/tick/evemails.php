@@ -1,4 +1,27 @@
 <?php
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016 Robert Sardinia
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 /**
  * Class corporationmails
@@ -86,7 +109,7 @@ class evemails {
         $check = true;
         foreach ($this->keys as $keyOwner => $api) {
             if ($check == false) {
-                            continue;
+                continue;
             }
 
             $keyID = $api["keyID"];
@@ -115,7 +138,7 @@ class evemails {
         // Sometimes there is only ONE notification, so.. yeah..
         if (count($data) > 1) {
             foreach ($data as $multiMail) {
-                            $mails[] = $multiMail["@attributes"];
+                $mails[] = $multiMail["@attributes"];
             }
         }
 
@@ -128,17 +151,19 @@ class evemails {
                 $sentDate = $mail["sentDate"];
                 $url = "https://api.eveonline.com/char/MailBodies.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}&ids=" . $mail["messageID"];
                 $content = strip_tags(str_replace("<br>", "\n", json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)))->result->rowset->row));
+                $messageSplit = str_split($content, 1850);
 
                 // Stitch the mail together
                 $msg = "**Mail By: **{$sentBy}\n";
                 $msg .= "**Sent Date: **{$sentDate}\n";
                 $msg .= "**Title: ** {$title}\n";
                 $msg .= "**Content: **\n";
-                $msg .= htmlspecialchars_decode(trim($content));
+                $msg .= htmlspecialchars_decode(trim($messageSplit[0]));
 
                 // Send the mails to the channel
                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                 sleep(1); // Lets sleep for a second, so we don't rage spam
+                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $messageSplit[1]);
 
                 // Find the maxID so we don't spit this message out ever again
                 $this->maxID = max($mail["messageID"], $this->maxID);
@@ -147,7 +172,7 @@ class evemails {
 
                 // set the maxID
                 if ($updateMaxID) {
-                                    setPermCache("newestCorpMailID", $this->maxID);
+                    setPermCache("newestCorpMailID", $this->maxID);
                 }
             }
         }
