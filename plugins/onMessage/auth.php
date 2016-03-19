@@ -73,8 +73,7 @@ class auth
         $data = command($message, $this->information()["trigger"]);
         if (isset($data["trigger"])) {
             $code = $data["messageString"];
-            $conn = new mysqli($this->db, $this->dbUser, $this->dbPass, $this->dbName);
-            $result = mysqli_query($conn, "SELECT * FROM pendingUsers WHERE authString='$code' AND active='1'");
+            $result = selectPending($this->db, $this->dbUser, $this->dbPass, $this->dbName, $code);
             while ($rows = $result->fetch_assoc()) {
                 $charid = $rows['characterID'];
                 $corpid = $rows['corporationID'];
