@@ -72,40 +72,40 @@ class dotlan
         $data = command($message, $this->information()["trigger"]);
         if (isset($data["trigger"])) {
             $input = explode(' ', $data["messageString"], 2);
-            if ($input[0] == "system"){
+            if ($input[0] == "system") {
                 $system = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE (solarSystemName = :id COLLATE NOCASE)", "solarSystemID", array(":id" => $input[1]), "ccp");
-                if ($system == NULL){
+                if ($system == NULL) {
                     $this->discord->api("channel")->messages()->create($channelID, "System Not Found.");
                     return null;
                 }
-                $clean = str_replace(' ','_',$input[1]);
+                $clean = str_replace(' ', '_', $input[1]);
                 $url = "http://evemaps.dotlan.net/system/{$clean}";
                 $msg = "DOTLAN map for **{$input[1]}** - {$url}";
                 $this->discord->api("channel")->messages()->create($channelID, $msg);
                 return null;
             }
 
-            if ($input[0] == "region"){
+            if ($input[0] == "region") {
                 $system = dbQueryField("SELECT regionID FROM mapRegions WHERE (regionName = :id COLLATE NOCASE)", "regionID", array(":id" => $input[1]), "ccp");
-                if ($system == NULL){
+                if ($system == NULL) {
                     $this->discord->api("channel")->messages()->create($channelID, "Region Not Found.");
                     return null;
                 }
-                $clean = str_replace(' ','_',$input[1]);
+                $clean = str_replace(' ', '_', $input[1]);
                 $url = "http://evemaps.dotlan.net/map/{$clean}";
                 $msg = "DOTLAN map for **{$input[1]}** - {$url}";
                 $this->discord->api("channel")->messages()->create($channelID, $msg);
                 return null;
             }
 
-            if ($input[0] == "range"){
-                $range =  explode(' ', $input[1]);
+            if ($input[0] == "range") {
+                $range = explode(' ', $input[1]);
                 $system = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE (solarSystemName = :id COLLATE NOCASE)", "solarSystemID", array(":id" => $range[1]), "ccp");
-                if ($system == NULL){
+                if ($system == NULL) {
                     $this->discord->api("channel")->messages()->create($channelID, "System Not Found.");
                     return null;
                 }
-                $cleanSystem = str_replace(' ','_',$range[1]);
+                $cleanSystem = str_replace(' ', '_', $range[1]);
                 $cleanShip = ucfirst($range[0]);
                 $url = "http://evemaps.dotlan.net/range/{$cleanShip}/{$cleanSystem}";
                 $msg = "Jump Range for a {$cleanShip} from **{$range[1]}** - {$url}";
@@ -113,20 +113,20 @@ class dotlan
                 return null;
             }
 
-            if ($input[0] == "plan"){
-                $plan =  explode(' ', $input[1]);
+            if ($input[0] == "plan") {
+                $plan = explode(' ', $input[1]);
                 $system1 = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE (solarSystemName = :id COLLATE NOCASE)", "solarSystemID", array(":id" => $plan[1]), "ccp");
-                if ($system1 == NULL){
+                if ($system1 == NULL) {
                     $this->discord->api("channel")->messages()->create($channelID, "System Not Found.");
                     return null;
                 }
                 $system2 = dbQueryField("SELECT solarSystemID FROM mapSolarSystems WHERE (solarSystemName = :id COLLATE NOCASE)", "solarSystemID", array(":id" => $plan[2]), "ccp");
-                if ($system2 == NULL){
+                if ($system2 == NULL) {
                     $this->discord->api("channel")->messages()->create($channelID, "System Not Found.");
                     return null;
                 }
-                $cleanSystem1 = str_replace(' ','_',$plan[1]);
-                $cleanSystem2 = str_replace(' ','_',$plan[2]);
+                $cleanSystem1 = str_replace(' ', '_', $plan[1]);
+                $cleanSystem2 = str_replace(' ', '_', $plan[2]);
                 $cleanShip = ucfirst($plan[0]);
                 $url = "http://evemaps.dotlan.net/jump/{$cleanShip}55,S/{$cleanSystem1}:{$cleanSystem2}";
                 $msg = "Jump Plan for a {$cleanShip} from **{$plan[1]}** to **{$plan[2]}** - {$url}";
