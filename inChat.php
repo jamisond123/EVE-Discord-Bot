@@ -150,6 +150,8 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
         case "GUILD_ROLE_UPDATE": // a role was updated in the guild
         case "MESSAGE_UPDATE": // a message gets updated, ignore it for now
         case "GUILD_MEMBER_UPDATE": // ignore
+        case "GUILD_MEMBER_ADD": // ignore
+        case "GUILD_MEMBER_REMOVE": // ignore
         case "MESSAGE_DELETE": // ignore
             //$logger->info("Ignoring: " . $data->t);
             // Ignore them
