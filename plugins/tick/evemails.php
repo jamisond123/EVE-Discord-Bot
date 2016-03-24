@@ -151,6 +151,12 @@ class evemails {
                 $sentDate = $mail["sentDate"];
                 $url = "https://api.eveonline.com/char/MailBodies.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}&ids=" . $mail["messageID"];
                 $content = strip_tags(str_replace("<br>", "\n", json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)))->result->rowset->row));
+
+                // Blank Content Check
+                if ($content == ""){
+                    return null;
+                }
+                
                 $messageSplit = str_split($content, 1850);
 
                 // Stitch the mail together
