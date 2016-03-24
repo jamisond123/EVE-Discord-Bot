@@ -151,6 +151,12 @@ class evemails {
                 $sentDate = $mail["sentDate"];
                 $url = "https://api.eveonline.com/char/MailBodies.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}&ids=" . $mail["messageID"];
                 $content = strip_tags(str_replace("<br>", "\n", json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)))->result->rowset->row));
+
+                // Blank Content Check
+                if ($content == ""){
+                    return null;
+                }
+                
                 $messageSplit = str_split($content, 1850);
 
                 // Stitch the mail together
@@ -159,11 +165,14 @@ class evemails {
                 $msg .= "**Title: ** {$title}\n";
                 $msg .= "**Content: **\n";
                 $msg .= htmlspecialchars_decode(trim($messageSplit[0]));
+                $msgLong = htmlspecialchars_decode(trim($messageSplit[1]));
 
                 // Send the mails to the channel
                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                 sleep(1); // Lets sleep for a second, so we don't rage spam
-                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $messageSplit[1]);
+                if (strlen($content) > 1850) {
+                    $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msgLong);
+                }
 
                 // Find the maxID so we don't spit this message out ever again
                 $this->maxID = max($mail["messageID"], $this->maxID);
