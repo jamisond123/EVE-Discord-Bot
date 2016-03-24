@@ -116,7 +116,7 @@ class getKillmails
             $updatedID = $oldID + $one;
             setPermCache("newestKillmailID", $updatedID);
             $this->getKM();
-            setPermCache("killmailCheck{$this->corpID}", time() + 600);
+            setPermCache("killmailCheck{$this->corpID}", time() + 900);
         }
 
     }
