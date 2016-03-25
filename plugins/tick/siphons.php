@@ -104,6 +104,7 @@ class siphons {
                             $msg .= "**System: **{$systemName}\n";
                             // Send the mails to the channel
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                            $this->logger->info($msg);
                             sleep(2); // Lets sleep for a second, so we don't rage spam
                         }
                     }
