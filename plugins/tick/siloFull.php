@@ -26,8 +26,7 @@
 /**
  * Class siloFull
  */
-class siloFull
-{
+class siloFull {
     /**
      * @var
      */
@@ -89,12 +88,12 @@ class siloFull
         $url = "https://api.eveonline.com/corp/AssetList.xml.aspx?keyID={$keyID}&vCode={$vCode}";
         $xml = simplexml_load_file($url);
 
-        foreach ($xml->result->rowset->row as $structures) {
+        foreach ($xml->result->rowset->row as $structures){
             //Check silos
-            if ($structures->attributes()->typeID == 14343) {
-                foreach ($structures->rowset->row as $silo) {
+            if ($structures->attributes()->typeID == 14343){
+                foreach ($structures->rowset->row as $silo){
                     //Avoid reporting empty silos
-                    if ($silo->attributes()->typeID = 16634) {
+                    if ($silo->attributes()->typeID= 16634 ) {
                         if ($silo->attributes()->quantity >= 270000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -103,7 +102,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16643) {
+                    if ($silo->attributes()->typeID= 16643 ) {
                         if ($silo->attributes()->quantity >= 67000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -112,7 +111,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16647) {
+                    if ($silo->attributes()->typeID= 16647 ) {
                         if ($silo->attributes()->quantity >= 32500) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -121,7 +120,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16641) {
+                    if ($silo->attributes()->typeID= 16641 ) {
                         if ($silo->attributes()->quantity >= 40000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -130,7 +129,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16640) {
+                    if ($silo->attributes()->typeID= 16640 ) {
                         if ($silo->attributes()->quantity >= 67000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -139,7 +138,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16635) {
+                    if ($silo->attributes()->typeID= 16635 ) {
                         if ($silo->attributes()->quantity >= 270000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -148,7 +147,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16648) {
+                    if ($silo->attributes()->typeID= 16648 ) {
                         if ($silo->attributes()->quantity >= 32500) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -157,7 +156,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16633) {
+                    if ($silo->attributes()->typeID= 16633 ) {
                         if ($silo->attributes()->quantity >= 270000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -166,7 +165,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16646) {
+                    if ($silo->attributes()->typeID= 16646 ) {
                         if ($silo->attributes()->quantity >= 32500) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -175,7 +174,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16651) {
+                    if ($silo->attributes()->typeID= 16651 ) {
                         if ($silo->attributes()->quantity >= 27000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -184,7 +183,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16650) {
+                    if ($silo->attributes()->typeID= 16650 ) {
                         if ($silo->attributes()->quantity >= 27000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -193,7 +192,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16644) {
+                    if ($silo->attributes()->typeID= 16644 ) {
                         if ($silo->attributes()->quantity >= 27000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -202,7 +201,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16652) {
+                    if ($silo->attributes()->typeID= 16652 ) {
                         if ($silo->attributes()->quantity >= 27000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -211,7 +210,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16639) {
+                    if ($silo->attributes()->typeID= 16639 ) {
                         if ($silo->attributes()->quantity >= 70000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -220,7 +219,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16636) {
+                    if ($silo->attributes()->typeID= 16636 ) {
                         if ($silo->attributes()->quantity >= 270000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -229,7 +228,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16649) {
+                    if ($silo->attributes()->typeID= 16649 ) {
                         if ($silo->attributes()->quantity >= 37000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -238,7 +237,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16653) {
+                    if ($silo->attributes()->typeID= 16653 ) {
                         if ($silo->attributes()->quantity >= 27000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -247,7 +246,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16638) {
+                    if ($silo->attributes()->typeID= 16638 ) {
                         if ($silo->attributes()->quantity >= 70000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -256,7 +255,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16637) {
+                    if ($silo->attributes()->typeID= 16637 ) {
                         if ($silo->attributes()->quantity >= 70000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -265,7 +264,7 @@ class siloFull
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
                     }
-                    if ($silo->attributes()->typeID = 16642) {
+                    if ($silo->attributes()->typeID= 16642 ) {
                         if ($silo->attributes()->quantity >= 27000) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**Silo Nearing Capacity**\n";
@@ -273,13 +272,13 @@ class siloFull
                             // Send the mails to the channel
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                         }
+                    }
                     }
                 }
-            }
+            }return null;
         }
-        return null;
+        
     }
-
 
     /**
      *
@@ -300,4 +299,3 @@ class siloFull
         );
     }
 }
-
