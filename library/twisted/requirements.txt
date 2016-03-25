@@ -1,5 +1,4 @@
 twisted
-twisted-words
 arrow
 pysqlite
 eveapi
