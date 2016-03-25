@@ -98,13 +98,16 @@ $config["enabledPlugins"] = array(
 
 // Example from the 4M server
 $config["plugins"] = array(
+    //Checks if the server is up. Prone to hiccups if the api/crest go down
     "periodicTQStatus" => array(
         "channelID" => 118441700157816838 // what channel do u want server status reported too
     ),
+    //uses the provided api's to post evemails to a channel
     "evemails" => array(
         "fromIDs" => array(98047305, 99005805), // fill in with id's you want info from (have to be accessible with the api)
         "channelID" => 120639051261804544 // what channel id like these to post too
     ),
+    // Advanced plugin, read the wiki!!
     "fileReader" => array( // Documentation on this will be added to the wiki, used for pulling and posting jabber pings
         "db" => "/tmp/discord.db", // what file is read, DO NOT CHANGE.
         "channelConfig" => array(
@@ -131,18 +134,23 @@ $config["plugins"] = array(
             )
         ),
     ),
+    // what channel for eve notifications
     "notifications" => array(
-        "channelID" => 149918425018400768 // what channel for eve notifications
+        "channelID" => 149918425018400768 
     ),
+    //Spam twitter messages from people you follow to this channel
     "twitterOutput" => array(
         "channelID" => 120474010109607937 // twitter output channel
     ),
+    //Ask you bot questions using !wolf
     "wolframAlpha" => array(
         "appID" => "" // get an appID for wolframAlpha if you want to use the !wolf command
     ),
+    //Pricecheck tool
     "priceChecker" => array(
         "channelID" => "" //If you want to restrict price checker from working in a channel, put that channel's ID here.
     ),
+    //SSO Auth
     "auth" => array(
         "corpid" => "",
         "allianceID" => "0", // If you'd like to auth base on alliance put the alliance ID here.. also works to set blues.. DOES NOT WORK WITH API AUTH
@@ -154,9 +162,11 @@ $config["plugins"] = array(
         "nameEnforce" => "false", // put "true" or "false", if you'd like to make sure people's name match character names
         "url" => "" // put a url here if using sso auth too your sso page.
     ),
+    //Save fits to be displayed with the !fit command
     "saveFits" => array(
         "channel" => 12345 //Restrict saving/deleting fits to this channel. Use this to control who has access to altering fits. Use the channel ID.
     ),
+    //Killmail posting
     "getKillmails" => array(
         "channel" => "", //killmails post to this channel
         "corpID" => "", //corpid for killmails
@@ -164,5 +174,12 @@ $config["plugins"] = array(
         "lossMails" => "true", //set as true to post both kills and losses, false to post only kills.
         "spamAmount" => "10", //Max amount of kills the bot will post every 15 minutes. Default is 10 and won't get the bot kicked for spamming.
         "startMail" => 1, //Put the zkill killID of your latest killmail. Otherwise it will pull from the beginning of time.
-    )
+    ),
+    //Siphon detection works by looking for multiples of 100 inside standard silos. So if you take out a weird number it will trigger false positives.
+    "siphons" => array( 
+        "channelID" => "", //Siphon alerts post to this channel
+        "keyID" => "", //corp api keyID (Must have assets)
+        "vCode" => "", //corp api vCode
+        "prefix" => "", //put @everyone if you'd like everyone to be pinged when a siphon is detected
+)
 );
