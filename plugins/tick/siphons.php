@@ -61,8 +61,9 @@ class siphons {
         $this->keyID = $config["plugins"]["siphons"]["keyID"];
         $this->vCode = $config["plugins"]["siphons"]["vCode"];
         $this->prefix = $config["plugins"]["siphons"]["prefix"];
-        if (2 > 1) {
-            // Schedule it for right now
+        $lastCheck = getPermCache("siphonLastChecked{$this->keyID}");
+        if ($lastCheck == NULL) {
+            // Schedule it for right now if first run
             setPermCache("siphonLastChecked{$this->keyID}", time() - 5);
         }
     }
@@ -103,7 +104,7 @@ class siphons {
                             $msg .= "**System: **{$systemName}\n";
                             // Send the mails to the channel
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
-                            sleep(1); // Lets sleep for a second, so we don't rage spam
+                            sleep(2); // Lets sleep for a second, so we don't rage spam
                         }
                     }
                 }
