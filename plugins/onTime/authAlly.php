@@ -36,7 +36,7 @@ $loop->addPeriodicTimer(21600, function() use ($logger, $discord, $config) {
         $toDiscordChannel = $config["plugins"]["auth"]["alertChannel"];
         $conn = new mysqli($db, $dbUser, $dbPass, $dbName);
 
-        $sql3 = "SELECT characterID, discordID FROM authUsers WHERE role = 'ally'";
+        $sql3 = "SELECT characterID, discordID FROM authUsers WHERE role = 'ally' AND active='yes'";
 
         $result3 = $conn->query($sql3);
         $num_rows2 = $result3->num_rows;
