@@ -42,11 +42,10 @@ class siphons {
     /**
      * @var
      */
-    var $toIDs;
-    /**
-     * @var
-     */
     var $toDiscordChannel;
+    protected $keyID;
+    protected $vCode;
+    protected $prefix;
 
     /**
      * @param $config
@@ -110,6 +109,7 @@ class siphons {
                 }
             }
         }
+        return null;
     }
 
     /**
