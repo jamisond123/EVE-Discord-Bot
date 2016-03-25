@@ -43,18 +43,20 @@ $loop->addPeriodicTimer(21600, function() use ($logger, $discord, $config) {
 
         if ($num_rows2 >= 1) {
             while ($rows = $result3->fetch_assoc()) {
-                $charid = $rows['characterID'];
-                $discordid = $rows['discordID'];
-                $url = "https://api.eveonline.com/eve/CharacterAffiliation.xml.aspx?ids=$charid";
+                $charID = $rows['characterID'];
+                $discordID = $rows['discordID'];
+                $userData = $discord->api('user')->show($discordID);
+                $discordName = $userData['username'];
+                $url = "https://api.eveonline.com/eve/CharacterAffiliation.xml.aspx?ids=$charID";
                 $xml = makeApiRequest($url);
                 if ($xml->result->rowset->row[0]) {
                     foreach ($xml->result->rowset->row as $character) {
                         if ($character->attributes()->allianceID != $allyID) {
-                            $discord->api("guild")->members()->redeploy($guildID, $discordid, "");
-                            $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user #" . $discordid . " alliance roles removed via auth.");
-                            $logger->info("Removing user " . $discordid);
+                            $discord->api("guild")->members()->redeploy($guildID, $discordID, "");
+                            $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user #" . $discordName . " alliance roles removed via auth.");
+                            $logger->info("Removing user " . $discordName);
 
-                            $sql4 = "UPDATE authUsers SET active='no' WHERE discordID='$discordid'";
+                            $sql4 = "UPDATE authUsers SET active='no' WHERE discordID='$discordID'";
                             $result4 = $conn->query($sql4);
                         }
                     }
