@@ -42,32 +42,11 @@ class siphons {
     /**
      * @var
      */
-    var $nextCheck;
-    /**
-     * @var
-     */
     var $toIDs;
     /**
      * @var
      */
     var $toDiscordChannel;
-
-    /**
-     * @var
-     */
-    var $newestMailID;
-    /**
-     * @var
-     */
-    var $maxID;
-    /**
-     * @var
-     */
-    var $keyCount;
-    /**
-     * @var
-     */
-    var $keys;
 
     /**
      * @param $config
