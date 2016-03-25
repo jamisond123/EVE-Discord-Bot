@@ -110,6 +110,7 @@ class siphons {
                 }
             }
         }
+        $this->logger->info("Siphon Check Complete");
         return null;
     }
 
