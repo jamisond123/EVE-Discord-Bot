@@ -93,7 +93,8 @@ $config["enabledPlugins"] = array(
     //"showFit", // show fittings saved using the plugin above
     //"deleteFit", // Delete saved fittings
     "getKillmails", // show corp killmails in a chat channel
-    "dotlan" // easily link systems/regions/jump maps
+    "dotlan", // easily link systems/regions/jump maps
+    "siphons" // report possible siphons, see wiki for more info
 );
 
 // Example from the 4M server
