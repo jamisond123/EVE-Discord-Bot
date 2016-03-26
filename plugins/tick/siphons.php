@@ -93,19 +93,21 @@ class siphons {
         foreach ($xml->result->rowset->row as $structures){
             //Check silos
             if ($structures->attributes()->typeID == 14343){
-                foreach ($structures->rowset->row as $silo){
-                    //Avoid reporting empty silos
-                    if ($silo->attributes()->quantity != 0){
-                        //Check for a multiple of 100
-                        if ($silo->attributes()->quantity % 100 != 0) {
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "{$this->prefix}";
-                            $msg .= "**POSSIBLE SIPHON**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
-                            $this->logger->info($msg);
-                            sleep(2); // Lets sleep for a second, so we don't rage spam
+                if (is_array($structures)) {
+                    foreach ($structures->rowset->row as $silo){
+                        //Avoid reporting empty silos
+                        if ($silo->attributes()->quantity != 0){
+                            //Check for a multiple of 100
+                            if ($silo->attributes()->quantity % 100 != 0) {
+                                $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                                $msg = "{$this->prefix}";
+                                $msg .= "**POSSIBLE SIPHON**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $this->logger->info($msg);
+                                sleep(2); // Lets sleep for a second, so we don't rage spam
+                            }
                         }
                     }
                 }
