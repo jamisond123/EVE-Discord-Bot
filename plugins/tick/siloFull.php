@@ -87,11 +87,10 @@ class siloFull {
             if ($structures->attributes()->typeID == 14343){
                 foreach ($structures->rowset->row as $silo){
                     time_nanosleep(0,750000000);
-                    //Avoid reporting empty silos
                     if ($silo->attributes()->typeID= 16634 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16634), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 270000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16634), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -99,11 +98,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16643 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16643), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 67000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16643), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -111,11 +111,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16647 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16647), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 32500) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16647), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -123,11 +124,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16641 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16641), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 40000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16641), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -135,11 +137,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16640 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16640), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 67000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16640), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -147,11 +150,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16635 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16635), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 270000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16635), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -159,11 +163,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16648 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16648), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 32500) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16648), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -171,11 +176,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16633 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16633), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 270000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16633), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -183,11 +189,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16646 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16646), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 32500) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16646), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -195,11 +202,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16651 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16651), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16651), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -207,11 +215,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16650 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16650), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16650), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -219,11 +228,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16644 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16644), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16644), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -231,11 +241,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16652 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16652), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16652), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -243,11 +254,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16639 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16639), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 70000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16639), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -255,11 +267,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16636 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16636), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 270000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16636), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -267,11 +280,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16649 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16649), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 37000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16649), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -279,11 +293,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16653 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16653), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16653), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -291,11 +306,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16638 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16638), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 70000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16638), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -303,11 +319,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16637 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16637), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 70000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16637), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -315,11 +332,12 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                     if ($silo->attributes()->typeID= 16642 ) {
+                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16642), "ccp");
+                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16642), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
@@ -327,6 +345,7 @@ class siloFull {
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             break;
                         }
+                        continue;
                     }
                 }
             }
