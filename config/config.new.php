@@ -94,8 +94,7 @@ $config["enabledPlugins"] = array(
     //"deleteFit", // Delete saved fittings
     "getKillmails", // show corp killmails in a chat channel
     "dotlan", // easily link systems/regions/jump maps
-    //"siphons", // report possible siphons, see wiki for more info
-    //"siloFull", // report any silos nearing max capacity. Currently only works for sov bonus systems
+    "siphons" // report possible siphons, see wiki for more info
 );
 
 // Example from the 4M server
@@ -183,11 +182,5 @@ $config["plugins"] = array(
         "keyID" => "", //corp api keyID (Must have assets)
         "vCode" => "", //corp api vCode
         "prefix" => "", //put @everyone if you'd like everyone to be pinged when a siphon is detected
-    ),
-    //Reports silos nearing max capacity. Currently only works for towers in sov with the silo bonus
-    "siloFull" => array(
-        "channelID" => "", //silo alerts post to this channel
-        "keyID" => "", //corp api keyID (Must have assets)
-        "vCode" => "", //corp api vCode
-    )
+)
 );
