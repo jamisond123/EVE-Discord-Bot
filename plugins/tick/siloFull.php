@@ -58,8 +58,9 @@ class siloFull {
         $this->toDiscordChannel = $config["plugins"]["siloFull"]["channelID"];
         $this->keyID = $config["plugins"]["siloFull"]["keyID"];
         $this->vCode = $config["plugins"]["siloFull"]["vCode"];
-        if (2 > 1) {
-            // Schedule it for right now
+        $lastCheck = getPermCache("siloLastChecked{$this->keyID}");
+        if ($lastCheck == NULL) {
+            // Schedule it for right now if first run
             setPermCache("siloLastChecked{$this->keyID}", time() - 5);
         }
     }
