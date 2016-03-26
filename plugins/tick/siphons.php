@@ -80,8 +80,8 @@ class siphons {
         if ($lastChecked <= time()) {
             $this->logger->info("Checking API Key {$keyID} for siphons");
             $this->checkTowers($keyID, $vCode);
-            //3 hour +30 seconds, cache is for 6 but good to notify more often
-            setPermCache("siphonLastChecked{$keyID}", time() + 7230);
+            //6
+            setPermCache("siphonLastChecked{$keyID}", time() + 21660);
         }
     }
 
