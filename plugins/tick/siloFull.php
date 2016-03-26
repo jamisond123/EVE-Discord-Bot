@@ -102,9 +102,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16643 ) {
                         if ($silo->attributes()->quantity >= 67000) {
-                            $typeName1 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16643), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16643), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName1} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -114,9 +114,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16647 ) {
                         if ($silo->attributes()->quantity >= 32500) {
-                            $typeName2 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16647), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16647), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName2} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -126,9 +126,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16641 ) {
                         if ($silo->attributes()->quantity >= 40000) {
-                            $typeName3 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16641), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16641), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName3} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -138,9 +138,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16640 ) {
                         if ($silo->attributes()->quantity >= 67000) {
-                            $typeName4 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16640), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16640), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName4} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -150,9 +150,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16635 ) {
                         if ($silo->attributes()->quantity >= 270000) {
-                            $typeName5 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16635), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16635), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName5} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -162,9 +162,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16648 ) {
                         if ($silo->attributes()->quantity >= 32500) {
-                            $typeName6 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16648), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16648), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName6} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -174,9 +174,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16633 ) {
                         if ($silo->attributes()->quantity >= 270000) {
-                            $typeName7 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16633), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16633), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName7} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -186,9 +186,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16646 ) {
                         if ($silo->attributes()->quantity >= 32500) {
-                            $typeName8 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16646), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16646), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName8} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -198,9 +198,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16651 ) {
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName9 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16651), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16651), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName9} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -210,9 +210,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16650 ) {
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName0 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16650), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16650), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName0} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -222,9 +222,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16644 ) {
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName11 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16644), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16644), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName11} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -234,9 +234,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16652 ) {
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName12 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16652), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16652), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName12} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -246,9 +246,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16639 ) {
                         if ($silo->attributes()->quantity >= 70000) {
-                            $typeName13 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16639), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16639), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName13} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -258,9 +258,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16636 ) {
                         if ($silo->attributes()->quantity >= 270000) {
-                            $typeName14 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16636), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16636), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName14} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -270,9 +270,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16649 ) {
                         if ($silo->attributes()->quantity >= 37000) {
-                            $typeName15 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16649), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16649), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName15} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -282,9 +282,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16653 ) {
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName16 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16653), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16653), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName16} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -294,9 +294,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16638 ) {
                         if ($silo->attributes()->quantity >= 70000) {
-                            $typeName17 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16638), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16638), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName17} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -306,9 +306,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16637 ) {
                         if ($silo->attributes()->quantity >= 70000) {
-                            $typeName18 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16637), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16637), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName18} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
@@ -318,9 +318,9 @@ class siloFull {
                     }
                     if ($silo->attributes()->typeID= 16642 ) {
                         if ($silo->attributes()->quantity >= 27000) {
-                            $typeName19 = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16642), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16642), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            $msg = "**{$typeName19} Silo Nearing Capacity**\n";
+                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
                             $msg .= "**System: **{$systemName}\n";
                             $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                             // Send the mails to the channel
