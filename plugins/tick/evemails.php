@@ -153,7 +153,7 @@ class evemails {
                 $content = strip_tags(str_replace("<br>", "\n", json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)))->result->rowset->row));
 
                 // Blank Content Check
-                if ($content == ""){
+                if ($content == "") {
                     return null;
                 }
                 
