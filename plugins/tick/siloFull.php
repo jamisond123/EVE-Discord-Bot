@@ -86,290 +86,352 @@ class siloFull {
             //Check silos
             if ($structures->attributes()->typeID == 14343){
                 foreach ($structures->rowset->row as $silo){
-                    time_nanosleep(0,750000000);
-                    if ($silo->attributes()->typeID= 16634 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16634), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 270000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                    $moonGoo = $silo->attributes()->typeID;
+                    switch ($moonGoo) {
+                        case 16634:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16634), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 270000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16643 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16643), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 67000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16643:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16643), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 67000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.4;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16647 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16647), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 32500) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16647:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16647), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 32500) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.8;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16641 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16641), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 40000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16641:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16641), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 40000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.6;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16640 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16640), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 67000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16640:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16640), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 67000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.4;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16635 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16635), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 270000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16635:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16635), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 270000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16648 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16648), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 32500) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16648:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16648), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 32500) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.8;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16633 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16633), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 270000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16633:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16633), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 270000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16646 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16646), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 32500) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16646:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16646), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 32500) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.8;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16651 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16651), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 27000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16651:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16651), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 27000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16650 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16650), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 27000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16650:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16650), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 27000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16644 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16644), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 27000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16644:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16644), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 27000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16652 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16652), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 27000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16652:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16652), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 27000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16639 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16639), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 70000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16639:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16639), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 70000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.4;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16636 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16636), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 270000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16636:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16636), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 270000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16649 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16649), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 37000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16649:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16649), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 32500) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.8;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16653 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16653), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 27000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16653:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16653), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 27000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16638 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16638), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 70000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16638:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16638), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 70000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.4;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16637 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16637), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 70000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16637:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16637), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 70000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 0.4;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
-                    }
-                    if ($silo->attributes()->typeID= 16642 ) {
-                        $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16642), "ccp");
-                        $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                        if ($silo->attributes()->quantity >= 27000) {
-                            $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                            $msg .= "**System: **{$systemName}\n";
-                            $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
-                            // Send the mails to the channel
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                        case 16642:
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16642), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            if ($silo->attributes()->quantity >= 27000) {
+                                $gooAmount = $silo->attributes()->quantity;
+                                $gooVolume = 1;
+                                $gooCurrent = $gooAmount * $gooVolume;
+                                $msg = "**{$typeName} Silo Nearing Capacity**\n";
+                                $msg .= "**System: **{$systemName}\n";
+                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
+                                // Send the mails to the channel
+                                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                sleep(1);
+                            }
                             break;
-                        }
-                        continue;
                     }
                 }
             }
         }
         $this->logger->info("Silo Check Complete");
         return null;
-    }
 
 
-    /**
-     *
-     */
-    function onMessage()
-    {
-    }
-    /**
-     * @return array
-     */
-    function information()
-    {
-        return array(
-            "name" => "",
-            "trigger" => array(""),
-            "information" => ""
-        );
+        /**
+         *
+         */
+        function onMessage()
+        {
+        }
+        /**
+         * @return array
+         */
+        function information()
+        {
+            return array(
+                "name" => "",
+                "trigger" => array(""),
+                "information" => ""
+            );
+        }
     }
 }
