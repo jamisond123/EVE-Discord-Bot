@@ -83,10 +83,10 @@ class siloFull {
     {
         $url = "https://api.eveonline.com/corp/AssetList.xml.aspx?keyID={$keyID}&vCode={$vCode}";
         $xml = simplexml_load_file($url);
-        foreach ($xml->result->rowset->row as $structures){
+        foreach ($xml->result->rowset->row as $structures) {
             //Check silos
-            if ($structures->attributes()->typeID == 14343){
-                foreach ($structures->rowset->row as $silo){
+            if ($structures->attributes()->typeID == 14343) {
+                foreach ($structures->rowset->row as $silo) {
                     $moonGoo = $silo->attributes()->typeID;
                     switch ($moonGoo) {
                         case 16634:
