@@ -96,9 +96,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -112,9 +113,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -128,9 +130,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.8;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -144,9 +147,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.6;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -160,9 +164,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -176,9 +181,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -192,9 +198,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.8;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -208,9 +215,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -224,9 +232,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.8;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -240,9 +249,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -256,9 +266,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -272,9 +283,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -288,9 +300,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -304,9 +317,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -320,9 +334,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -336,9 +351,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.8;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -352,9 +368,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -368,9 +385,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -384,9 +402,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -400,9 +419,10 @@ class siloFull {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
+                                $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$gooCurrent}/30,000m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
