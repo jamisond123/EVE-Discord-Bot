@@ -90,12 +90,12 @@ class siphons {
         $url = "https://api.eveonline.com/corp/AssetList.xml.aspx?keyID={$keyID}&vCode={$vCode}";
         $xml = simplexml_load_file($url);
 
-        foreach ($xml->result->rowset->row as $structures){
+        foreach ($xml->result->rowset->row as $structures) {
             //Check silos
-            if ($structures->attributes()->typeID == 14343){
-                foreach ($structures->rowset->row as $silo){
+            if ($structures->attributes()->typeID == 14343) {
+                foreach ($structures->rowset->row as $silo) {
                     //Avoid reporting empty silos
-                    if ($silo->attributes()->quantity != 0){
+                    if ($silo->attributes()->quantity != 0) {
                         //Check for a multiple of 100
                         if ($silo->attributes()->quantity % 100 != 0) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
