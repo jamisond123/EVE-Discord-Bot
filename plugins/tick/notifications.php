@@ -148,7 +148,7 @@ class notifications {
             }
             $fixedData = array();
             // Sometimes there is only ONE notification, so.. yeah..
-            $fixedData[] = empty($data["@attributes"]);
+            $fixedData[] = $data["@attributes"];
             if (count($data) > 1) {
                 foreach ($data as $multiNotif) {
                                     $fixedData[] = $multiNotif["@attributes"];
