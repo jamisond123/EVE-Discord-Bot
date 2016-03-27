@@ -73,7 +73,7 @@ class getKillmails
         $this->kmChannel = $config["plugins"]["getKillmails"]["channel"];
         $this->corpID = $config["plugins"]["getKillmails"]["corpID"];
         $this->allianceID = $config["plugins"]["getKillmails"]["allianceID"];
-        $this->startMail = empty($config["plugins"]["getKillmails"]["startMail"]);
+        $this->startMail = $config["plugins"]["getKillmails"]["startMail"];
         $this->lossMail = $config["plugins"]["getKillmails"]["lossMails"];
         $this->spamAmount = $config["plugins"]["getKillmails"]["spamAmount"];
         if (2 > 1) {

@@ -134,7 +134,7 @@ class evemails {
         $data = $data["result"]["rowset"]["row"];
 
         $mails = array();
-        $mails[] = empty($data["@attributes"]);
+        $mails[] = $data["@attributes"];
         // Sometimes there is only ONE notification, so.. yeah..
         if (count($data) > 1) {
             foreach ($data as $multiMail) {
