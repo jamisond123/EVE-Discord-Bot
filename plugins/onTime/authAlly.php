@@ -31,7 +31,7 @@ $loop->addPeriodicTimer(21600, function() use ($logger, $discord, $config) {
         $dbUser = $config["database"]["user"];
         $dbPass = $config["database"]["pass"];
         $dbName = $config["database"]["database"];
-        $allyID = $config["plugins"]["auth"]["allianceid"];
+        $allyID = $config["plugins"]["auth"]["allianceID"];
         $guildID = $config["plugins"]["auth"]["guildID"];
         $toDiscordChannel = $config["plugins"]["auth"]["alertChannel"];
         $conn = new mysqli($db, $dbUser, $dbPass, $dbName);
