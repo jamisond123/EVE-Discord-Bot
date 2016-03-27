@@ -175,6 +175,9 @@ class notifications {
                         case 14: // Bounty payment
                             $msg = "skip";
                             break;
+                        case 16: // Mail
+                            $msg = "skip";
+                            break;
                         case 35: // Insurance payment
                             $msg = "skip";
                             break;
@@ -239,6 +242,9 @@ class notifications {
                             break;
                         case 94: // POCO Reinforced
                             $msg = "Customs Office reinforced.";
+                            break;
+                        case 128: // Corp App
+                            $msg = "skip";
                             break;
                         case 138: // Clone activation
                             $msg = "skip";
