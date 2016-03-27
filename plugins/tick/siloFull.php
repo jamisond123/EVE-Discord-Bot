@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 /**
  * Class siloFull
  */
@@ -75,8 +76,6 @@ class siloFull {
         if ($lastChecked <= time()) {
             $this->logger->info("Checking API Key {$keyID} for full silos");
             $this->checkTowers($keyID, $vCode);
-            //6 hour +30 seconds, cache is for 6
-            setPermCache("siloLastChecked{$keyID}", time() + 21660);
         }
     }
     function checkTowers($keyID, $vCode)
@@ -433,6 +432,11 @@ class siloFull {
                 }
             }
         }
+        $cached = $xml->cachedUntil[0];
+        $baseUnix = strtotime($cached);
+        $cacheClr = $baseUnix - 13500;
+        //6 hour +30 seconds, cache is for 6
+        setPermCache("siloLastChecked{$keyID}", $cacheClr);
         $this->logger->info("Silo Check Complete");
         return null;
 
