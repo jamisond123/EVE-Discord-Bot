@@ -118,7 +118,6 @@ class siphons {
         if ($siphonCount > 0){
             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Siphon Check At: {$cacheTimer} EVE Time");
         }
-        $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "**No Siphons Detected** - Next Siphon Check At: {$cacheTimer} EVE Time");
         $this->logger->info("Siphon Check Complete");
         return null;
     }
