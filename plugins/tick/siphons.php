@@ -87,7 +87,7 @@ class siphons {
     {
         $url = "https://api.eveonline.com/corp/AssetList.xml.aspx?keyID={$keyID}&vCode={$vCode}";
         $xml = simplexml_load_file($url);
-
+        $siphonCount = 0;
         foreach ($xml->result->rowset->row as $structures) {
             //Check silos
             if ($structures->attributes()->typeID == 14343) {
@@ -100,14 +100,10 @@ class siphons {
                             $msg = "{$this->prefix}";
                             $msg .= "**POSSIBLE SIPHON**\n";
                             $msg .= "**System: **{$systemName}\n";
-                            // Send the mails to the channel
-                            $cached = $xml->cachedUntil[0];
-                            $baseUnix = strtotime($cached);
-                            $cacheClr = $baseUnix - 13500;
-                            $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
+                            // Send the mails to the channel;
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
-                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Siphon Check At: {$cacheTimer}");
                             $this->logger->info($msg);
+                            $siphonCount++;
                             sleep(2); // Lets sleep for a second, so we don't rage spam
                         }
                     }
@@ -119,6 +115,10 @@ class siphons {
         $cacheClr = $baseUnix - 13500;
         $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
         setPermCache("siphonLastChecked{$keyID}", $cacheClr);
+        if ($siphonCount > 0){
+            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Siphon Check At: {$cacheTimer}");
+        }
+        $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "**No Siphons Detected** - Next Siphon Check At: {$cacheTimer}");
         $this->logger->info("Siphon Check Complete");
         return null;
     }
