@@ -101,7 +101,12 @@ class siphons {
                             $msg .= "**POSSIBLE SIPHON**\n";
                             $msg .= "**System: **{$systemName}\n";
                             // Send the mails to the channel
+                            $cached = $xml->cachedUntil[0];
+                            $baseUnix = strtotime($cached);
+                            $cacheClr = $baseUnix - 13500;
+                            $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Siphon Check At: {$cacheTimer}");
                             $this->logger->info($msg);
                             sleep(2); // Lets sleep for a second, so we don't rage spam
                         }
@@ -112,7 +117,7 @@ class siphons {
         $cached = $xml->cachedUntil[0];
         $baseUnix = strtotime($cached);
         $cacheClr = $baseUnix - 13500;
-        //6 hour +30 seconds, cache is for 6
+        $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
         setPermCache("siphonLastChecked{$keyID}", $cacheClr);
         $this->logger->info("Siphon Check Complete");
         return null;
