@@ -82,6 +82,7 @@ class siloFull {
     {
         $url = "https://api.eveonline.com/corp/AssetList.xml.aspx?keyID={$keyID}&vCode={$vCode}";
         $xml = simplexml_load_file($url);
+        $siloCount = 0;
         foreach ($xml->result->rowset->row as $structures) {
             //Check silos
             if ($structures->attributes()->typeID == 14343) {
@@ -102,6 +103,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -119,6 +121,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -136,6 +139,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -153,6 +157,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -170,6 +175,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -187,6 +193,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -204,6 +211,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -221,6 +229,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -238,6 +247,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -255,6 +265,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -272,6 +283,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -289,6 +301,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -306,6 +319,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -323,6 +337,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -340,6 +355,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -357,6 +373,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -374,6 +391,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -391,6 +409,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -408,6 +427,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -425,6 +445,7 @@ class siloFull {
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                                $siloCount++;
                                 sleep(1);
                             }
                             break;
@@ -435,8 +456,11 @@ class siloFull {
         $cached = $xml->cachedUntil[0];
         $baseUnix = strtotime($cached);
         $cacheClr = $baseUnix - 13500;
-        //6 hour +30 seconds, cache is for 6
+        $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
         setPermCache("siloLastChecked{$keyID}", $cacheClr);
+        if ($siloCount > 0){
+            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Silo Check At: {$cacheTimer} EVE Time");
+        }
         $this->logger->info("Silo Check Complete");
         return null;
 
