@@ -94,7 +94,7 @@ class siphons {
                 foreach ($structures->rowset->row as $silo) {
                     //Avoid reporting empty silos
                     if ($silo->attributes()->quantity != 0) {
-                        //Check for a multiple of 100
+                        //Check for a multiple of 50
                         if ($silo->attributes()->quantity % 50 != 0) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "{$this->prefix}";
@@ -111,9 +111,9 @@ class siphons {
             }
             if ($structures->attributes()->typeID == 17982) {
                 foreach ($structures->rowset->row as $coupling) {
-                    //Avoid reporting empty silos
+                    //Avoid reporting empty coupling arrays
                     if ($coupling->attributes()->quantity != 0) {
-                        //Check for a multiple of 100
+                        //Check for a multiple of 50
                         if ($coupling->attributes()->quantity % 50 != 0) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "{$this->prefix}";
