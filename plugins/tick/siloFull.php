@@ -81,7 +81,7 @@ class siloFull {
     function checkTowers($keyID, $vCode)
     {
         $url = "https://api.eveonline.com/corp/AssetList.xml.aspx?keyID={$keyID}&vCode={$vCode}";
-        $xml = simplexml_load_file($url);
+        $xml = makeApiRequest($url);
         $siloCount = 0;
         foreach ($xml->result->rowset->row as $structures) {
             //Check silos
