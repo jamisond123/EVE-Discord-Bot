@@ -94,12 +94,33 @@ class siphons {
                 foreach ($structures->rowset->row as $silo) {
                     //Avoid reporting empty silos
                     if ($silo->attributes()->quantity != 0) {
-                        //Check for a multiple of 100
-                        if ($silo->attributes()->quantity % 100 != 0) {
+                        //Check for a multiple of 50
+                        if ($silo->attributes()->quantity % 50 != 0) {
+                            $gooType = $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $silo->attributes()->typeID), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "{$this->prefix}";
                             $msg .= "**POSSIBLE SIPHON**\n";
-                            $msg .= "**System: **{$systemName}\n";
+                            $msg .= "**System: **{$systemName} has a possible siphon stealing {$gooType} from a silo.\n";
+                            // Send the mails to the channel;
+                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                            $this->logger->info($msg);
+                            $siphonCount++;
+                            sleep(2); // Lets sleep for a second, so we don't rage spam
+                        }
+                    }
+                }
+            }
+            if ($structures->attributes()->typeID == 17982) {
+                foreach ($structures->rowset->row as $coupling) {
+                    //Avoid reporting empty coupling arrays
+                    if ($coupling->attributes()->quantity != 0) {
+                        //Check for a multiple of 50
+                        if ($coupling->attributes()->quantity % 50 != 0) {
+                            $gooType = $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $coupling->attributes()->typeID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            $msg = "{$this->prefix}";
+                            $msg .= "**POSSIBLE SIPHON**\n";
+                            $msg .= "**System: **{$systemName} has a possible siphon stealing {$gooType} from a coupling array.\n";
                             // Send the mails to the channel;
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             $this->logger->info($msg);
@@ -118,7 +139,7 @@ class siphons {
         if ($siphonCount > 0){
             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Siphon Check At: {$cacheTimer} EVE Time");
         }
-        $this->logger->info("Siphon Check Complete");
+        $this->logger->info("Siphon Check Complete Next Check At {$cacheTimer}");
         return null;
     }
 
