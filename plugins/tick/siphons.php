@@ -87,7 +87,7 @@ class siphons {
     {
         $url = "https://api.eveonline.com/corp/AssetList.xml.aspx?keyID={$keyID}&vCode={$vCode}";
         $xml = simplexml_load_file($url);
-
+        $siphonCount = 0;
         foreach ($xml->result->rowset->row as $structures) {
             //Check silos
             if ($structures->attributes()->typeID == 14343) {
@@ -95,14 +95,34 @@ class siphons {
                     //Avoid reporting empty silos
                     if ($silo->attributes()->quantity != 0) {
                         //Check for a multiple of 100
-                        if ($silo->attributes()->quantity % 100 != 0) {
+                        if ($silo->attributes()->quantity % 50 != 0) {
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "{$this->prefix}";
                             $msg .= "**POSSIBLE SIPHON**\n";
                             $msg .= "**System: **{$systemName}\n";
-                            // Send the mails to the channel
+                            // Send the mails to the channel;
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             $this->logger->info($msg);
+                            $siphonCount++;
+                            sleep(2); // Lets sleep for a second, so we don't rage spam
+                        }
+                    }
+                }
+            }
+            if ($structures->attributes()->typeID == 17982) {
+                foreach ($structures->rowset->row as $coupling) {
+                    //Avoid reporting empty silos
+                    if ($coupling->attributes()->quantity != 0) {
+                        //Check for a multiple of 100
+                        if ($coupling->attributes()->quantity % 50 != 0) {
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            $msg = "{$this->prefix}";
+                            $msg .= "**POSSIBLE SIPHON**\n";
+                            $msg .= "**System: **{$systemName}\n";
+                            // Send the mails to the channel;
+                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                            $this->logger->info($msg);
+                            $siphonCount++;
                             sleep(2); // Lets sleep for a second, so we don't rage spam
                         }
                     }
@@ -112,9 +132,12 @@ class siphons {
         $cached = $xml->cachedUntil[0];
         $baseUnix = strtotime($cached);
         $cacheClr = $baseUnix - 13500;
-        //6 hour +30 seconds, cache is for 6
+        $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
         setPermCache("siphonLastChecked{$keyID}", $cacheClr);
-        $this->logger->info("Siphon Check Complete");
+        if ($siphonCount > 0){
+            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Siphon Check At: {$cacheTimer} EVE Time");
+        }
+        $this->logger->info("Siphon Check Complete Next Check At {$cacheTimer}");
         return null;
     }
 
