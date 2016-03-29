@@ -109,6 +109,25 @@ class siphons {
                     }
                 }
             }
+            if ($structures->attributes()->typeID == 17982) {
+                foreach ($structures->rowset->row as $coupling) {
+                    //Avoid reporting empty silos
+                    if ($coupling->attributes()->quantity != 0) {
+                        //Check for a multiple of 100
+                        if ($coupling->attributes()->quantity % 100 != 0) {
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
+                            $msg = "{$this->prefix}";
+                            $msg .= "**POSSIBLE SIPHON**\n";
+                            $msg .= "**System: **{$systemName}\n";
+                            // Send the mails to the channel;
+                            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
+                            $this->logger->info($msg);
+                            $siphonCount++;
+                            sleep(2); // Lets sleep for a second, so we don't rage spam
+                        }
+                    }
+                }
+            }
         }
         $cached = $xml->cachedUntil[0];
         $baseUnix = strtotime($cached);
@@ -118,7 +137,7 @@ class siphons {
         if ($siphonCount > 0){
             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Siphon Check At: {$cacheTimer} EVE Time");
         }
-        $this->logger->info("Siphon Check Complete");
+        $this->logger->info("Siphon Check Complete Next Check At {$cacheTimer}");
         return null;
     }
 

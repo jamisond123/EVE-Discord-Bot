@@ -461,7 +461,7 @@ class siloFull {
         if ($siloCount > 0){
             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Silo Check At: {$cacheTimer} EVE Time");
         }
-        $this->logger->info("Silo Check Complete");
+        $this->logger->info("Silo Check Complete Next Check At {$cacheTimer}");
         return null;
 
 
