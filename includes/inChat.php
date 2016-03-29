@@ -36,7 +36,7 @@ chdir(__DIR__);
 $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
-$pluginDirs = array(__DIR__ . "../plugins/onMessage/*.php");
+$pluginDirs = array("../plugins/onMessage/*.php");
 $plugins = array();
 foreach ($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
