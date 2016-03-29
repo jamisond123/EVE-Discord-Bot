@@ -34,9 +34,7 @@ function gitRevision() {
 }
 
 function gitBranch() {
-    $stringFromFile = file('../.git/HEAD', FILE_USE_INCLUDE_PATH);
-    $firstLine = $stringFromFile[0]; //get the string from the array
-    $explodedString = explode("/", $firstLine, 3); //seperate out by the "/" in the string
-    $branchName = $explodedString[2]; //get the one that is always the branch name
+    exec('git name-rev --name-only HEAD', $branch);
+    $branchName = $branch[0];
     return $branchName;
 }
