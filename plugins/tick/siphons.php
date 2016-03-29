@@ -96,10 +96,11 @@ class siphons {
                     if ($silo->attributes()->quantity != 0) {
                         //Check for a multiple of 100
                         if ($silo->attributes()->quantity % 50 != 0) {
+                            $gooType = $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $silo->attributes()->typeID), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "{$this->prefix}";
                             $msg .= "**POSSIBLE SIPHON**\n";
-                            $msg .= "**System: **{$systemName}\n";
+                            $msg .= "**System: **{$systemName} has a possible siphon stealing {$gooType} from a silo.\n";
                             // Send the mails to the channel;
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             $this->logger->info($msg);
@@ -115,10 +116,11 @@ class siphons {
                     if ($coupling->attributes()->quantity != 0) {
                         //Check for a multiple of 100
                         if ($coupling->attributes()->quantity % 50 != 0) {
+                            $gooType = $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $coupling->attributes()->typeID), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
                             $msg = "{$this->prefix}";
                             $msg .= "**POSSIBLE SIPHON**\n";
-                            $msg .= "**System: **{$systemName}\n";
+                            $msg .= "**System: **{$systemName} has a possible siphon stealing {$gooType} from a coupling array.\n";
                             // Send the mails to the channel;
                             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                             $this->logger->info($msg);
