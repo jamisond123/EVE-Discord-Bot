@@ -36,7 +36,7 @@ chdir(__DIR__);
 $startTime = time();
 
 // Require the vendor stuff
-require_once("/../vendor/autoload.php");
+require_once("../vendor/autoload.php");
 
 // Require the config
 if (file_exists("../config/config.php")) {
