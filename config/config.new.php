@@ -42,7 +42,7 @@ $config["seat"] = array(
 );
 
 $config["discord"] = array(
-    "email" => "", // login email for the bot, make a separate account
+    "email" => "", // login email for the bot, make a separate account and accept an invite to the desired server
     "password" => "", // login pass for the bot
     "admin" => "", // The owner of the bot
     "adminID" => "", // The discordID of the owner of the bot
