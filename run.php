@@ -46,5 +46,5 @@ if ($initial != "1") {
 updateSluggardDB($logger);
 
 // Initiate background tasks
-include 'background.php';
+include 'includes/background.php';
 $logger->info("Initiating background tasks");

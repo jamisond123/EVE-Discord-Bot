@@ -36,11 +36,11 @@ chdir(__DIR__);
 $startTime = time();
 
 // Require the vendor stuff
-require_once(__DIR__ . "/vendor/autoload.php");
+require_once("../vendor/autoload.php");
 
 // Require the config
-if (file_exists(__DIR__ . "/config/config.php")) {
-    require_once(__DIR__ . "/config/config.php");
+if (file_exists("../config/config.php")) {
+    require_once("../config/config.php");
 } else {
     throw new Exception("config.php not found (you might wanna start by editing and renaming config_new.php)");
 }
@@ -51,7 +51,7 @@ $token = $discord->token();
 $gateway = $discord->api("gateway")->show()["url"] . "/"; // need to end in / for it to not whine about it.. *sigh*
 
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
-$pluginDirs = array(__DIR__ . "/plugins/tick/*.php");
+$pluginDirs = array("../plugins/tick/*.php");
 $plugins = array();
 foreach ($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
@@ -72,7 +72,7 @@ foreach ($pluginDirs as $dir) {
 $logger->info("Loaded: " . count($plugins) . " background plugins");
 
 // Load all the timers
-foreach (glob("plugins/onTime/*.php") as $onTime)
+foreach (glob("../plugins/onTime/*.php") as $onTime)
 {
     include $onTime;
 }
