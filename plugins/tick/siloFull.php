@@ -59,6 +59,7 @@ class siloFull {
         $this->toDiscordChannel = $config["plugins"]["siloFull"]["channelID"];
         $this->keyID = $config["plugins"]["siloFull"]["keyID"];
         $this->vCode = $config["plugins"]["siloFull"]["vCode"];
+        $this->towerRace = $config["plugins"]["siloFull"]["towerRace"];
         $lastCheck = getPermCache("siloLastChecked{$this->keyID}");
         if ($lastCheck == NULL) {
             // Schedule it for right now if first run
@@ -83,6 +84,16 @@ class siloFull {
         $url = "https://api.eveonline.com/corp/AssetList.xml.aspx?keyID={$keyID}&vCode={$vCode}";
         $xml = makeApiRequest($url);
         $siloCount = 0;
+        $towerMulti = 0;
+        $towerFull = 20000;
+        if ($this->towerRace == 1){
+            $towerMulti = 0.50;
+            $towerFull = 30000;
+        }
+        if ($this->towerRace == 2){
+            $towerMulti = 1;
+            $towerFull = 40000;
+        }
         foreach ($xml->result->rowset->row as $structures) {
             //Check silos
             if ($structures->attributes()->typeID == 14343) {
@@ -92,13 +103,14 @@ class siloFull {
                         case 16634:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16634), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 270000) {
+                            $towerWarn = 180000+(180000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -113,13 +125,14 @@ class siloFull {
                         case 16643:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16643), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 67000) {
+                            $towerWarn = 45000+(45000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -134,13 +147,14 @@ class siloFull {
                         case 16647:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16647), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 32500) {
+                            $towerWarn = 22500+(22500*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.8;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -155,13 +169,14 @@ class siloFull {
                         case 16641:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16641), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 40000) {
+                            $towerWarn = 30000+(30000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.6;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -176,13 +191,14 @@ class siloFull {
                         case 16640:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16640), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 67000) {
+                            $towerWarn = 45000+(45000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -197,13 +213,14 @@ class siloFull {
                         case 16635:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16635), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 270000) {
+                            $towerWarn = 180000+(180000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -218,13 +235,14 @@ class siloFull {
                         case 16648:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16648), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 32500) {
+                            $towerWarn = 22500+(22500*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.8;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -239,13 +257,14 @@ class siloFull {
                         case 16633:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16633), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 270000) {
+                            $towerWarn = 180000+(180000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -260,13 +279,14 @@ class siloFull {
                         case 16646:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16646), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 32500) {
+                            $towerWarn = 22500+(22500*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.8;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -281,13 +301,14 @@ class siloFull {
                         case 16651:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16651), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 27000) {
+                            $towerWarn = 18000+(18000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -302,13 +323,14 @@ class siloFull {
                         case 16650:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16650), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 27000) {
+                            $towerWarn = 18000+(18000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -323,13 +345,14 @@ class siloFull {
                         case 16644:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16644), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 27000) {
+                            $towerWarn = 18000+(18000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -344,13 +367,14 @@ class siloFull {
                         case 16652:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16652), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 27000) {
+                            $towerWarn = 18000+(18000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -365,13 +389,14 @@ class siloFull {
                         case 16639:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16639), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 70000) {
+                            $towerWarn = 45000+(45000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -386,13 +411,14 @@ class siloFull {
                         case 16636:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16636), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 270000) {
+                            $towerWarn = 180000+(180000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -407,13 +433,14 @@ class siloFull {
                         case 16649:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16649), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 32500) {
+                            $towerWarn = 18000+(18000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
-                                $gooVolume = 0.8;
+                                $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -428,13 +455,14 @@ class siloFull {
                         case 16653:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16653), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 27000) {
+                            $towerWarn = 18000+(18000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -449,13 +477,14 @@ class siloFull {
                         case 16638:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16638), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 70000) {
+                            $towerWarn = 45000+(45000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -470,13 +499,14 @@ class siloFull {
                         case 16637:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16637), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 70000) {
+                            $towerWarn = 45000+(45000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 0.4;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
@@ -491,13 +521,14 @@ class siloFull {
                         case 16642:
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => 16642), "ccp");
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $structures->attributes()->locationID), "ccp");
-                            if ($silo->attributes()->quantity >= 27000) {
+                            $towerWarn = 18000+(18000*$towerMulti);
+                            if ($silo->attributes()->quantity >= $towerWarn) {
                                 $gooAmount = $silo->attributes()->quantity;
                                 $gooVolume = 1;
                                 $gooCurrent = $gooAmount * $gooVolume;
                                 $cleanNumber = number_format($gooCurrent);
                                 $msg = "**{$typeName} Silo Nearing Capacity**\n";
-                                if ($gooCurrent = 30000){
+                                if ($gooCurrent == $towerFull){
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
