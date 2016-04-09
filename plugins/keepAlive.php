@@ -23,15 +23,8 @@
  * SOFTWARE.
  */
 
-// Keep alive
+// Keep alive timer (Default to 30 seconds heartbeat interval)
 $loop->addPeriodicTimer(15, function() use ($logger, $client) {
-    $lastChecked = getPermCache("keepAlive");
-    if ($lastChecked <= time()) {
-        $this->logger->info("Restarting Websocket");
-        sleep(5);
-        include '../includes/webSocket.php';
-        return null;
-    }
     //$logger->info("Sending keepalive"); // schh
     $client->send(
         json_encode(
@@ -42,5 +35,4 @@ $loop->addPeriodicTimer(15, function() use ($logger, $client) {
             JSON_NUMERIC_CHECK
         )
     );
-    setPermCache("keepAlive", time() + 40);
 });

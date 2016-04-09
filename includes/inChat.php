@@ -177,6 +177,4 @@ $client->open()->then(function() use ($logger, $client) {
     $logger->notice("Connection opened");
 });
 
-setPermCache("keepAlive", time() + 40);
-
 $loop->run();
