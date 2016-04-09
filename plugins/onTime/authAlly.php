@@ -53,7 +53,7 @@ $loop->addPeriodicTimer(21600, function() use ($logger, $discord, $config) {
                     foreach ($xml->result->rowset->row as $character) {
                         if ($character->attributes()->allianceID != $allyID) {
                             $discord->api("guild")->members()->redeploy($guildID, $discordID, "");
-                            $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user #" . $discordName . " alliance roles removed via auth.");
+                            $discord->api("channel")->messages()->create($toDiscordChannel, "Discord user " . $discordName . " alliance roles have been removed due to no longer being a member of the alliance.");
                             $logger->info("Removing user " . $discordName);
 
                             $sql4 = "UPDATE authUsers SET active='no' WHERE discordID='$discordID'";
