@@ -1,68 +1,11 @@
 <?php
-/**
- * The MIT License (MIT)
- *
- * Copyright (c) 2016 Robert Sardinia
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
-// More memory allowance
-ini_set("memory_limit", "1024M");
-
-// Enable garbage collection
-gc_enable();
-
-// Just incase we get launched from somewhere else
-chdir(__DIR__);
 
 // Startup the websocket connection
 $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 
-// Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
-$pluginDirs = array("../plugins/onMessage/*.php");
-$plugins = array();
-foreach ($pluginDirs as $dir) {
-    foreach (glob($dir) as $plugin) {
-        // Only load the plugins we want to load, according to the config
-        if (!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"])) {
-                    continue;
-        }
-
-        require_once($plugin);
-        $logger->info("Loading in chat plugin: " . str_replace(".php", "", basename($plugin)));
-        $fileName = str_replace(".php", "", basename($plugin));
-        $p = new $fileName();
-        $p->init($config, $discord, $logger);
-        $plugins[] = $p;
-    }
-}
-
-//include keepAlive
-include "../plugins/keepAlive.php";
-
-// Number of plugins loaded
-$logger->info("Loaded: " . count($plugins) . " plugins");
-
 // Setup the connection handlers
 $client->on("connect", function() use ($logger, $client, $token) {
-    $logger->notice("Connected!");
+    $logger->notice("Re-connected!");
     $client->send(
         json_encode(
             array(
@@ -101,13 +44,13 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
 
             // Skip if it's the bot itself that wrote something
             if ($data->author->username == $config["bot"]["name"]) {
-                            continue;
+                continue;
             }
 
             // Create the data array for the plugins to use
             $channelData = $discord->api("channel")->show($data->channel_id);
             if ($channelData["is_private"]) {
-                            $channelData["name"] = $channelData["recipient"]["username"];
+                $channelData["name"] = $channelData["recipient"]["username"];
             }
 
             $msgData = array(
@@ -130,7 +73,7 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
 
             // Update the users status
             if ($data->author->id) {
-                            dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastSpoke, lastWritten) VALUES (:id, :name, :lastSeen, :lastSpoke, :lastWritten)", array(":id" => $data->author->id, ":lastSeen" => date("Y-m-d H:i:s"), ":name" => $data->author->username, ":lastSpoke" => date("Y-m-d H:i:s"), ":lastWritten" => $data->content));
+                dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastSpoke, lastWritten) VALUES (:id, :name, :lastSeen, :lastSpoke, :lastWritten)", array(":id" => $data->author->id, ":lastSeen" => date("Y-m-d H:i:s"), ":name" => $data->author->username, ":lastSpoke" => date("Y-m-d H:i:s"), ":lastWritten" => $data->content));
             }
 
             // Run the plugins
@@ -174,9 +117,7 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
 });
 
 $client->open()->then(function() use ($logger, $client) {
-    $logger->notice("Connection opened");
+    $logger->notice("Connection re-opened");
 });
-
-setPermCache("keepAlive", time() + 40);
 
 $loop->run();
