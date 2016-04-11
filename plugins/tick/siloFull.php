@@ -86,16 +86,13 @@ class siloFull {
         $siloCount = 0;
         $towerMulti = 0;
         $towerFull = 20000;
-        $cleanFull = number_format($towerFull);
         if ($this->towerRace == 1){
             $towerMulti = 0.50;
             $towerFull = 30000;
-            $cleanFull = number_format($towerFull);
         }
         if ($this->towerRace == 2){
             $towerMulti = 1;
             $towerFull = 40000;
-            $cleanFull = number_format($towerFull);
         }
         foreach ($xml->result->rowset->row as $structures) {
             //Check silos
@@ -117,7 +114,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -139,7 +136,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -161,7 +158,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -183,7 +180,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -205,7 +202,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -227,7 +224,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -249,7 +246,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -271,7 +268,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -293,7 +290,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -315,7 +312,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -337,7 +334,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -359,7 +356,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -381,7 +378,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -403,7 +400,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -425,7 +422,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -447,7 +444,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -469,7 +466,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -491,7 +488,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -513,7 +510,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
@@ -535,7 +532,7 @@ class siloFull {
                                     $msg = "**{$typeName} Silo Full**\n";
                                 }
                                 $msg .= "**System: **{$systemName}\n";
-                                $msg .= "**Capacity: **{$cleanNumber}/{$cleanFull}m3\n";
+                                $msg .= "**Capacity: **{$cleanNumber}/30,000m3\n";
                                 $this->logger->info("{$typeName} Silo nearing capacity in {$systemName}");
                                 // Send the mails to the channel
                                 $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
