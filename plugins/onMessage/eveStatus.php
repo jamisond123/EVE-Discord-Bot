@@ -47,7 +47,7 @@ class eveStatus
         $data = command($message, $this->information()["trigger"]);
         if (isset($data["trigger"])) {
 
-            $crestData = json_decode(downloadData("https://public-crest.eveonline.com/"), true);
+            $crestData = json_decode(downloadData("https://crest-tq.eveonline.com/"), true);
 
             $tqStatus = isset($crestData["serviceStatus"]["eve"]) ? $crestData["serviceStatus"]["eve"] : "offline";
             $tqOnline = (int) $crestData["userCounts"]["eve"];
