@@ -6,6 +6,9 @@ Discord bot to manage an EVE Online Corp/Alliance discord "guild".
 Current Version - 1.0-Beta   
 Should be fairly stable.
 
+Known Bugs
+- Bot may DC from channel. It will still perform all the background tasks and post messages it just can't receive chat commands. Restart is the only fix ATM. Working on resolving this.
+
 Have a look at the [Wiki for info](https://github.com/shibdib/EVE-Discord-Bot/wiki)
 
 
