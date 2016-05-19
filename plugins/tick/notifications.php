@@ -181,6 +181,9 @@ class notifications {
                         case 16: // Mail
                             $msg = "skip";
                             break;
+                        case 21: // member left corp
+                            $msg = "skip";
+                            break;
                         case 35: // Insurance payment
                             $msg = "skip";
                             break;
@@ -255,9 +258,6 @@ class notifications {
                         case 140: // Kill report
                             $msg = "skip";
                             break;
-                        case 141: // Kill report
-                            $msg = "skip";
-                            break;
                         case 147: // Entosis has stated
                             $systemID = trim(explode(": ", $notificationString[0])[1]);
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $systemID), "ccp");
@@ -280,25 +280,49 @@ class notifications {
                             $msg = "Entosis has disabled a module in **{$systemName}** on **{$typeName}** (Date: **{$sentDate}**)";
                             break;
                         case 160: // Entosis successful
-                            $systemID = trim(explode(": ", $notificationString[2])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $systemID), "ccp");
-                            $msg = "Hostile entosis successful. A structure in **{$systemName}** has entered reinforced mode.";
+                            $msg = "Hostile entosis successful. Structure has entered reinforced mode. (Unfortunately this api endpoint doesn't provide any more details)";
                             break;
                         case 161: //  Command Nodes Decloaking
                             $systemID = trim(explode(": ", $notificationString[2])[1]);
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $systemID), "ccp");
                             $msg = "Command nodes decloaking for **{$systemName}**";
                             break;
-                        case 163: //  Freeport
-                            $systemID = trim(explode(": ", $notificationString[1])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $systemID), "ccp");
-                            $msg = "Station in **{$systemName}** has entered freeport mode.";
+						case 184: //  Citadel under attack
+                            $aggID = trim(explode(": ", $notificationString[7])[1]);
+                            $aggCharacterName = $this->apiData("char", $aggID)["characterName"];
+                            $solarSystemID = trim(explode(": ", $notificationString[15])[1]);
+                            $aggAllianceID = trim(explode(": ", $notificationString[0])[1]);
+                            $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
+                            $aggCorpID = trim(explode("- ", $notificationString[11])[1]);
+                            $aggCorpName = $this->apiData("corp", $aggCorpID)["corporationName"];
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $msg = "Citadel under attack in **{$systemName}** by **{$aggCharacterName}** ({$aggCorpName} / {$aggAllianceName}).";
                             break;
+                        break;
+						case 185: //  Citadel online
+                            $solarSystemID = trim(explode(": ", $notificationString[0])[1]);
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $msg = "Citadel now online in **{$systemName}**.";
+                            break;
+                        break;
+						case 188: //  Citadel destroyed
+                            $corpID = trim(explode("- ", $notificationString[3])[1]);
+                            $corpName = $this->apiData("corp", $corpID)["corporationName"];
+                            $solarSystemID = trim(explode(": ", $notificationString[5])[1]);
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+							$msg = "Citadel owned by **{$corpName}** in **{$systemName}** has been destroyed.";
+                            break;
+                        break;
+						default: // Unknown typeID
+							$string = implode(" ",$notificationString);
+							$msg = "typeID {$typeID} is an unmapped notification, send Mr Twinkie this whole message via evemail or github issue. {$string}";
+							break;
                     }
-
-                    /** @noinspection PhpUndefinedVariableInspection */
+					
                     if ($msg == "skip") {
                         return null;
+                    }
+					if ($msg == "") {
                     }
                     $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                     // Find the maxID so we don't output this message again in the future
