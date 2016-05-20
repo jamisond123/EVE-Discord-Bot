@@ -26,7 +26,8 @@
 /**
  * Class notifications
  */
-class notifications {
+class notifications
+{
     /**
      * @var
      */
@@ -115,7 +116,7 @@ class notifications {
         $check = true;
         foreach ($this->keys as $keyOwner => $api) {
             if ($check == false) {
-                            continue;
+                continue;
             }
             $keyID = $api["keyID"];
             $vCode = $api["vCode"];
@@ -140,18 +141,19 @@ class notifications {
     {
         try {
             $url = "https://api.eveonline.com/char/Notifications.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}";
-            $data = json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)), true);
+            $data = json_decode(json_encode(simplexml_load_string(downloadData($url),
+                "SimpleXMLElement", LIBXML_NOCDATA)), true);
             $data = $data["result"]["rowset"]["row"];
             // If there is no data, just quit..
             if (empty($data)) {
-                            return;
+                return;
             }
             $fixedData = array();
             // Sometimes there is only ONE notification, so.. yeah..
             $fixedData[] = $data["@attributes"];
             if (count($data) > 1) {
                 foreach ($data as $multiNotif) {
-                                    $fixedData[] = $multiNotif["@attributes"];
+                    $fixedData[] = $multiNotif["@attributes"];
                 }
             }
             foreach ($fixedData as $notification) {
@@ -159,7 +161,8 @@ class notifications {
                 $typeID = $notification["typeID"];
                 $sentDate = $notification["sentDate"];
                 if ($notificationID > $this->newestNotificationID) {
-                    $notificationString = explode("\n", $this->getNotificationText($keyID, $vCode, $characterID, $notificationID));
+                    $notificationString = explode("\n", $this->getNotificationText($keyID, $vCode, $characterID,
+                        $notificationID));
                     switch ($typeID) {
                         case 5: // War Declared
                             $aggAllianceID = trim(explode(": ", $notificationString[2])[1]);
@@ -200,22 +203,28 @@ class notifications {
                             $armorValue = trim(explode(": ", $notificationString[3])[1]);
                             $hullValue = trim(explode(": ", $notificationString[4])[1]);
                             $moonID = trim(explode(": ", $notificationString[5])[1]);
-                            $moonName = dbQueryField("SELECT itemName FROM mapAllCelestials WHERE itemID = :id", "itemName", array(":id" => $moonID), "ccp");
+                            $moonName = dbQueryField("SELECT itemName FROM mapAllCelestials WHERE itemID = :id",
+                                "itemName", array(":id" => $moonID), "ccp");
                             $shieldValue = trim(explode(": ", $notificationString[6])[1]);
                             $solarSystemID = trim(explode(": ", $notificationString[7])[1]);
                             $typeID = trim(explode(": ", $notificationString[8])[1]);
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $typeID), "ccp");
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id",
+                                "typeName", array(":id" => $typeID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "{$typeName} under attack in **{$systemName} - {$moonName}** by {$aggCharacterName} ({$aggCorpName} / {$aggAllianceName}). Status: Hull: {$hullValue}, Armor: {$armorValue}, Shield: {$shieldValue}";
                             break;
                         case 76: // Tower resource alert
                             $moonID = trim(explode(": ", $notificationString[2])[1]);
-                            $moonName = dbQueryField("SELECT itemName FROM mapAllCelestials WHERE itemID = :id", "itemName", array(":id" => $moonID), "ccp");
+                            $moonName = dbQueryField("SELECT itemName FROM mapAllCelestials WHERE itemID = :id",
+                                "itemName", array(":id" => $moonID), "ccp");
                             $solarSystemID = trim(explode(": ", $notificationString[3])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $blocksRemaining = trim(explode(": ", $notificationString[6])[1]);
                             $typeID = trim(explode(": ", $notificationString[7])[1]);
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $typeID), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id",
+                                "typeName", array(":id" => $typeID), "ccp");
                             $msg = "POS in {$systemName} - {$moonName} needs fuel. Only {$blocksRemaining} {$typeName}'s remaining.";
                             break;
                         case 88: // IHUB is being attacked
@@ -229,7 +238,8 @@ class notifications {
                             $hullValue = trim(explode(": ", $notificationString[4])[1]);
                             $shieldValue = trim(explode(": ", $notificationString[5])[1]);
                             $solarSystemID = trim(explode(": ", $notificationString[6])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "IHUB under attack in **{$systemName}** by {$aggCharacterName} ({$aggCorpName} / {$aggAllianceName}). Status: Hull: {$hullValue}, Armor: {$armorValue}, Shield: {$shieldValue}";
                             break;
                         case 93: // Customs office is being attacked
@@ -240,10 +250,12 @@ class notifications {
                             $aggID = trim(explode(": ", $notificationString[2])[1]);
                             $aggCharacterName = $this->apiData("char", $aggID)["characterName"];
                             $planetID = trim(explode(": ", $notificationString[3])[1]);
-                            $planetName = dbQueryField("SELECT itemName FROM mapAllCelestials WHERE itemID = :id", "itemName", array(":id" => $planetID), "ccp");
+                            $planetName = dbQueryField("SELECT itemName FROM mapAllCelestials WHERE itemID = :id",
+                                "itemName", array(":id" => $planetID), "ccp");
                             $shieldValue = trim(explode(": ", $notificationString[5])[1]);
                             $solarSystemID = trim(explode(": ", $notificationString[6])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "Customs Office under attack in **{$systemName}** ($planetName) by {$aggCharacterName} ({$aggCorpName} / {$aggAllianceName}). Shield Status: {$shieldValue}";
                             break;
                         case 94: // POCO Reinforced
@@ -260,23 +272,29 @@ class notifications {
                             break;
                         case 147: // Entosis has stated
                             $systemID = trim(explode(": ", $notificationString[0])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $systemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $systemID), "ccp");
                             $typeID = trim(explode(": ", $notificationString[1])[1]);
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $typeID), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id",
+                                "typeName", array(":id" => $typeID), "ccp");
                             $msg = "Entosis has started in **{$systemName}** on **{$typeName}** (Date: **{$sentDate}**)";
                             break;
                         case 148: // Entosis enabled a module ??????
                             $systemID = trim(explode(": ", $notificationString[0])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $systemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $systemID), "ccp");
                             $typeID = trim(explode(": ", $notificationString[1])[1]);
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $typeID), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id",
+                                "typeName", array(":id" => $typeID), "ccp");
                             $msg = "Entosis has enabled a module in **{$systemName}** on **{$typeName}** (Date: **{$sentDate}**)";
                             break;
                         case 149: // Entosis disabled a module
                             $systemID = trim(explode(": ", $notificationString[0])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $systemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $systemID), "ccp");
                             $typeID = trim(explode(": ", $notificationString[1])[1]);
-                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id", "typeName", array(":id" => $typeID), "ccp");
+                            $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id",
+                                "typeName", array(":id" => $typeID), "ccp");
                             $msg = "Entosis has disabled a module in **{$systemName}** on **{$typeName}** (Date: **{$sentDate}**)";
                             break;
                         case 160: // Entosis successful
@@ -284,10 +302,11 @@ class notifications {
                             break;
                         case 161: //  Command Nodes Decloaking
                             $systemID = trim(explode(": ", $notificationString[2])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $systemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $systemID), "ccp");
                             $msg = "Command nodes decloaking for **{$systemName}**";
                             break;
-						case 184: //  Citadel under attack
+                        case 184: //  Citadel under attack
                             $aggID = trim(explode(": ", $notificationString[7])[1]);
                             $aggCharacterName = $this->apiData("char", $aggID)["characterName"];
                             $solarSystemID = trim(explode(": ", $notificationString[15])[1]);
@@ -295,34 +314,37 @@ class notifications {
                             $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
                             $aggCorpID = trim(explode("- ", $notificationString[11])[1]);
                             $aggCorpName = $this->apiData("corp", $aggCorpID)["corporationName"];
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "Citadel under attack in **{$systemName}** by **{$aggCharacterName}** ({$aggCorpName} / {$aggAllianceName}).";
                             break;
-                        break;
-						case 185: //  Citadel online
+                            break;
+                        case 185: //  Citadel online
                             $solarSystemID = trim(explode(": ", $notificationString[0])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "Citadel now online in **{$systemName}**.";
                             break;
-                        break;
-						case 188: //  Citadel destroyed
+                            break;
+                        case 188: //  Citadel destroyed
                             $corpID = trim(explode("- ", $notificationString[3])[1]);
                             $corpName = $this->apiData("corp", $corpID)["corporationName"];
                             $solarSystemID = trim(explode(": ", $notificationString[5])[1]);
-                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id", "solarSystemName", array(":id" => $solarSystemID), "ccp");
-							$msg = "Citadel owned by **{$corpName}** in **{$systemName}** has been destroyed.";
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $msg = "Citadel owned by **{$corpName}** in **{$systemName}** has been destroyed.";
                             break;
-                        break;
-						default: // Unknown typeID
-							$string = implode(" ",$notificationString);
-							$msg = "typeID {$typeID} is an unmapped notification, send Mr Twinkie this whole message via evemail or github issue. {$string}";
-							break;
+                            break;
+                        default: // Unknown typeID
+                            $string = implode(" ", $notificationString);
+                            $msg = "typeID {$typeID} is an unmapped notification, send Mr Twinkie this whole message via evemail or github issue. {$string}";
+                            break;
                     }
-					
+
                     if ($msg == "skip") {
                         return null;
                     }
-					if ($msg == "") {
+                    if ($msg == "") {
                     }
                     $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                     // Find the maxID so we don't output this message again in the future
@@ -331,7 +353,8 @@ class notifications {
                     setPermCache("newestNotificationID", $this->maxID);
                 }
             }
-        } catch (Exception $e) {
+        }
+        catch (exception $e) {
             $this->logger->info("Notification Error: " . $e->getMessage());
         }
     }
@@ -345,7 +368,8 @@ class notifications {
     function getNotificationText($keyID, $vCode, $characterID, $notificationID)
     {
         $url = "https://api.eveonline.com/char/NotificationTexts.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}&IDs={$notificationID}";
-        $data = json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)), true);
+        $data = json_decode(json_encode(simplexml_load_string(downloadData($url),
+            "SimpleXMLElement", LIBXML_NOCDATA)), true);
         $data = $data["result"]["rowset"]["row"];
         return $data;
     }
@@ -361,7 +385,8 @@ class notifications {
      * @param string $typeID
      * @return mixed
      */
-    function apiData($type, $typeID) {
+    function apiData($type, $typeID)
+    {
         $downloadFrom = "";
         switch ($type) {
             case "char":
@@ -384,7 +409,6 @@ class notifications {
         return array(
             "name" => "",
             "trigger" => array(""),
-            "information" => ""
-        );
+            "information" => "");
     }
 }

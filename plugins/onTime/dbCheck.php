@@ -25,14 +25,14 @@
 
 // CCP Database Check
 $loop->addPeriodicTimer(86400, function() use ($logger, $discord, $config) {
-	
+		$logger->info("Checking database.....");
     $ccpDataMD5URL = "https://www.fuzzwork.co.uk/dump/sqlite-latest.sqlite.bz2.md5";
 
     $md5 = explode(" ", downloadData($ccpDataMD5URL))[0];
     $lastSeenMD5 = getPermCache("SluggardCCPDataMD5");
-	
+
 	$databaseDir = __DIR__ . "/../../database/";
-	
+
 	if($lastSeenMD5 !== $md5) {
 		if (file_exists("{$databaseDir}sqlite-latest.sqlite.bz2")) {
 			$logger->info("Updated Database Detected, Installing.");
@@ -41,5 +41,6 @@ $loop->addPeriodicTimer(86400, function() use ($logger, $discord, $config) {
 		}
 		$logger->info("Database update required, check the wiki for info on how to update. Current DB MD5 {$lastSeenMD5}, New DB MD5 {$md5}");
 	}
+	$logger->info("Database is current.");
 	return null;
 });
