@@ -270,6 +270,9 @@ class notifications
                         case 140: // Kill report
                             $msg = "skip";
                             break;
+                        case 141: // Kill report
+                            $msg = "skip";
+                            break;
                         case 147: // Entosis has stated
                             $systemID = trim(explode(": ", $notificationString[0])[1]);
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
