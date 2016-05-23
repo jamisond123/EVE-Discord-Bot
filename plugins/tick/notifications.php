@@ -349,6 +349,7 @@ class notifications
                     }
                     if ($msg == "") {
                     }
+                    $this->logger->info("Notification sent to channel {$this->toDiscordChannel}, Message - {$msg}");
                     $this->discord->api("channel")->messages()->create($this->toDiscordChannel, $msg);
                     // Find the maxID so we don't output this message again in the future
                     $this->maxID = max($notificationID, $this->maxID);
