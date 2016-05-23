@@ -190,6 +190,16 @@ class notifications
                         case 35: // Insurance payment
                             $msg = "skip";
                             break;
+                        case 43: // System captured
+                            $systemID = trim(explode(": ", $notificationString[2])[1]);
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $systemID), "ccp");
+                            $allianceID = trim(explode(": ", $notificationString[0])[1]);
+                            $allianceName = $this->apiData("alli", $allianceID)["allianceName"];
+                            $corpID = trim(explode(": ", $notificationString[1])[1]);
+                            $corpName = $this->apiData("corp", $corpID)["allianceName"];
+                            $msg = "{$allianceName} now controls **{$systemName}** (Holding Corp - {$corpName})";
+                            break;
                         case 71: // Mission Expiration
                             $msg = "skip";
                             break;
