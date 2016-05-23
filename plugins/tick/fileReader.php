@@ -95,8 +95,6 @@ class fileReader
                     } elseif ($chanConfig["searchString"] == false) { // If no match was found, and searchString is false, just use that
                         $message = $chanConfig["textStringPrepend"] . " " . $message . " " . $chanConfig["textStringAppend"];
                         $channelID = $chanConfig["channelID"];
-                    } else { // If something fucked up, we'll just go this route..
-                        $channelID = isset($defaultID) ? $defaultID : $chanConfig["channelID"]; // If default ID isn't set, then we just pick whatever we can..
                     }
                 }
 
