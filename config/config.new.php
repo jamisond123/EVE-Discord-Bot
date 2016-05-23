@@ -46,7 +46,7 @@ $config["discord"] = array(
     "password" => "", // login pass for the bot
     "admin" => "", // The owner of the bot
     "adminID" => "", // The discordID of the owner of the bot
-    "guildID" => "152677265635803136" // The channelID of the corp/alliance
+    "guildID" => "" // The guildID of the corp/alliance
 );
 
 // Twitter
@@ -98,7 +98,7 @@ $config["enabledPlugins"] = array(
     //"siloFull", // report any silos nearing max capacity. Currently only works for silo bonus (amarr) towers
 );
 
-// Example from the 4M server
+
 $config["plugins"] = array(
     //Checks if the server is up. Prone to hiccups if the api/crest go down
     "periodicTQStatus" => array(
@@ -118,31 +118,24 @@ $config["plugins"] = array(
                 "searchString" => "broadcast", // The plugin will search for this string and post any messages that contain it. To have the bot share everything change it to false without any quotes.
                 "textStringPrepend" => "@everyone |", // this prepend will ping all discord users with access to the channel
                 "textStringAppend" => "", // anything ud like to add to the tail end of the bots message
-                "channelID" => 119136919346085888 // channel it posts too
-            ),
-            "intel" => array(
-                "default" => false,
-                "searchString" => "intel",
-                "textStringPrepend" => "",
-                "textStringAppend" => "",
-                "channelID" => 149918425018400768
+                "channelID" => "" // channel it posts too
             ),
             "blackops" => array(
                 "default" => false,
-                "searchString" => "blops",
+                "searchString" => "",
                 "textStringPrepend" => "@everyone |",
                 "textStringAppend" => "",
-                "channelID" => 149925578135306240
+                "channelID" => ""
             )
         ),
     ),
     // what channel for eve notifications
     "notifications" => array(
-        "channelID" => 149918425018400768 
+        "channelID" => ""
     ),
     //Spam twitter messages from people you follow to this channel
     "twitterOutput" => array(
-        "channelID" => 120474010109607937 // twitter output channel
+        "channelID" => "" // twitter output channel
     ),
     //Ask you bot questions using !wolf
     "wolframAlpha" => array(
