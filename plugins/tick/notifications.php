@@ -196,9 +196,7 @@ class notifications
                                 "solarSystemName", array(":id" => $systemID), "ccp");
                             $allianceID = trim(explode(": ", $notificationString[0])[1]);
                             $allianceName = $this->apiData("alli", $allianceID)["allianceName"];
-                            $corpID = trim(explode(": ", $notificationString[1])[1]);
-                            $corpName = $this->apiData("corp", $corpID)["allianceName"];
-                            $msg = "{$allianceName} now controls **{$systemName}** (Holding Corp - {$corpName})";
+                            $msg = "{$allianceName} now controls **{$systemName}**";
                             break;
                         case 71: // Mission Expiration
                             $msg = "skip";
