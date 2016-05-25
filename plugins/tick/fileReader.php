@@ -104,13 +104,7 @@ class fileReader
                 // Remove |  from the line or whatever else is at the last two characters in the string
                 $message = trim(substr($message, 0, -2));
 
-                $defaultID = 0;
                 foreach ($this->channelConfig as $chanName => $chanConfig) {
-                    // If a channel is marked as default (usually the first on the list) we populate defaultID here, just to make sure..
-                    if ($chanConfig["default"] == true) {
-                                            $defaultID = $chanConfig["channelID"];
-                    }
-
                     // Search for a channel where the search string matches the actual message
                     if (stristr($message, $chanConfig["searchString"])) {
                         $message = $chanConfig["textStringPrepend"] . " " . $message . " " . $chanConfig["textStringAppend"];
@@ -119,6 +113,9 @@ class fileReader
                         $message = $chanConfig["textStringPrepend"] . " " . $message . " " . $chanConfig["textStringAppend"];
                         $channelID = $chanConfig["channelID"];
                     }
+                }
+                if ($channelID == "" || $channelID == null) {
+                    return null;
                 }
                 $this->logger->info("Ping sent to channel {$channelID}, Message - {$message}");
                 $this->discord->api("channel")->messages()->create($channelID, $message);
