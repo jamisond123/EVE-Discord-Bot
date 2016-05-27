@@ -115,10 +115,12 @@ class fileReader
                     }
                 }
                 if ($channelID == "" || $channelID == null) {
-                    return null;
+                    $message = "skip";
                 }
-                $this->logger->info("Ping sent to channel {$channelID}, Message - {$message}");
-                $this->discord->api("channel")->messages()->create($channelID, $message);
+                if ($message != "skip") {
+                    $this->logger->info("Ping sent to channel {$channelID}, Message - {$message}");
+                    $this->discord->api("channel")->messages()->create($channelID, $message);
+                }
             }
             $h = fopen($this->db, "w+");
             fclose($h);
