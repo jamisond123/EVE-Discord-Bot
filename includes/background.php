@@ -50,6 +50,9 @@ $discord = new \Discord\Discord($config["discord"]["email"], $config["discord"][
 $token = $discord->token();
 $gateway = $discord->api("gateway")->show()["url"] . "/"; // need to end in / for it to not whine about it.. *sigh*
 
+$logger->info("Checking for updated CCP DB");
+updateCCPData($logger);
+
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
 $pluginDirs = array("../plugins/tick/*.php");
 $plugins = array();
