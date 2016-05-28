@@ -173,6 +173,11 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
     }
 });
 
+$client->on("disconnect", function() use ($logger, $client, $token) {
+    $logger->notice("Disconnected...Retrying");
+    $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
+});
+
 $client->open()->then(function() use ($logger, $client) {
     $logger->notice("Connection opened");
 });
