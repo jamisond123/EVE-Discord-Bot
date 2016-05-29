@@ -55,7 +55,12 @@ foreach ($pluginDirs as $dir) {
 }
 
 //include keepAlive
+$logger->info("Starting Keep Alive Plugin");
 include "../plugins/keepAlive.php";
+
+//include wsRefresh
+$logger->info("Starting Websocket Auto Restart Plugin");
+include "../plugins/wsRefresh.php";
 
 // Number of plugins loaded
 $logger->info("Loaded: " . count($plugins) . " plugins");
