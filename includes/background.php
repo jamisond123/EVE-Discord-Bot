@@ -55,7 +55,7 @@ updateCCPData($logger);
 
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
 $pluginDirs = array("../plugins/tick/*.php");
-$logger->info("Loading in background plugins");
+$logger->info("Loading background plugins");
 $plugins = array();
 foreach ($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
