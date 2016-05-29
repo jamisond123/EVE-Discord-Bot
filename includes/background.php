@@ -55,6 +55,7 @@ updateCCPData($logger);
 
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
 $pluginDirs = array("../plugins/tick/*.php");
+$logger->info("Loading in background plugins");
 $plugins = array();
 foreach ($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
@@ -64,7 +65,6 @@ foreach ($pluginDirs as $dir) {
         }
 
         require_once($plugin);
-        $logger->info("Background Plugin Loading: " . str_replace(".php", "", basename($plugin)));
         $fileName = str_replace(".php", "", basename($plugin));
         $p = new $fileName();
         $p->init($config, $discord, $logger);
