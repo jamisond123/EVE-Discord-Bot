@@ -168,7 +168,7 @@ class notifications
                             $aggAllianceID = trim(explode(": ", $notificationString[2])[1]);
                             $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
                             $delayHours = trim(explode(": ", $notificationString[3])[1]);
-                            $msg = "War declared by {$aggAllianceName}. Fighting begins in roughly {$delayHours} hours.";
+                            $msg = "@everyone | War declared by {$aggAllianceName}. Fighting begins in roughly {$delayHours} hours.";
                             break;
                         case 8: // Alliance war invalidated by CONCORD
                             $aggAllianceID = trim(explode(": ", $notificationString[2])[1]);
@@ -288,7 +288,7 @@ class notifications
                             $typeID = trim(explode(": ", $notificationString[1])[1]);
                             $typeName = dbQueryField("SELECT typeName FROM invTypes WHERE typeID = :id",
                                 "typeName", array(":id" => $typeID), "ccp");
-                            $msg = "Entosis has started in **{$systemName}** on **{$typeName}** (Date: **{$sentDate}**)";
+                            $msg = "@everyone | Entosis has started in **{$systemName}** on **{$typeName}** (Date: **{$sentDate}**)";
                             break;
                         case 148: // Entosis enabled a module ??????
                             $systemID = trim(explode(": ", $notificationString[0])[1]);
@@ -329,7 +329,7 @@ class notifications
                             $aggCorpName = $this->apiData("corp", $aggCorpID)["corporationName"];
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
                                 "solarSystemName", array(":id" => $solarSystemID), "ccp");
-                            $msg = "Citadel under attack in **{$systemName}** by **{$aggCharacterName}** ({$aggCorpName} / {$aggAllianceName}).";
+                            $msg = "@everyone | Citadel under attack in **{$systemName}** by **{$aggCharacterName}** ({$aggCorpName} / {$aggAllianceName}).";
                             break;
                             break;
                         case 185: //  Citadel online
