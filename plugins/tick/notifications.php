@@ -319,6 +319,13 @@ class notifications
                                 "solarSystemName", array(":id" => $systemID), "ccp");
                             $msg = "Command nodes decloaking for **{$systemName}**";
                             break;
+                        case 182: //  Citadel being anchored
+                            $corpName = trim(explode(": ", $notificationString[1])[1]);
+                            $solarSystemID = trim(explode(": ", $notificationString[2])[1]);
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $solarSystemID), "ccp");
+                            $msg = "Citadel owned by **{$corpName}** is being anchored in **{$systemName}**.";
+                            break;
                         case 184: //  Citadel under attack
                             $aggID = trim(explode(": ", $notificationString[7])[1]);
                             $aggCharacterName = $this->apiData("char", $aggID)["characterName"];
@@ -331,13 +338,11 @@ class notifications
                                 "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "@everyone | Citadel under attack in **{$systemName}** by **{$aggCharacterName}** ({$aggCorpName} / {$aggAllianceName}).";
                             break;
-                            break;
                         case 185: //  Citadel online
                             $solarSystemID = trim(explode(": ", $notificationString[0])[1]);
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
                                 "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "Citadel now online in **{$systemName}**.";
-                            break;
                             break;
                         case 188: //  Citadel destroyed
                             $corpID = trim(explode("- ", $notificationString[3])[1]);
@@ -346,7 +351,6 @@ class notifications
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
                                 "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "Citadel owned by **{$corpName}** in **{$systemName}** has been destroyed.";
-                            break;
                             break;
                         default: // Unknown typeID
                             $string = implode(" ", $notificationString);
