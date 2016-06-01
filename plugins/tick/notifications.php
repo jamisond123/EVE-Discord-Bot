@@ -170,6 +170,11 @@ class notifications
                             $delayHours = trim(explode(": ", $notificationString[3])[1]);
                             $msg = "@everyone | War declared by {$aggAllianceName}. Fighting begins in roughly {$delayHours} hours.";
                             break;
+                        case 7: // War Declared corp
+                            $aggCorpID = trim(explode(": ", $notificationString[2])[1]);
+                            $aggCorpName = $this->apiData("corp", $aggCorpID)["corporationName"];
+                            $msg = "@everyone | War declared by {$aggCorpName}. Fighting begins in roughly 24 hours.";
+                            break;
                         case 8: // Alliance war invalidated by CONCORD
                             $aggAllianceID = trim(explode(": ", $notificationString[2])[1]);
                             $aggAllianceName = $this->apiData("alli", $aggAllianceID)["allianceName"];
