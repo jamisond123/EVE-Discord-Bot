@@ -83,21 +83,14 @@ class evemails {
         $this->toDiscordChannel = $config["plugins"]["evemails"]["channelID"];
         $this->newestMailID = getPermCache("newestCorpMailID");
         $this->maxID = 0;
-        $this->keyCount = count($config["eve"]["apiKeys"]);
-        $this->keys = $config["eve"]["apiKeys"];
+        $this->keyID = $config["eve"]["apiKeys"]["user1"]["keyID"];
+        $this->vCode = $config["eve"]["apiKeys"]["user1"]["vCode"];
+        $this->characterID = $config["eve"]["apiKeys"]["user1"]["characterID"];
         $this->nextCheck = 0;
-
-        // Schedule all the apiKeys for the future
-        $keyCounter = 0;
-        foreach ($this->keys as $keyOwner => $apiData) {
-            $keyID = $apiData["keyID"];
-            $characterID = $apiData["characterID"];
-
-            if ($keyCounter == 0) {
-                // Schedule it for right now
-                setPermCache("corpMailCheck{$keyID}{$keyOwner}{$characterID}", time() - 5);
-            }
-            $keyCounter++;
+        $lastCheck = getPermCache("mailLastChecked{$this->keyID}");
+        if ($lastCheck == NULL) {
+            // Schedule it for right now if first run
+            setPermCache("mailLastChecked{$this->keyID}", time() - 5);
         }
     }
 
@@ -106,24 +99,16 @@ class evemails {
      */
     function tick()
     {
-        $check = true;
-        foreach ($this->keys as $keyOwner => $api) {
-            if ($check == false) {
-                continue;
-            }
+        $lastChecked = getPermCache("mailLastChecked{$this->keyID}");
+        $keyID = $this->keyID;
+        $vCode = $this->vCode;
+        $characterID = $this->characterID;
 
-            $keyID = $api["keyID"];
-            $vCode = $api["vCode"];
-            $characterID = $api["characterID"];
-            $lastChecked = getPermCache("corpMailCheck{$keyID}{$keyOwner}{$characterID}");
-
-            if ($lastChecked <= time()) {
-                $this->logger->info("Checking API Key {$keyID} belonging to {$keyOwner} for new corp mails");
-                $this->checkMails($keyID, $vCode, $characterID);
-                setPermCache("corpMailCheck{$keyID}{$keyOwner}{$characterID}", time() + 1807); // Reschedule it's check for 30minutes from now (plus 7 seconds, because CCP isn't known to adhere strictly to timeouts, lol)
-                $check = false;
-            }
+        if ($lastChecked <= time()) {
+            $this->logger->info("Checking API Key {$keyID} for new mail..");
+            $this->checkMails($keyID, $vCode, $characterID);
         }
+
     }
 
     function checkMails($keyID, $vCode, $characterID)
@@ -132,6 +117,12 @@ class evemails {
         $url = "https://api.eveonline.com/char/MailMessages.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}";
         $data = json_decode(json_encode(simplexml_load_string(downloadData($url), "SimpleXMLElement", LIBXML_NOCDATA)), true);
         $data = $data["result"]["rowset"]["row"];
+        $xml = makeApiRequest($url);
+        $cached = $xml->cachedUntil[0];
+        $baseUnix = strtotime($cached);
+        $cacheClr = $baseUnix - 13500;
+        $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
+        setPermCache("mailLastChecked{$keyID}", $cacheClr);
 
         $mails = array();
         $mails[] = $data["@attributes"];
@@ -182,8 +173,11 @@ class evemails {
                 // set the maxID
                 if ($updateMaxID) {
                     setPermCache("newestCorpMailID", $this->maxID);
+                    $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Mail Check At: {$cacheTimer} EVE Time");
                 }
             }
+
+            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Mail Check At: {$cacheTimer} EVE Time");
         }
     }
 
