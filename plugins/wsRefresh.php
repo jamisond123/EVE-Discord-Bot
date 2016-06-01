@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-// Restart the websocket every 15 minutes, dirty fix until I figure out a cleaner option
-$loop->addPeriodicTimer(900, function() use ($logger, $client) {
+// Restart the websocket every 30 minutes, dirty fix until I figure out a cleaner option
+$loop->addPeriodicTimer(1800, function() use ($logger, $client) {
     $logger->notice("Refreshing Bot...");
     $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 });
