@@ -35,36 +35,6 @@ chdir(__DIR__);
 // Startup the websocket connection
 $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 
-// Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
-$pluginDirs = array("../plugins/onMessage/*.php");
-$logger->info("Loading in chat plugins");
-$plugins = array();
-foreach ($pluginDirs as $dir) {
-    foreach (glob($dir) as $plugin) {
-        // Only load the plugins we want to load, according to the config
-        if (!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"])) {
-                    continue;
-        }
-
-        require_once($plugin);
-        $fileName = str_replace(".php", "", basename($plugin));
-        $p = new $fileName();
-        $p->init($config, $discord, $logger);
-        $plugins[] = $p;
-    }
-}
-// Number of plugins loaded
-$logger->info("Loaded: " . count($plugins) . " chat plugins");
-
-//include keepAlive
-$logger->info("Starting Keep Alive Plugin");
-include "../plugins/keepAlive.php";
-
-//include wsRefresh
-$logger->info("Starting Websocket Auto Restart Plugin");
-include "../plugins/wsRefresh.php";
-
-
 
 // Setup the connection handlers
 $client->on("connect", function() use ($logger, $client, $token) {
@@ -192,5 +162,34 @@ $client->on("CloseFrame", function() use ($logger, $client, $token) {
 $client->open()->then(function() use ($logger, $client) {
     $logger->notice("Connection opened");
 });
+
+// Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
+$pluginDirs = array("../plugins/onMessage/*.php");
+$logger->info("Loading in chat plugins");
+$plugins = array();
+foreach ($pluginDirs as $dir) {
+    foreach (glob($dir) as $plugin) {
+        // Only load the plugins we want to load, according to the config
+        if (!in_array(str_replace(".php", "", basename($plugin)), $config["enabledPlugins"])) {
+            continue;
+        }
+
+        require_once($plugin);
+        $fileName = str_replace(".php", "", basename($plugin));
+        $p = new $fileName();
+        $p->init($config, $discord, $logger);
+        $plugins[] = $p;
+    }
+}
+// Number of plugins loaded
+$logger->info("Loaded: " . count($plugins) . " chat plugins");
+
+//include keepAlive
+$logger->info("Starting Keep Alive Plugin");
+include "../plugins/keepAlive.php";
+
+//include wsRefresh
+$logger->info("Starting Websocket Auto Restart Plugin");
+include "../plugins/wsRefresh.php";
 
 $loop->run();
