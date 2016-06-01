@@ -89,23 +89,17 @@ class notifications
         $this->toDiscordChannel = $config["plugins"]["notifications"]["channelID"];
         $this->newestNotificationID = getPermCache("newestNotificationID");
         $this->maxID = 0;
-        $this->keyCount = count($config["eve"]["apiKeys"]);
-        $this->keys = $config["eve"]["apiKeys"];
-        $this->nextCheck = 0;
+        $this->keyID = $config["eve"]["apiKeys"]["user1"]["keyID"];
+        $this->vCode = $config["eve"]["apiKeys"]["user1"]["vCode"];
+        $this->characterID = $config["eve"]["apiKeys"]["user1"]["characterID"];
         // Rena APIs
         $this->charApi = "http://rena.karbowiak.dk/api/character/information/";
         $this->corpApi = "http://rena.karbowiak.dk/api/corporation/information/";
         $this->alliApi = "http://rena.karbowiak.dk/api/alliance/information/";
-        // Schedule all the apiKeys for the future
-        $keyCounter = 0;
-        foreach ($this->keys as $keyOwner => $apiData) {
-            $keyID = $apiData["keyID"];
-            $characterID = $apiData["characterID"];
-            if ($keyCounter == 0) {
-                // Schedule it for right now
-                setPermCache("notificationCheck{$keyID}{$keyOwner}{$characterID}", time() - 5);
-            }
-            $keyCounter++;
+        $lastCheck = getPermCache("notificationsLastChecked{$this->keyID}");
+        if ($lastCheck == NULL) {
+            // Schedule it for right now if first run
+            setPermCache("notificationsLastChecked{$this->keyID}", time() - 5);
         }
     }
     /**
@@ -113,22 +107,16 @@ class notifications
      */
     function tick()
     {
-        $check = true;
-        foreach ($this->keys as $keyOwner => $api) {
-            if ($check == false) {
-                continue;
-            }
-            $keyID = $api["keyID"];
-            $vCode = $api["vCode"];
-            $characterID = $api["characterID"];
-            $lastChecked = getPermCache("notificationCheck{$keyID}{$keyOwner}{$characterID}");
-            if ($lastChecked <= time()) {
-                $this->logger->info("Checking API Key {$keyID} belonging to {$keyOwner} for new notifications");
-                $this->getNotifications($keyID, $vCode, $characterID);
-                setPermCache("notificationCheck{$keyID}{$keyOwner}{$characterID}", time() + 1805); // Reschedule it's check for 30minutes from now (Plus 5s, ~CCP~)
-                $check = false;
-            }
+        $lastChecked = getPermCache("notificationsLastChecked{$this->keyID}");
+        $keyID = $this->keyID;
+        $vCode = $this->vCode;
+        $characterID = $this->characterID;
+
+        if ($lastChecked <= time()) {
+            $this->logger->info("Checking API Key {$keyID} for notifications..");
+            $this->getNotifications($keyID, $vCode, $characterID);
         }
+
     }
 
     /**
@@ -144,6 +132,12 @@ class notifications
             $data = json_decode(json_encode(simplexml_load_string(downloadData($url),
                 "SimpleXMLElement", LIBXML_NOCDATA)), true);
             $data = $data["result"]["rowset"]["row"];
+            $xml = makeApiRequest($url);
+            $cached = $xml->cachedUntil[0];
+            $baseUnix = strtotime($cached);
+            $cacheClr = $baseUnix - 13500;
+            $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
+            setPermCache("notificationsLastChecked{$keyID}", $cacheClr);
             // If there is no data, just quit..
             if (empty($data)) {
                 return;
@@ -373,8 +367,11 @@ class notifications
                     // Find the maxID so we don't output this message again in the future
                     $this->maxID = max($notificationID, $this->maxID);
                     $this->newestNotificationID = $this->maxID;
+                    //setPermCache("newestNotificationID", $this->maxID); //OLD WAY
                     setPermCache("newestNotificationID", $this->maxID);
+                    $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Notification Check At: {$cacheTimer} EVE Time");
                 }
+                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Notification Check At: {$cacheTimer} EVE Time");
             }
         }
         catch (exception $e) {
