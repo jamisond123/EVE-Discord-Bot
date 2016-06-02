@@ -173,7 +173,6 @@ class evemails {
                 // set the maxID
                 if ($updateMaxID) {
                     setPermCache("newestCorpMailID", $this->maxID);
-                    $this->logger->info("Next Mail Check At: {$cacheTimer} EVE Time");
                 }
             }
 
