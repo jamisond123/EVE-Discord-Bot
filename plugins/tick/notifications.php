@@ -368,9 +368,9 @@ class notifications
                     $this->maxID = max($notificationID, $this->maxID);
                     $this->newestNotificationID = $this->maxID;
                     setPermCache("newestNotificationID", $this->maxID);
-                    $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Notification Check At: {$cacheTimer} EVE Time");
+                    $this->logger->info("Next Notification Check At: {$cacheTimer} EVE Time");
                 }
-                $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Notification Check At: {$cacheTimer} EVE Time");
+                $this->logger->info("Next Notification Check At: {$cacheTimer} EVE Time");
             }
         }
         catch (exception $e) {

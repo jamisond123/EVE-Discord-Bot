@@ -173,11 +173,11 @@ class evemails {
                 // set the maxID
                 if ($updateMaxID) {
                     setPermCache("newestCorpMailID", $this->maxID);
-                    $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Mail Check At: {$cacheTimer} EVE Time");
+                    $this->logger->info("Next Mail Check At: {$cacheTimer} EVE Time");
                 }
             }
 
-            $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Mail Check At: {$cacheTimer} EVE Time");
+            $this->logger->info("Next Mail Check At: {$cacheTimer} EVE Time");
         }
     }
 
