@@ -192,4 +192,16 @@ include "../plugins/keepAlive.php";
 $logger->info("Starting Websocket Auto Restart Plugin");
 include "../plugins/wsRefresh.php";
 
+
+
+// Run the plugins
+foreach ($plugins as $plugin) {
+    try {
+        $plugin->onMessage($msgData);
+    } catch (Exception $e) {
+        $logger->warn("Error: " . $e->getMessage());
+    }
+}
+break;
+
 $loop->run();
