@@ -175,9 +175,8 @@ class evemails {
                     setPermCache("newestCorpMailID", $this->maxID);
                 }
             }
-
-            $this->logger->info("Next Mail Check At: {$cacheTimer} EVE Time");
         }
+        $this->logger->info("Next Mail Check At: {$cacheTimer} EVE Time");
     }
 
     /**
