@@ -189,6 +189,14 @@ class notifications
                         case 35: // Insurance payment
                             $msg = "skip";
                             break;
+                        case 41: // System lost
+                            $systemID = trim(explode(": ", $notificationString[2])[1]);
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $systemID), "ccp");
+                            $allianceID = trim(explode(": ", $notificationString[0])[1]);
+                            $allianceName = $this->apiData("alli", $allianceID)["allianceName"];
+                            $msg = "{$allianceName} has lost control of **{$systemName}**";
+                            break;
                         case 43: // System captured
                             $systemID = trim(explode(": ", $notificationString[2])[1]);
                             $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
