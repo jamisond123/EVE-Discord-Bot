@@ -60,12 +60,7 @@ $config["twitter"] = array(
 $config["eve"] = array(
     "apiKeys" => array(
         "user1" => array(
-            "keyID" => "", // User 1 is a must for notifications and mail to work, 2 users is preferred because of api key caching.
-            "vCode" => "",
-            "characterID" => ""
-        ),
-        "user2" => array(
-            "keyID" => "",
+            "keyID" => "", // User 1 is a must for notifications and mail to work
             "vCode" => "",
             "characterID" => ""
         )

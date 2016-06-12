@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 // CCP Database Check
 $loop->addPeriodicTimer(86400, function() use ($logger, $discord, $config) {
 	$logger->info("Checking for updated CCP DB");
