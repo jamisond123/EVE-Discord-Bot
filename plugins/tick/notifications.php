@@ -329,6 +329,12 @@ class notifications
                                 "solarSystemName", array(":id" => $systemID), "ccp");
                             $msg = "Command nodes decloaking for **{$systemName}**";
                             break;
+                        case 163: //  Outpost freeport
+                            $systemID = trim(explode(": ", $notificationString[1])[1]);
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $systemID), "ccp");
+                            $msg = "Station in **{$systemName}** has now entered freeport mode.";
+                            break;
                         case 182: //  Citadel being anchored
                             $corpName = trim(explode(": ", $notificationString[1])[1]);
                             $solarSystemID = trim(explode(": ", $notificationString[2])[1]);
