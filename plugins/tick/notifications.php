@@ -269,6 +269,9 @@ class notifications
                         case 94: // POCO Reinforced
                             $msg = "Customs Office reinforced.";
                             break;
+                        case 111: // Bounty 
+                            $msg = "skip";
+                            break;
                         case 128: // Corp App
                             $msg = "skip";
                             break;
