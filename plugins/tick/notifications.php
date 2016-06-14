@@ -279,6 +279,9 @@ class notifications
                         case 128: // Corp App
                             $msg = "skip";
                             break;
+                        case 130: // Corp app withdrawn?
+                            $msg = "skip";
+                            break;
                         case 138: // Clone activation
                             $msg = "skip";
                             break;
