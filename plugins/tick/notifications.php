@@ -386,8 +386,9 @@ class notifications
                     $this->newestNotificationID = $this->maxID;
                     setPermCache("newestNotificationID", $this->maxID);
                 }
-                $this->logger->info("Next Notification Check At: {$cacheTimer} EVE Time");
             }
+
+            $this->logger->info("Next Notification Check At: {$cacheTimer} EVE Time");
         }
         catch (exception $e) {
             $this->logger->info("Notification Error: " . $e->getMessage());
