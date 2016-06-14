@@ -183,6 +183,13 @@ class notifications
                         case 16: // Mail
                             $msg = "skip";
                             break;
+                        case 19: // corp tax changed
+                            $corpID = trim(explode(": ", $notificationString[0])[1]);
+                            $corpName = $this->apiData("corp", $corpID)["corporationName"];
+                            $oldTax = trim(explode(": ", $notificationString[2])[1]);
+                            $newTax = trim(explode(": ", $notificationString[1])[1]);
+                            $msg = "{$corpName} tax changed from {$oldTax}% to {$newTax}%";
+                            break;
                         case 21: // member left corp
                             $msg = "skip";
                             break;
