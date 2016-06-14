@@ -130,11 +130,18 @@ class notifications
         try {
             $url = "https://api.eveonline.com/char/Notifications.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}";
             $xml = makeApiRequest($url);
+            date_default_timezone_set('UTC');
             $cached = $xml->cachedUntil[0];
             $baseUnix = strtotime($cached);
             $cacheClr = $baseUnix - 13500;
-            $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
-            setPermCache("notificationsLastChecked{$keyID}", $cacheClr);
+            if ($cacheClr <= time()) {
+                $weirdTime = time() + 1830;
+                $cacheTimer = gmdate("Y-m-d H:i:s", $weirdTime);
+                setPermCache("notificationsLastChecked{$keyID}", $weirdTime);
+            } else {
+                $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
+                setPermCache("notificationsLastChecked{$keyID}", $cacheClr);
+            }
             $data = json_decode(json_encode(simplexml_load_string(downloadData($url),
                 "SimpleXMLElement", LIBXML_NOCDATA)), true);
             $data = $data["result"]["rowset"]["row"];
