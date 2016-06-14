@@ -129,15 +129,15 @@ class notifications
     {
         try {
             $url = "https://api.eveonline.com/char/Notifications.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}";
-            $data = json_decode(json_encode(simplexml_load_string(downloadData($url),
-                "SimpleXMLElement", LIBXML_NOCDATA)), true);
-            $data = $data["result"]["rowset"]["row"];
             $xml = makeApiRequest($url);
             $cached = $xml->cachedUntil[0];
             $baseUnix = strtotime($cached);
             $cacheClr = $baseUnix - 13500;
             $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
             setPermCache("notificationsLastChecked{$keyID}", $cacheClr);
+            $data = json_decode(json_encode(simplexml_load_string(downloadData($url),
+                "SimpleXMLElement", LIBXML_NOCDATA)), true);
+            $data = $data["result"]["rowset"]["row"];
             // If there is no data, just quit..
             if (empty($data)) {
                 return;
