@@ -129,15 +129,22 @@ class notifications
     {
         try {
             $url = "https://api.eveonline.com/char/Notifications.xml.aspx?keyID={$keyID}&vCode={$vCode}&characterID={$characterID}";
-            $data = json_decode(json_encode(simplexml_load_string(downloadData($url),
-                "SimpleXMLElement", LIBXML_NOCDATA)), true);
-            $data = $data["result"]["rowset"]["row"];
             $xml = makeApiRequest($url);
+            date_default_timezone_set('UTC');
             $cached = $xml->cachedUntil[0];
             $baseUnix = strtotime($cached);
             $cacheClr = $baseUnix - 13500;
-            $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
-            setPermCache("notificationsLastChecked{$keyID}", $cacheClr);
+            if ($cacheClr <= time()) {
+                $weirdTime = time() + 1830;
+                $cacheTimer = gmdate("Y-m-d H:i:s", $weirdTime);
+                setPermCache("notificationsLastChecked{$keyID}", $weirdTime);
+            } else {
+                $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
+                setPermCache("notificationsLastChecked{$keyID}", $cacheClr);
+            }
+            $data = json_decode(json_encode(simplexml_load_string(downloadData($url),
+                "SimpleXMLElement", LIBXML_NOCDATA)), true);
+            $data = $data["result"]["rowset"]["row"];
             // If there is no data, just quit..
             if (empty($data)) {
                 return;
@@ -182,6 +189,13 @@ class notifications
                             break;
                         case 16: // Mail
                             $msg = "skip";
+                            break;
+                        case 19: // corp tax changed
+                            $corpID = trim(explode(": ", $notificationString[0])[1]);
+                            $corpName = $this->apiData("corp", $corpID)["corporationName"];
+                            $oldTax = trim(explode(": ", $notificationString[2])[1]);
+                            $newTax = trim(explode(": ", $notificationString[1])[1]);
+                            $msg = "{$corpName} tax changed from {$oldTax}% to {$newTax}%";
                             break;
                         case 21: // member left corp
                             $msg = "skip";
@@ -276,6 +290,9 @@ class notifications
                         case 94: // POCO Reinforced
                             $msg = "Customs Office reinforced.";
                             break;
+                        case 111: // Bounty 
+                            $msg = "skip";
+                            break;
                         case 128: // Corp App
                             $msg = "skip";
                             break;
@@ -329,6 +346,12 @@ class notifications
                                 "solarSystemName", array(":id" => $systemID), "ccp");
                             $msg = "Command nodes decloaking for **{$systemName}**";
                             break;
+                        case 163: //  Outpost freeport
+                            $systemID = trim(explode(": ", $notificationString[1])[1]);
+                            $systemName = dbQueryField("SELECT solarSystemName FROM mapSolarSystems WHERE solarSystemID = :id",
+                                "solarSystemName", array(":id" => $systemID), "ccp");
+                            $msg = "Station in **{$systemName}** has now entered freeport mode.";
+                            break;
                         case 182: //  Citadel being anchored
                             $corpName = trim(explode(": ", $notificationString[1])[1]);
                             $solarSystemID = trim(explode(": ", $notificationString[2])[1]);
@@ -380,8 +403,9 @@ class notifications
                     $this->newestNotificationID = $this->maxID;
                     setPermCache("newestNotificationID", $this->maxID);
                 }
-                $this->logger->info("Next Notification Check At: {$cacheTimer} EVE Time");
             }
+
+            $this->logger->info("Next Notification Check At: {$cacheTimer} EVE Time");
         }
         catch (exception $e) {
             $this->logger->info("Notification Error: " . $e->getMessage());
