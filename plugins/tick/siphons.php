@@ -134,8 +134,14 @@ class siphons {
         $cached = $xml->cachedUntil[0];
         $baseUnix = strtotime($cached);
         $cacheClr = $baseUnix - 13500;
-        $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
-        setPermCache("siphonLastChecked{$keyID}", $cacheClr);
+        if ($cacheClr <= time()) {
+            $weirdTime = time() + 1830;
+            $cacheTimer = gmdate("Y-m-d H:i:s", $weirdTime);
+            setPermCache("siphonLastChecked{$keyID}", $weirdTime);
+        } else {
+            $cacheTimer = gmdate("Y-m-d H:i:s", $cacheClr);
+            setPermCache("siphonLastChecked{$keyID}", $cacheClr);
+        }
         if ($siphonCount > 0){
             $this->discord->api("channel")->messages()->create($this->toDiscordChannel, "Next Siphon Check At: {$cacheTimer} EVE Time");
         }
