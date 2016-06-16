@@ -24,9 +24,9 @@
  */
 
 // Auth Corp Check
-$loop->addPeriodicTimer(21600, function() use ($logger, $discord, $config) {
+$loop->addPeriodicTimer(850, function() use ($logger, $discord, $config) {
     if ($config["plugins"]["auth"]["periodicCheck"] == "true") {
-        $logger->info("Initiating Auth Check");
+        $logger->info("Initiating Corp Auth Check");
         $db = $config["database"]["host"];
         $dbUser = $config["database"]["user"];
         $dbPass = $config["database"]["pass"];

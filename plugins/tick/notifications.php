@@ -290,6 +290,9 @@ class notifications
                         case 94: // POCO Reinforced
                             $msg = "Customs Office reinforced.";
                             break;
+                        case 103: // War support offer? I think?
+                            $msg = "skip";
+                            break;
                         case 111: // Bounty 
                             $msg = "skip";
                             break;

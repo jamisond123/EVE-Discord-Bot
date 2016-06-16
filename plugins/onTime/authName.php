@@ -24,7 +24,7 @@
  */
 
 // Auth Name Check
-$loop->addPeriodicTimer(1800, function() use ($logger, $discord, $config) {
+$loop->addPeriodicTimer(850, function() use ($logger, $discord, $config) {
     if ($config["plugins"]["auth"]["nameEnforce"] == "true") {
         $logger->info("Initiating Name Check");
         $db = $config["database"]["host"];
