@@ -388,6 +388,9 @@ class notifications
                                 "solarSystemName", array(":id" => $solarSystemID), "ccp");
                             $msg = "Citadel owned by **{$corpName}** in **{$systemName}** has been destroyed.";
                             break;
+                        case 199: // citadel delivery
+                            $msg = "skip";
+                            break;
                         default: // Unknown typeID
                             $string = implode(" ", $notificationString);
                             $msg = "typeID {$typeID} is an unmapped notification, send Mr Twinkie this whole message via evemail or github issue. {$string}";
