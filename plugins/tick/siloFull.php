@@ -551,7 +551,7 @@ class siloFull {
         $baseUnix = strtotime($cached);
         $cacheClr = $baseUnix - 13500;
         if ($cacheClr <= time()) {
-            $weirdTime = time() + 1830;
+            $weirdTime = time() + 21700;
             $cacheTimer = gmdate("Y-m-d H:i:s", $weirdTime);
             setPermCache("siloLastChecked{$keyID}", $weirdTime);
         } else {
