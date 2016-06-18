@@ -219,6 +219,9 @@ class notifications
                             $allianceName = $this->apiData("alli", $allianceID)["allianceName"];
                             $msg = "{$allianceName} now controls **{$systemName}**";
                             break;
+                        case 52: // clone revoked
+                            $msg = "skip";
+                            break;
                         case 71: // Mission Expiration
                             $msg = "skip";
                             break;
