@@ -97,6 +97,9 @@ class charInfo
             }
 
             $characterName = @$stats["characterName"];
+            if (empty($characterName)) {
+                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** No Character Found");
+            }
             $corporationName = @$stats["corporationName"];
             $allianceName = isset($stats["allianceName"]) ? $stats["allianceName"] : "None";
             $factionName = isset($stats["factionName"]) ? $stats["factionName"] : "None";
