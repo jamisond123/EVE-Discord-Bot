@@ -222,6 +222,9 @@ class notifications
                         case 52: // clone revoked
                             $msg = "skip";
                             break;
+                        case 57: // jump clone destruction
+                            $msg = "skip";
+                            break;
                         case 71: // Mission Expiration
                             $msg = "skip";
                             break;
@@ -292,6 +295,9 @@ class notifications
                             break;
                         case 94: // POCO Reinforced
                             $msg = "Customs Office reinforced.";
+                            break;
+                        case 95: // IHub Transfer
+                            $msg = "skip";
                             break;
                         case 103: // War support offer? I think?
                             $msg = "skip";
