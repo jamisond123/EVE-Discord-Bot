@@ -159,19 +159,20 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
         case "GUILD_MEMBER_ADD": // ignore
         case "GUILD_MEMBER_REMOVE": // ignore
         case "MESSAGE_DELETE": // ignore
+        case "PRESENCE_UPDATE": // Update a users status
             //$logger->info("Ignoring: " . $data->t);
             // Ignore them
             break;
 
-        case "PRESENCE_UPDATE": // Update a users status
-            if ($data->d->user->id) {
-                $id = $data->d->user->id;
-                $lastSeen = date("Y-m-d H:i:s");
-                $lastStatus = $data->d->status;
-                $name = $discord->api("user")->show($id)["username"];
-                dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastStatus) VALUES (:id, :name, :lastSeen, :lastStatus)", array(":id" => $id, ":lastSeen" => $lastSeen, ":name" => $name, ":lastStatus" => $lastStatus));
-            }
-            break;
+        //case "PRESENCE_UPDATE": // Update a users status
+            //if ($data->d->user->id) {
+            //    $id = $data->d->user->id;
+            //    $lastSeen = date("Y-m-d H:i:s");
+            //    $lastStatus = $data->d->status;
+            //    $name = $discord->api("user")->show($id)["username"];
+            //    dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastStatus) VALUES (:id, :name, :lastSeen, :lastStatus)", array(":id" => $id, ":lastSeen" => $lastSeen, ":name" => $name, ":lastStatus" => $lastStatus));
+            //}
+            //break;
 
         default:
             $logger->err("Unknown case: " . $data->t);
