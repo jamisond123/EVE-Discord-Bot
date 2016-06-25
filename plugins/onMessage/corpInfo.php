@@ -71,25 +71,21 @@ class corpInfo
         if (isset($data["trigger"])) {
             $messageString = $data["messageString"];
 
-            $url = "http://rena.karbowiak.dk/api/search/corporation/{$messageString}/";
-            $data = @json_decode(downloadData($url), true)["corporation"];
+            $cleanString = urlencode($messageString);
+
+            $url = "https://api.eveonline.com/eve/CharacterID.xml.aspx?names={$cleanString}";
+            $xml = makeApiRequest($url);
 
             if (empty($data)) {
                             return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no results was returned.");
             }
 
-            if (count($data) > 1) {
-                $results = array();
-                foreach ($data as $corp) {
-                                    $results[] = $corp["corporationName"];
-                }
-
-                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** more than one result was returned: " . implode(", ", $results));
+            foreach ($xml->result->rowset->row as $character) {
+                $corpID = $character->attributes()->characterID;
             }
 
             // Get stats
-            $corporationID = $data[0]["corporationID"];
-            $statsURL = "https://beta.eve-kill.net/api/corpInfo/corporationID/" . urlencode($corporationID) . "/";
+            $statsURL = "https://beta.eve-kill.net/api/corpInfo/corporationID/" . urlencode($corpID) . "/";
             $stats = json_decode(downloadData($statsURL), true);
 
             if (empty($stats)) {
