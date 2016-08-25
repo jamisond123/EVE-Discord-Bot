@@ -1,4 +1,27 @@
 <?php
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016 Robert Sardinia
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 class charInfo
 {
@@ -54,32 +77,29 @@ class charInfo
                 $messageString = dbQueryField("SELECT name FROM usersSeen WHERE id = :id", "name", array(":id" => $messageString));
             }
 
-            $url = "http://rena.karbowiak.dk/api/search/character/{$messageString}/";
-            $data = @json_decode(downloadData($url), true)["character"];
+            $cleanString = urlencode($messageString);
 
-            if (empty($data)) {
-                            return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no results was returned.");
+            $url = "https://api.eveonline.com/eve/CharacterID.xml.aspx?names={$cleanString}";
+            $xml = makeApiRequest($url);
+
+            foreach ($xml->result->rowset->row as $character) {
+                $characterID = $character->attributes()->characterID;
             }
-
-            if (count($data) > 1) {
-                $results = array();
-                foreach ($data as $char) {
-                                    $results[] = $char["characterName"];
-                }
-
-                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** more than one result was returned: " . implode(", ", $results));
+            if (empty($characterID)) {
+                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no data available");
             }
-
             // Get stats
-            $characterID = $data[0]["characterID"];
             $statsURL = "https://beta.eve-kill.net/api/charInfo/characterID/" . urlencode($characterID) . "/";
             $stats = json_decode(downloadData($statsURL), true);
 
             if (empty($stats)) {
-                            return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no data available");
+                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no data available");
             }
 
             $characterName = @$stats["characterName"];
+            if (empty($characterName)) {
+                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** No Character Found");
+            }
             $corporationName = @$stats["corporationName"];
             $allianceName = isset($stats["allianceName"]) ? $stats["allianceName"] : "None";
             $factionName = isset($stats["factionName"]) ? $stats["factionName"] : "None";
@@ -140,11 +160,11 @@ For more info, visit: $url";
         );
     }
 
-        /**
-         * @param $msgData
-         */
-        function onMessageAdmin($msgData)
-        {
-        }
+    /**
+     * @param $msgData
+     */
+    function onMessageAdmin($msgData)
+    {
+    }
 
 }

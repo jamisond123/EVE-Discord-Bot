@@ -23,8 +23,8 @@
  * SOFTWARE.
  */
 
-// Check for an updated database every 12 hours
-$loop->addPeriodicTimer(43200, function() use ($logger) {
-    $logger->info("Checking for a new update for the CCP database");
-    updateCCPData($logger);
+// Restart the websocket every 30 minutes, dirty fix until I figure out a cleaner option
+$loop->addPeriodicTimer(1800, function() use ($logger, $client, $token) {
+    $logger->notice(".........Refreshing.........");
+    $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 });

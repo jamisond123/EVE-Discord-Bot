@@ -37,6 +37,7 @@ $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 
 // Load the plugins (Probably a prettier way to do this that i haven't thought up yet)
 $pluginDirs = array("../plugins/onMessage/*.php");
+$logger->info("Loading in chat plugins");
 $plugins = array();
 foreach ($pluginDirs as $dir) {
     foreach (glob($dir) as $plugin) {
@@ -46,19 +47,24 @@ foreach ($pluginDirs as $dir) {
         }
 
         require_once($plugin);
-        $logger->info("Loading in chat plugin: " . str_replace(".php", "", basename($plugin)));
         $fileName = str_replace(".php", "", basename($plugin));
         $p = new $fileName();
         $p->init($config, $discord, $logger);
         $plugins[] = $p;
     }
 }
+// Number of plugins loaded
+$logger->info("Loaded: " . count($plugins) . " chat plugins");
 
 //include keepAlive
+$logger->info("Starting Keep Alive Plugin");
 include "../plugins/keepAlive.php";
 
-// Number of plugins loaded
-$logger->info("Loaded: " . count($plugins) . " plugins");
+//include wsRefresh
+$logger->info("Starting Websocket Auto Restart Plugin");
+include "../plugins/wsRefresh.php";
+
+
 
 // Setup the connection handlers
 $client->on("connect", function() use ($logger, $client, $token) {
@@ -153,24 +159,35 @@ $client->on("message", function($message) use ($client, $logger, $discord, $plug
         case "GUILD_MEMBER_ADD": // ignore
         case "GUILD_MEMBER_REMOVE": // ignore
         case "MESSAGE_DELETE": // ignore
+        case "PRESENCE_UPDATE": // Update a users status
             //$logger->info("Ignoring: " . $data->t);
             // Ignore them
             break;
 
-        case "PRESENCE_UPDATE": // Update a users status
-            if ($data->d->user->id) {
-                $id = $data->d->user->id;
-                $lastSeen = date("Y-m-d H:i:s");
-                $lastStatus = $data->d->status;
-                $name = $discord->api("user")->show($id)["username"];
-                dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastStatus) VALUES (:id, :name, :lastSeen, :lastStatus)", array(":id" => $id, ":lastSeen" => $lastSeen, ":name" => $name, ":lastStatus" => $lastStatus));
-            }
-            break;
+        //case "PRESENCE_UPDATE": // Update a users status
+            //if ($data->d->user->id) {
+            //    $id = $data->d->user->id;
+            //    $lastSeen = date("Y-m-d H:i:s");
+            //    $lastStatus = $data->d->status;
+            //    $name = $discord->api("user")->show($id)["username"];
+            //    dbExecute("REPLACE INTO usersSeen (id, name, lastSeen, lastStatus) VALUES (:id, :name, :lastSeen, :lastStatus)", array(":id" => $id, ":lastSeen" => $lastSeen, ":name" => $name, ":lastStatus" => $lastStatus));
+            //}
+            //break;
 
         default:
             $logger->err("Unknown case: " . $data->t);
             break;
     }
+});
+
+$client->on("disconnect", function() use ($logger, $client, $token) {
+    $logger->notice("Disconnected...Retrying");
+    $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
+});
+
+$client->on("CloseFrame", function() use ($logger, $client, $token) {
+    $logger->notice("Disconnected...Retrying");
+    $client = new \Devristo\Phpws\Client\WebSocket($gateway, $loop, $logger);
 });
 
 $client->open()->then(function() use ($logger, $client) {

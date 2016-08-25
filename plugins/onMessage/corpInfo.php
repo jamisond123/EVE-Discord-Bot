@@ -1,4 +1,27 @@
 <?php
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016 Robert Sardinia
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 class corpInfo
 {
@@ -48,25 +71,21 @@ class corpInfo
         if (isset($data["trigger"])) {
             $messageString = $data["messageString"];
 
-            $url = "http://rena.karbowiak.dk/api/search/corporation/{$messageString}/";
-            $data = @json_decode(downloadData($url), true)["corporation"];
+            $cleanString = urlencode($messageString);
+
+            $url = "https://api.eveonline.com/eve/CharacterID.xml.aspx?names={$cleanString}";
+            $xml = makeApiRequest($url);
 
             if (empty($data)) {
                             return $this->discord->api("channel")->messages()->create($channelID, "**Error:** no results was returned.");
             }
 
-            if (count($data) > 1) {
-                $results = array();
-                foreach ($data as $corp) {
-                                    $results[] = $corp["corporationName"];
-                }
-
-                return $this->discord->api("channel")->messages()->create($channelID, "**Error:** more than one result was returned: " . implode(", ", $results));
+            foreach ($xml->result->rowset->row as $character) {
+                $corpID = $character->attributes()->characterID;
             }
 
             // Get stats
-            $corporationID = $data[0]["corporationID"];
-            $statsURL = "https://beta.eve-kill.net/api/corpInfo/corporationID/" . urlencode($corporationID) . "/";
+            $statsURL = "https://beta.eve-kill.net/api/corpInfo/corporationID/" . urlencode($corpID) . "/";
             $stats = json_decode(downloadData($statsURL), true);
 
             if (empty($stats)) {

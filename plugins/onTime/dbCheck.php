@@ -25,6 +25,6 @@
 
 // CCP Database Check
 $loop->addPeriodicTimer(86400, function() use ($logger, $discord, $config) {
-    $logger->info("Checking for updated CCP DB");
-    updateCCPData($logger);
+	$logger->info("Checking for updated CCP DB");
+	updateCCPData($logger);
 });

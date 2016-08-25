@@ -29,26 +29,24 @@
  */
 function downloadData($url)
 {
-    try
-    {
-        $userAgent = "Discord bot";
+    try {
+        $userAgent = "Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6";
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_USERAGENT, $userAgent);
-        curl_setopt($curl, CURLOPT_TIMEOUT, 8);
+        curl_setopt($curl, CURLOPT_TIMEOUT, 12);
         curl_setopt($curl, CURLOPT_POST, false);
         curl_setopt($curl, CURLOPT_FORBID_REUSE, false);
         curl_setopt($curl, CURLOPT_ENCODING, "");
         $headers = array();
         $headers[] = "Connection: keep-alive";
-        $headers[] = "Keep-Alive: timeout=10, max=1000";
+        $headers[] = "Keep-Alive: timeout=12, max=1000";
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($curl);
         return $result;
     }
-    catch(Exception $e)
-    {
+    catch (exception $e) {
         var_dump("cURL Error: " . $e->getMessage());
         return null;
     }
@@ -63,16 +61,17 @@ function downloadLargeData($url, $downloadPath)
     try {
         $readHandle = fopen($url, "rb");
         $writeHandle = fopen($downloadPath, "w+b");
-        if(!$readHandle || !$writeHandle)
+        if (!$readHandle || !$writeHandle)
             return false;
-        while(!feof($readHandle)) {
-            if(fwrite($writeHandle, fread($readHandle, 4096)) == FALSE)
+        while (!feof($readHandle)) {
+            if (fwrite($writeHandle, fread($readHandle, 4096)) == false)
                 return false;
         }
         fclose($readHandle);
         fclose($writeHandle);
         return true;
-    } catch (Exception $e) {
+    }
+    catch (exception $e) {
         var_dump("Download Error: " . $e->getMessage());
         return false;
     }

@@ -1,4 +1,27 @@
 <?php
+/**
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016 Robert Sardinia
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
 /**
  * Class fileReaderJabber
@@ -81,26 +104,22 @@ class fileReader
                 // Remove |  from the line or whatever else is at the last two characters in the string
                 $message = trim(substr($message, 0, -2));
 
-                $defaultID = 0;
                 foreach ($this->channelConfig as $chanName => $chanConfig) {
-                    // If a channel is marked as default (usually the first on the list) we populate defaultID here, just to make sure..
-                    if ($chanConfig["default"] == true) {
-                                            $defaultID = $chanConfig["channelID"];
-                    }
-
-                    // Search for a channel where the search string matches the actual message
-                    if (stristr($message, $chanConfig["searchString"])) {
+                    if ($chanConfig["searchString"] == false) { // If no match was found, and searchString is false, just use that
                         $message = $chanConfig["textStringPrepend"] . " " . $message . " " . $chanConfig["textStringAppend"];
                         $channelID = $chanConfig["channelID"];
-                    } elseif ($chanConfig["searchString"] == false) { // If no match was found, and searchString is false, just use that
+                    } elseif (stristr($message, $chanConfig["searchString"])) {
                         $message = $chanConfig["textStringPrepend"] . " " . $message . " " . $chanConfig["textStringAppend"];
                         $channelID = $chanConfig["channelID"];
-                    } else { // If something fucked up, we'll just go this route..
-                        $channelID = isset($defaultID) ? $defaultID : $chanConfig["channelID"]; // If default ID isn't set, then we just pick whatever we can..
                     }
                 }
-
-                $this->discord->api("channel")->messages()->create($channelID, $message);
+                if ($channelID == "" || $channelID == null) {
+                    $message = "skip";
+                }
+                if ($message != "skip") {
+                    $this->logger->info("Ping sent to channel {$channelID}, Message - {$message}");
+                    $this->discord->api("channel")->messages()->create($channelID, $message);
+                }
             }
             $h = fopen($this->db, "w+");
             fclose($h);
